@@ -192,3 +192,429 @@
       <button class="modal-btn" id="modalCloseBtn">확인</button>
     </div>
   </div>
+  <script>
+    var NAVER_CLIENT_ID = 'xbNPTWgLHLpDiiW5RgIm';
+    var REDIRECT_URI = 'https://place.living1004.com/callback';
+
+    var INDUSTRY_DATA = {
+      restaurant: { name: '음식점', icon: '🍽️', keywords: ['맛집','음식점','레스토랑','식당','한식','중식','일식','양식','분식'],
+        backlinks: [
+          { name: '네이버 블로그', da: 92, url: 'https://blog.naver.com' },
+          { name: '맛집탐방 카페', da: 78, url: 'https://cafe.naver.com/matjib' },
+          { name: '전국맛집여행', da: 74, url: 'https://cafe.naver.com/jmfoods' },
+          { name: '오늘뭐먹지', da: 70, url: 'https://cafe.naver.com/todayeat' },
+          { name: '맘스홀릭베이비', da: 82, url: 'https://cafe.naver.com/imsanbu' },
+          { name: '아이보스', da: 75, url: 'https://www.i-boss.co.kr' },
+          { name: '티스토리', da: 85, url: 'https://www.tistory.com' },
+          { name: '브런치', da: 80, url: 'https://brunch.co.kr' },
+          { name: '인스타그램', da: 96, url: 'https://www.instagram.com' },
+          { name: '클리앙', da: 72, url: 'https://www.clien.net' }
+        ]},
+      cafe: { name: '카페', icon: '☕', keywords: ['카페','커피','디저트','베이커리','브런치카페'],
+        backlinks: [
+          { name: '네이버 블로그', da: 92, url: 'https://blog.naver.com' },
+          { name: '카페탐방', da: 76, url: 'https://cafe.naver.com/cafetour' },
+          { name: '맘스홀릭베이비', da: 82, url: 'https://cafe.naver.com/imsanbu' },
+          { name: '티스토리', da: 85, url: 'https://www.tistory.com' },
+          { name: '브런치', da: 80, url: 'https://brunch.co.kr' },
+          { name: '인스타그램', da: 96, url: 'https://www.instagram.com' },
+          { name: '클리앙', da: 72, url: 'https://www.clien.net' },
+          { name: '뽐뿌', da: 70, url: 'https://www.ppomppu.co.kr' }
+        ]},
+      beauty: { name: '뷰티', icon: '💇', keywords: ['미용실','헤어','네일','네일샵','피부관리','에스테틱','속눈썹'],
+        backlinks: [
+          { name: '네이버 블로그', da: 92, url: 'https://blog.naver.com' },
+          { name: '파우더룸', da: 76, url: 'https://www.powderroom.co.kr' },
+          { name: '맘스홀릭베이비', da: 82, url: 'https://cafe.naver.com/imsanbu' },
+          { name: '인스타그램', da: 96, url: 'https://www.instagram.com' },
+          { name: '티스토리', da: 85, url: 'https://www.tistory.com' },
+          { name: '브런치', da: 80, url: 'https://brunch.co.kr' },
+          { name: '클리앙', da: 72, url: 'https://www.clien.net' }
+        ]},
+      hospital: { name: '병원', icon: '🏥', keywords: ['병원','의원','치과','피부과','한의원','정형외과'],
+        backlinks: [
+          { name: '네이버 블로그', da: 92, url: 'https://blog.naver.com' },
+          { name: '맘스홀릭베이비', da: 82, url: 'https://cafe.naver.com/imsanbu' },
+          { name: '아이보스', da: 75, url: 'https://www.i-boss.co.kr' },
+          { name: '티스토리', da: 85, url: 'https://www.tistory.com' },
+          { name: '브런치', da: 80, url: 'https://brunch.co.kr' },
+          { name: '인스타그램', da: 96, url: 'https://www.instagram.com' },
+          { name: '클리앙', da: 72, url: 'https://www.clien.net' }
+        ]},
+      fitness: { name: '헬스/PT', icon: '💪', keywords: ['헬스','PT','필라테스','요가','크로스핏','피트니스'],
+        backlinks: [
+          { name: '네이버 블로그', da: 92, url: 'https://blog.naver.com' },
+          { name: '맘스홀릭베이비', da: 82, url: 'https://cafe.naver.com/imsanbu' },
+          { name: '티스토리', da: 85, url: 'https://www.tistory.com' },
+          { name: '인스타그램', da: 96, url: 'https://www.instagram.com' },
+          { name: '브런치', da: 80, url: 'https://brunch.co.kr' }
+        ]},
+      education: { name: '학원', icon: '📚', keywords: ['학원','과외','교습소','어학원','코딩','입시'],
+        backlinks: [
+          { name: '네이버 블로그', da: 92, url: 'https://blog.naver.com' },
+          { name: '수만휘', da: 80, url: 'https://cafe.naver.com/suhui' },
+          { name: '맘스홀릭베이비', da: 82, url: 'https://cafe.naver.com/imsanbu' },
+          { name: '아이보스', da: 75, url: 'https://www.i-boss.co.kr' },
+          { name: '티스토리', da: 85, url: 'https://www.tistory.com' },
+          { name: '인스타그램', da: 96, url: 'https://www.instagram.com' },
+          { name: '브런치', da: 80, url: 'https://brunch.co.kr' }
+        ]},
+      shopping: { name: '쇼핑', icon: '🛍️', keywords: ['매장','옷가게','쇼핑','편집샵','꽃집','안경'],
+        backlinks: [
+          { name: '네이버 블로그', da: 92, url: 'https://blog.naver.com' },
+          { name: '맘스홀릭베이비', da: 82, url: 'https://cafe.naver.com/imsanbu' },
+          { name: '뽐뿌', da: 70, url: 'https://www.ppomppu.co.kr' },
+          { name: '클리앙', da: 72, url: 'https://www.clien.net' },
+          { name: '티스토리', da: 85, url: 'https://www.tistory.com' },
+          { name: '인스타그램', da: 96, url: 'https://www.instagram.com' }
+        ]},
+      service: { name: '생활서비스', icon: '🔧', keywords: ['세탁','수리','이사','인테리어','청소'],
+        backlinks: [
+          { name: '네이버 블로그', da: 92, url: 'https://blog.naver.com' },
+          { name: '아이보스', da: 75, url: 'https://www.i-boss.co.kr' },
+          { name: '맘스홀릭베이비', da: 82, url: 'https://cafe.naver.com/imsanbu' },
+          { name: '티스토리', da: 85, url: 'https://www.tistory.com' },
+          { name: '클리앙', da: 72, url: 'https://www.clien.net' },
+          { name: '인스타그램', da: 96, url: 'https://www.instagram.com' }
+        ]},
+      pet: { name: '반려동물', icon: '🐾', keywords: ['동물병원','펫샵','펫호텔','애견미용','반려동물'],
+        backlinks: [
+          { name: '네이버 블로그', da: 92, url: 'https://blog.naver.com' },
+          { name: '강아지를 부탁해', da: 72, url: 'https://cafe.naver.com/dogpalza' },
+          { name: '맘스홀릭베이비', da: 82, url: 'https://cafe.naver.com/imsanbu' },
+          { name: '티스토리', da: 85, url: 'https://www.tistory.com' },
+          { name: '인스타그램', da: 96, url: 'https://www.instagram.com' },
+          { name: '브런치', da: 80, url: 'https://brunch.co.kr' }
+        ]}
+    };
+
+    var SEO_CHECKLIST = [
+      { id: 'keyword', label: '대표 키워드 5개 설정', max: 10 },
+      { id: 'category', label: '세부 카테고리 설정', max: 10 },
+      { id: 'photos', label: '사진 10장 이상 등록', max: 10 },
+      { id: 'info', label: '영업정보 정확성', max: 10 },
+      { id: 'booking', label: '네이버 예약 활성화', max: 10 },
+      { id: 'talk', label: '네이버 톡톡 활성화', max: 10 },
+      { id: 'review', label: '리뷰 10개 이상', max: 10 },
+      { id: 'reply', label: '리뷰 답글 작성', max: 10 },
+      { id: 'external', label: '외부 콘텐츠 연계', max: 10 },
+      { id: 'save', label: '저장·공유 수 확보', max: 10 }
+    ];
+
+    var SCORE_CYCLE = [0, 3, 5, 8, 10];
+    var state = loadState();
+
+    function loadState() {
+      try { var s = JSON.parse(localStorage.getItem('placeBoosterState')); if (s && s.version === 2) return s; } catch(e) {}
+      return defaultState();
+    }
+    function defaultState() {
+      return { version:2, placeName:'', placeCategory:'', placeAddress:'', industry:'', startDate:'', missions:{}, seoScores:{}, totalCompleted:0, streak:0, calendarData:{} };
+    }
+    function saveState() { localStorage.setItem('placeBoosterState', JSON.stringify(state)); }
+
+    function startNaverLogin() {
+      var oauthState = Math.random().toString(36).substr(2);
+      sessionStorage.setItem('naverOAuthState', oauthState);
+      window.location.href = 'https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=' + NAVER_CLIENT_ID + '&redirect_uri=' + encodeURIComponent(REDIRECT_URI) + '&state=' + oauthState;
+    }
+    function skipLogin() {
+      document.getElementById('loginScreen').style.display = 'none';
+      document.getElementById('onboardScreen').style.display = 'block';
+      renderIndustryGrid();
+    }
+    function getNaverUser() { try { return JSON.parse(localStorage.getItem('naverUser')); } catch(e) { return null; } }
+    function naverLogout() { localStorage.removeItem('naverUser'); window.location.reload(); }
+
+    function searchPlace() {
+      var query = document.getElementById('placeInput').value.trim();
+      if (!query) return;
+      var resultsEl = document.getElementById('searchResults');
+      resultsEl.innerHTML = '<div style="text-align:center;padding:12px;color:var(--text-sub);">검색 중...</div>';
+      fetch('/api/naver-search?query=' + encodeURIComponent(query))
+        .then(function(res) { return res.json(); })
+        .then(function(data) {
+          if (!data.items || data.items.length === 0) {
+            resultsEl.innerHTML = '<div style="text-align:center;padding:16px;color:var(--text-sub);">검색 결과가 없습니다.<br><a href="https://map.naver.com/p/search/' + encodeURIComponent(query) + '" target="_blank">네이버 지도에서 직접 검색 →</a></div>';
+            return;
+          }
+          window._searchResults = data.items;
+          resultsEl.innerHTML = data.items.map(function(item, i) {
+            return '<div class="search-item" data-idx="' + i + '"><div class="search-item-name">' + item.title.replace(/<\/?b>/g,'') + '</div><div class="search-item-category">' + (item.category || '') + '</div><div class="search-item-address">' + (item.roadAddress || item.address || '') + '</div></div>';
+          }).join('');
+          document.querySelectorAll('.search-item').forEach(function(el) {
+            el.addEventListener('click', function() { selectPlace(parseInt(this.dataset.idx)); });
+          });
+        })
+        .catch(function() {
+          resultsEl.innerHTML = '<div style="padding:16px;"><p style="color:var(--text-sub);margin-bottom:8px;">API 연결 전에는 수동으로 입력해주세요.</p><button id="manualBtn" style="padding:8px 16px;background:var(--naver);color:#fff;border:none;border-radius:8px;cursor:pointer;">수동 입력으로 진행</button></div>';
+          document.getElementById('manualBtn').addEventListener('click', manualInput);
+        });
+    }
+    function selectPlace(idx) {
+      var item = window._searchResults[idx];
+      var name = item.title.replace(/<\/?b>/g, '');
+      state.placeName = name;
+      state.placeCategory = item.category || '';
+      state.placeAddress = item.roadAddress || item.address || '';
+      saveState();
+      document.getElementById('searchResults').innerHTML = '';
+      var el = document.getElementById('selectedPlace');
+      el.style.display = 'block';
+      el.innerHTML = '<div class="selected-place-name">✅ ' + name + '</div><div class="selected-place-info">' + state.placeCategory + '</div><div class="selected-place-info">' + state.placeAddress + '</div>';
+      document.getElementById('industryCard').style.display = 'block';
+      document.getElementById('startBtn').style.display = 'block';
+      renderIndustryGrid();
+      autoDetectIndustry(state.placeCategory);
+    }
+    function manualInput() {
+      var name = prompt('업체명을 입력하세요:');
+      if (!name) return;
+      state.placeName = name; state.placeCategory = ''; state.placeAddress = '';
+      saveState();
+      document.getElementById('searchResults').innerHTML = '';
+      var el = document.getElementById('selectedPlace');
+      el.style.display = 'block';
+      el.innerHTML = '<div class="selected-place-name">✅ ' + name + '</div>';
+      document.getElementById('industryCard').style.display = 'block';
+      document.getElementById('startBtn').style.display = 'block';
+      renderIndustryGrid();
+    }
+    function renderIndustryGrid() {
+      var grid = document.getElementById('industryGrid');
+      var html = '';
+      Object.keys(INDUSTRY_DATA).forEach(function(key) {
+        var val = INDUSTRY_DATA[key];
+        html += '<div class="industry-card ' + (state.industry===key?'selected':'') + '" data-industry="' + key + '"><div class="icon">' + val.icon + '</div><div class="label">' + val.name + '</div></div>';
+      });
+      grid.innerHTML = html;
+      grid.querySelectorAll('.industry-card').forEach(function(el) {
+        el.addEventListener('click', function() { selectIndustry(this.dataset.industry); });
+      });
+    }
+    function selectIndustry(key) {
+      state.industry = key; saveState(); renderIndustryGrid();
+      document.getElementById('startBtn').disabled = false;
+    }
+    function autoDetectIndustry(category) {
+      if (!category) return;
+      var cat = category.toLowerCase();
+      var keys = Object.keys(INDUSTRY_DATA);
+      for (var i = 0; i < keys.length; i++) {
+        var val = INDUSTRY_DATA[keys[i]];
+        for (var j = 0; j < val.keywords.length; j++) {
+          if (cat.indexOf(val.keywords[j]) !== -1) { selectIndustry(keys[i]); return; }
+        }
+      }
+    }
+    function getToday() { return new Date().toISOString().slice(0, 10); }
+    function getDayNum() {
+      if (!state.startDate) return 1;
+      var diff = Math.floor((new Date(getToday()) - new Date(state.startDate)) / 86400000);
+      return Math.max(1, diff + 1);
+    }
+    function getPhase(dayNum) {
+      if (dayNum <= 14) return { num:1, name:'안정기', cls:'phase-1', daily:'2~3건' };
+      if (dayNum <= 28) return { num:2, name:'확장기', cls:'phase-2', daily:'3~5건' };
+      if (dayNum <= 56) return { num:3, name:'가속기', cls:'phase-3', daily:'5~7건' };
+      return { num:4, name:'유지기', cls:'phase-4', daily:'3~4건' };
+    }
+    function generateMissions(dayNum) {
+      var phase = getPhase(dayNum);
+      var ind = INDUSTRY_DATA[state.industry] || INDUSTRY_DATA.restaurant;
+      var missions = [];
+      var dayOfWeek = new Date().getDay();
+      missions.push({ id:'review_reply', title:'리뷰 답글 작성', desc:'최신 리뷰에 키워드 포함 답글을 작성하세요', link:'https://new.smartplace.naver.com', linkText:'스마트플레이스 관리' });
+      if (dayNum % 2 === 1) {
+        missions.push({ id:'photo_upload', title:'사진 1장 이상 업로드', desc:'메뉴/인테리어/이벤트 사진을 추가하세요', link:'https://new.smartplace.naver.com', linkText:'사진 관리' });
+      }
+      var sorted = ind.backlinks.slice().sort(function(a,b){return b.da-a.da;});
+      var blCount = phase.num === 1 ? 2 : phase.num === 2 ? 3 : phase.num === 3 ? 4 : 2;
+      var startIdx = (dayNum - 1) % sorted.length;
+      for (var i = 0; i < blCount; i++) {
+        var bl = sorted[(startIdx + i) % sorted.length];
+        var daClass = bl.da >= 80 ? 'da-s' : bl.da >= 60 ? 'da-a' : bl.da >= 40 ? 'da-b' : 'da-c';
+        missions.push({ id:'backlink_'+i, title:bl.name+'에 후기/글 작성', desc:'DA '+bl.da+' · "'+state.placeName+'" 키워드 포함', link:bl.url, linkText:'작업하기', daClass:daClass });
+      }
+      if (dayOfWeek === 1) missions.push({ id:'seo_check', title:'SEO 점수 재점검', desc:'SEO진단 탭에서 항목별 점수를 업데이트하세요', link:null, linkText:null });
+      if (dayOfWeek === 5) missions.push({ id:'weekly_special', title:'📸 SNS 콘텐츠 공유', desc:'인스타그램/블로그에 업체 소식을 공유하세요', link:'https://www.instagram.com', linkText:'인스타그램' });
+      return missions;
+    }
+    function startMission() {
+      if (!state.industry) { alert('업종을 선택해주세요.'); return; }
+      if (!state.placeName) { var name = prompt('업체명을 입력하세요:'); if (!name) return; state.placeName = name; }
+      if (!state.startDate) state.startDate = getToday();
+      saveState();
+      document.getElementById('loginScreen').style.display = 'none';
+      document.getElementById('onboardScreen').style.display = 'none';
+      document.getElementById('dashboardScreen').style.display = 'block';
+      renderDashboard();
+    }
+    function renderDashboard() {
+      var today = getToday(), dayNum = getDayNum(), phase = getPhase(dayNum), missions = generateMissions(dayNum);
+      var user = getNaverUser();
+      var headerUserEl = document.getElementById('headerUser');
+      if (user) {
+        headerUserEl.style.display = 'flex';
+        headerUserEl.innerHTML = (user.profileImage ? '<img src="'+user.profileImage+'" alt="프로필">' : '') + '<span>'+user.name+'</span><button class="logout-btn" id="logoutBtn">로그아웃</button>';
+        document.getElementById('logoutBtn').addEventListener('click', naverLogout);
+      }
+      updateStreak();
+      var streakEl = document.getElementById('streakBadge');
+      if (state.streak > 0) { streakEl.style.display = 'inline-block'; streakEl.textContent = '🔥 ' + state.streak + '일 연속 달성'; }
+      document.getElementById('phaseBadge').className = 'phase-badge ' + phase.cls;
+      document.getElementById('phaseBadge').textContent = 'PHASE ' + phase.num + ' · ' + phase.name + ' (일 ' + phase.daily + ')';
+      document.getElementById('statSEO').textContent = calcSEOTotal();
+      document.getElementById('statTotal').textContent = state.totalCompleted;
+      document.getElementById('statDay').textContent = 'D+' + dayNum;
+      if (!state.missions[today]) state.missions[today] = {};
+      var todayMissions = state.missions[today];
+      var doneCount = missions.filter(function(m){return todayMissions[m.id];}).length;
+      var progress = missions.length > 0 ? Math.round(doneCount / missions.length * 100) : 0;
+      var circumference = 2 * Math.PI * 54;
+      document.getElementById('progressCircle').style.strokeDashoffset = circumference - (circumference * progress / 100);
+      document.getElementById('progressPercent').textContent = progress + '%';
+      document.getElementById('progressText').textContent = doneCount + ' / ' + missions.length + ' 미션 완료';
+      var listEl = document.getElementById('missionList');
+      listEl.innerHTML = missions.map(function(m) {
+        var done = todayMissions[m.id] || false;
+        return '<div class="mission-item"><div class="mission-check '+(done?'done':'')+'" data-mid="'+m.id+'"></div><div class="mission-content"><div class="mission-title">'+(m.daClass?'<span class="mission-da '+m.daClass+'">DA</span> ':'')+m.title+'</div><div class="mission-desc">'+m.desc+'</div>'+(m.link?'<a href="'+m.link+'" target="_blank" class="mission-link">'+m.linkText+' →</a>':'')+'</div></div>';
+      }).join('');
+      listEl.querySelectorAll('.mission-check').forEach(function(el) {
+        el.addEventListener('click', function() { toggleMission(this.dataset.mid); });
+      });
+      renderSEO(); renderBacklinks(); renderCalendar();
+    }
+    function toggleMission(id) {
+      var today = getToday();
+      if (!state.missions[today]) state.missions[today] = {};
+      var wasDone = state.missions[today][id];
+      state.missions[today][id] = !wasDone;
+      if (!wasDone) state.totalCompleted++; else state.totalCompleted = Math.max(0, state.totalCompleted - 1);
+      var missions = generateMissions(getDayNum());
+      var doneCount = missions.filter(function(m){return state.missions[today][m.id];}).length;
+      state.calendarData[today] = doneCount === missions.length ? 'done' : doneCount > 0 ? 'partial' : 'none';
+      saveState(); renderDashboard();
+      if (doneCount === missions.length && missions.length > 0 && !wasDone) showComplete();
+    }
+    function renderSEO() {
+      var listEl = document.getElementById('seoList');
+      listEl.innerHTML = SEO_CHECKLIST.map(function(item) {
+        var score = state.seoScores[item.id] || 0;
+        var color = score >= 8 ? 'var(--success)' : score >= 5 ? 'var(--warning)' : score >= 3 ? '#f97316' : 'var(--danger)';
+        return '<div class="seo-item"><span class="seo-item-label">'+item.label+'</span><button class="seo-score-btn" style="border-color:'+color+';color:'+color+';" data-seoid="'+item.id+'">'+score+' / '+item.max+'</button></div>';
+      }).join('');
+      listEl.querySelectorAll('.seo-score-btn').forEach(function(el) {
+        el.addEventListener('click', function() { cycleSEO(this.dataset.seoid); });
+      });
+      var total = calcSEOTotal();
+      document.getElementById('seoTotalScore').textContent = total + ' / 100';
+      document.getElementById('seoGrade').textContent = total >= 80 ? '🟢 최적화 완료' : total >= 60 ? '🟡 보완 필요' : total >= 40 ? '🟠 미흡' : '🔴 위험';
+    }
+    function cycleSEO(id) {
+      var current = state.seoScores[id] || 0;
+      var idx = SCORE_CYCLE.indexOf(current);
+      state.seoScores[id] = SCORE_CYCLE[(idx + 1) % SCORE_CYCLE.length];
+      saveState(); renderSEO();
+      document.getElementById('statSEO').textContent = calcSEOTotal();
+    }
+    function calcSEOTotal() {
+      return SEO_CHECKLIST.reduce(function(sum, item) { return sum + (state.seoScores[item.id] || 0); }, 0);
+    }
+    function renderBacklinks() {
+      var ind = INDUSTRY_DATA[state.industry] || INDUSTRY_DATA.restaurant;
+      var sorted = ind.backlinks.slice().sort(function(a,b){return b.da-a.da;});
+      document.getElementById('backlinkList').innerHTML = sorted.map(function(bl) {
+        var daClass = bl.da >= 80 ? 'da-s' : bl.da >= 60 ? 'da-a' : bl.da >= 40 ? 'da-b' : 'da-c';
+        return '<div class="backlink-item"><div class="backlink-info"><div class="backlink-name">'+bl.name+'</div><div class="backlink-da"><span class="mission-da '+daClass+'">DA '+bl.da+'</span></div></div><a href="'+bl.url+'" target="_blank"><button class="backlink-go">작업하기</button></a></div>';
+      }).join('');
+    }
+    function renderCalendar() {
+      var now = new Date(), year = now.getFullYear(), month = now.getMonth(), today = getToday();
+      document.getElementById('calTitle').textContent = '📅 ' + year + '년 ' + (month+1) + '월';
+      var firstDay = new Date(year, month, 1).getDay();
+      var daysInMonth = new Date(year, month+1, 0).getDate();
+      var headers = ['일','월','화','수','목','금','토'];
+      var html = headers.map(function(h){return '<div class="cal-header">'+h+'</div>';}).join('');
+      for (var i = 0; i < firstDay; i++) html += '<div class="cal-day"></div>';
+      for (var d = 1; d <= daysInMonth; d++) {
+        var dateStr = year + '-' + String(month+1).padStart(2,'0') + '-' + String(d).padStart(2,'0');
+        var isToday = dateStr === today, status = state.calendarData[dateStr] || '', isFuture = new Date(dateStr) > now;
+        var cls = 'cal-day';
+        if (status === 'done') cls += ' done'; else if (status === 'partial') cls += ' partial';
+        if (isToday) cls += ' today'; if (isFuture) cls += ' future';
+        html += '<div class="'+cls+'">'+d+'</div>';
+      }
+      document.getElementById('calGrid').innerHTML = html;
+    }
+    function updateStreak() {
+      var streak = 0, today = new Date(getToday());
+      for (var i = 1; i <= 365; i++) {
+        var d = new Date(today); d.setDate(d.getDate() - i);
+        if (state.calendarData[d.toISOString().slice(0,10)] === 'done') streak++; else break;
+      }
+      if (state.calendarData[getToday()] === 'done') streak++;
+      state.streak = streak;
+    }
+    function switchTab(tabName) {
+      document.querySelectorAll('.tab-content').forEach(function(el){el.style.display='none';});
+      document.querySelectorAll('.tab').forEach(function(el){el.classList.remove('active');});
+      document.getElementById('tab-' + tabName).style.display = 'block';
+      document.querySelector('.tab[data-tab="'+tabName+'"]').classList.add('active');
+    }
+    function showComplete() { document.getElementById('completeModal').classList.add('show'); launchConfetti(); }
+    function closeModal() { document.getElementById('completeModal').classList.remove('show'); }
+    function launchConfetti() {
+      var colors = ['#03C75A','#fbbf24','#3b82f6','#ef4444','#8b5cf6','#ec4899'];
+      for (var i = 0; i < 60; i++) {
+        var el = document.createElement('div'); el.className = 'confetti';
+        el.style.left = Math.random()*100+'vw'; el.style.background = colors[Math.floor(Math.random()*colors.length)];
+        el.style.animationDelay = Math.random()*2+'s'; el.style.animationDuration = (2+Math.random()*2)+'s';
+        el.style.width = (6+Math.random()*8)+'px'; el.style.height = (6+Math.random()*8)+'px';
+        document.body.appendChild(el); setTimeout(function(e){e.remove();}.bind(null,el), 5000);
+      }
+    }
+    function resetAll() {
+      if (!confirm('모든 진행 상황이 초기화됩니다. 계속하시겠습니까?')) return;
+      localStorage.removeItem('placeBoosterState'); state = defaultState(); window.location.reload();
+    }
+
+    // 이벤트 리스너 등록
+    document.getElementById('naverLoginBtn').addEventListener('click', startNaverLogin);
+    document.getElementById('skipLoginBtn').addEventListener('click', skipLogin);
+    document.getElementById('searchBtn').addEventListener('click', searchPlace);
+    document.getElementById('placeInput').addEventListener('keypress', function(e) { if(e.key==='Enter') searchPlace(); });
+    document.getElementById('startBtn').addEventListener('click', startMission);
+    document.getElementById('modalCloseBtn').addEventListener('click', closeModal);
+    document.getElementById('resetBtn').addEventListener('click', resetAll);
+    document.querySelectorAll('.tab').forEach(function(el) {
+      el.addEventListener('click', function() { switchTab(this.dataset.tab); });
+    });
+
+    // 초기화
+    (function init() {
+      var user = getNaverUser();
+      if (state.industry && state.startDate) {
+        document.getElementById('loginScreen').style.display = 'none';
+        document.getElementById('dashboardScreen').style.display = 'block';
+        renderDashboard(); return;
+      }
+      if (user) {
+        document.getElementById('loginScreen').style.display = 'none';
+        document.getElementById('onboardScreen').style.display = 'block';
+        renderIndustryGrid();
+        if (state.placeName) {
+          var el = document.getElementById('selectedPlace');
+          el.style.display = 'block';
+          el.innerHTML = '<div class="selected-place-name">✅ '+state.placeName+'</div><div class="selected-place-info">'+(state.placeCategory||'')+'</div><div class="selected-place-info">'+(state.placeAddress||'')+'</div>';
+          document.getElementById('industryCard').style.display = 'block';
+          document.getElementById('startBtn').style.display = 'block';
+          if (state.industry) document.getElementById('startBtn').disabled = false;
+        }
+        return;
+      }
+      document.getElementById('loginScreen').style.display = 'block';
+    })();
+  </script>
+</body>
+</html>
