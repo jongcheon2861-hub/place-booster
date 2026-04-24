@@ -985,7 +985,6 @@ function getScoreColor(score) {
   if (score >= 3) return '#e67e22';
   return '#ff4757';
 }
-
 function updateSEOTotal() {
   var total = 0;
   var weak = [];
@@ -1011,8 +1010,7 @@ function updateSEOTotal() {
   if (gradeEl) gradeEl.textContent = grade;
 
   if (sugEl && weak.length > 0) {
-    sugEl.innerHTML = '<h4>🔧 우선 개선 항목</h4><p>' + weak.join(',
-') + '</p>';
+    sugEl.innerHTML = '<h4>🔧 우선 개선 항목</h4><p>' + weak.join(', ') + '</p>';
   } else if (sugEl) {
     sugEl.innerHTML = '<h4>🎉 모든 항목이 양호합니다!</h4>';
   }
@@ -1066,13 +1064,11 @@ function renderMissions() {
 function generateMissions() {
   var ind = INDUSTRY_DATA[state.industry] || INDUSTRY_DATA['service'];
   var region = extractRegion(state.place ? state.place.address : '');
-  var placeName = state.place ? state.place.name : '내 업체';
   var dayNum = getDayNum();
   var backlinks = ind.backlinks || [];
 
   var missions = [];
 
-  // 미션 1: 리뷰 답글
   missions.push({
     title: '리뷰 답글 작성하기',
     description: '네이버 플레이스에서 최근 리뷰에 정성스러운 답글을 달아주세요. 키워드를 자연스럽게 포함하면 SEO에 도움됩니다.',
@@ -1081,7 +1077,6 @@ function generateMissions() {
     done: false
   });
 
-  // 미션 2: 사진 업로드
   missions.push({
     title: '사진 1장 이상 업로드',
     description: '오늘 촬영한 업체 사진(메뉴, 시설, 시술 결과 등)을 네이버 플레이스에 등록하세요. 최소 15장 이상 유지가 목표입니다.',
@@ -1090,7 +1085,6 @@ function generateMissions() {
     done: false
   });
 
-  // 미션 3: 백링크 (당일 추천 사이트)
   if (backlinks.length > 0) {
     var blIdx = dayNum % backlinks.length;
     var bl = backlinks[blIdx];
@@ -1102,7 +1096,6 @@ function generateMissions() {
       done: false
     });
 
-    // 보조 백링크
     var blIdx2 = (dayNum + 1) % backlinks.length;
     if (blIdx2 !== blIdx) {
       var bl2 = backlinks[blIdx2];
@@ -1116,7 +1109,6 @@ function generateMissions() {
     }
   }
 
-  // 미션 4: SEO 점검
   var weakItems = SEO_CHECKLIST.filter(function(item) {
     return (state.seo[item.id] || 0) < 5;
   });
@@ -1131,16 +1123,14 @@ function generateMissions() {
     });
   }
 
-  // 미션 5: SNS 공유
   missions.push({
     title: 'SNS에 업체 소식 공유',
-    description: region + ' ' + ind.name + ' 관련 키워드와 함께 업체 소식을 인스타그램·블로그에 공유하세요.',
+    description: region + ' ' + ind.name + ' 관련 키워드와 함께 업체 소식을 인스타그램이나 블로그에 공유하세요.',
     link: 'https://www.instagram.com',
     point: 5,
     done: false
   });
 
-  // 미션 6: 키워드 트렌드 확인
   if (state.topKeywords && state.topKeywords.length > 0) {
     missions.push({
       title: '키워드 트렌드 확인',
@@ -1161,7 +1151,7 @@ function toggleMission(index) {
   state.missions[today][index].done = !state.missions[today][index].done;
   saveState();
   renderMissions();
-  updateCalendarDay(today);
+  renderCalendar();
   updateStreak();
 }
 
@@ -1179,7 +1169,6 @@ function renderBacklinks() {
   html += '<p>DA(Domain Authority)가 높을수록 백링크 효과가 큽니다. 하루 권장 수량을 지켜 자연스럽게 작성하세요.</p>';
   html += '</div>';
 
-  // 일일 총 백링크 수 계산
   var dailyTotal = backlinks.reduce(function(sum, bl) { return sum + bl.daily; }, 0);
   html += '<div class="backlink-summary">';
   html += '<div class="bl-stat"><span class="bl-stat-num">' + backlinks.length + '</span><span class="bl-stat-label">등록 가능 사이트</span></div>';
@@ -1188,10 +1177,9 @@ function renderBacklinks() {
   html += '</div>';
 
   html += '<div class="backlink-warning">';
-  html += '⚠️ <strong>주의:</strong> 하루에 너무 많은 백링크를 생성하면 스팸으로 인식될 수 있습니다. 각 사이트별 권장 수량을 지켜주세요.';
+  html += '<strong>⚠️ 주의:</strong> 하루에 너무 많은 백링크를 생성하면 스팸으로 인식될 수 있습니다. 각 사이트별 권장 수량을 지켜주세요.';
   html += '</div>';
 
-  // DA 순 정렬
   var sorted = backlinks.slice().sort(function(a, b) { return b.da - a.da; });
 
   sorted.forEach(function(bl) {
@@ -1223,14 +1211,13 @@ function renderCalendar() {
   var firstDay = new Date(year, month, 1).getDay();
   var lastDate = new Date(year, month + 1, 0).getDate();
 
-  var monthNames = ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'];
+  var monthNames = ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
 
   var html = '';
   html += '<div class="calendar-header">';
   html += '<h3>📅 ' + year + '년 ' + monthNames[month] + ' 미션 달력</h3>';
   html += '</div>';
 
-  // 스트릭 정보
   html += '<div class="streak-card">';
   html += '<div class="streak-icon">🔥</div>';
   html += '<div class="streak-info">';
@@ -1241,44 +1228,40 @@ function renderCalendar() {
 
   html += '<div class="calendar-grid">';
 
-  // 요일 헤더
-  var dayNames = ['일', '월', '화', '수', '목', '금', '토'];
+  var dayNames = ['일','월','화','수','목','금','토'];
   dayNames.forEach(function(d) {
     html += '<div class="cal-day-name">' + d + '</div>';
   });
 
-  // 빈칸
   for (var i = 0; i < firstDay; i++) {
     html += '<div class="cal-cell empty"></div>';
   }
 
-  // 날짜
   for (var d = 1; d <= lastDate; d++) {
     var dateStr = year + '-' + String(month + 1).padStart(2, '0') + '-' + String(d).padStart(2, '0');
     var isToday = dateStr === getToday();
     var missions = state.missions[dateStr];
-    var completed = false;
-    if (missions) {
-      var doneAll = missions.every(function(m) { return m.done; });
-      var doneAny = missions.some(function(m) { return m.done; });
-      completed = doneAll;
+    var doneAll = false;
+    var doneAny = false;
+    if (missions && missions.length > 0) {
+      doneAll = missions.every(function(m) { return m.done; });
+      doneAny = missions.some(function(m) { return m.done; });
     }
 
     var cellClass = 'cal-cell';
     if (isToday) cellClass += ' today';
-    if (completed) cellClass += ' completed';
-    else if (missions && doneAny) cellClass += ' partial';
+    if (doneAll && missions) cellClass += ' completed';
+    else if (doneAny) cellClass += ' partial';
 
     html += '<div class="' + cellClass + '">';
     html += '<span class="cal-date">' + d + '</span>';
-    if (completed) html += '<span class="cal-check">✅</span>';
-    else if (missions && doneAny) html += '<span class="cal-check">🔶</span>';
+    if (doneAll && missions) html += '<span class="cal-check">✅</span>';
+    else if (doneAny) html += '<span class="cal-check">🔶</span>';
     html += '</div>';
   }
 
   html += '</div>';
 
-  // 범례
   html += '<div class="calendar-legend">';
   html += '<span class="legend-item"><span class="legend-dot completed"></span>전체 완료</span>';
   html += '<span class="legend-item"><span class="legend-dot partial"></span>일부 완료</span>';
@@ -1286,11 +1269,6 @@ function renderCalendar() {
   html += '</div>';
 
   wrap.innerHTML = html;
-}
-
-function updateCalendarDay(dateStr) {
-  // 캘린더 전체를 다시 렌더링
-  renderCalendar();
 }
 
 function updateStreak() {
@@ -1302,12 +1280,11 @@ function updateStreak() {
     var missions = state.missions[dateStr];
 
     if (i === 0 && !missions) {
-      // 오늘 미션이 아직 없으면 어제부터 체크
       checkDate.setDate(checkDate.getDate() - 1);
       continue;
     }
 
-    if (missions) {
+    if (missions && missions.length > 0) {
       var allDone = missions.every(function(m) { return m.done; });
       if (allDone) {
         streak++;
@@ -1367,4 +1344,3 @@ init();
 </body>
 </html>
 
-                                                        
