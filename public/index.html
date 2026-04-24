@@ -241,260 +241,845 @@ header p{font-size:11px;opacity:.85;margin-top:2px}
   <button class="tab-btn" onclick="switchTab('tabCalendar',this)"><span class="tab-icon">📅</span>캘린더</button>
 </nav>
 <script>
-module.exports = async (req, res) => {
-  res.setHeader('Access-Control-Allow-Origin', 'https://place.living1004.com');
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-  if (req.method === 'OPTIONS') return res.status(200).end();
-  if (req.method !== 'POST') return res.status(405).json({ error: 'POST only' });
+/* ============================================
+   전역 변수 & 상수
+============================================ */
+var NAVER_CLIENT_ID = 'xbNPTWgLHLpDiiW5RgIm';
+var REDIRECT_URI = 'https://place.living1004.com/callback';
 
-  var body = req.body || {};
-  var industry = body.industry;
-  var region = body.region;
-  var placeName = body.placeName;
-  var speciality = body.speciality || '';
-  var topKeywords = body.topKeywords || [];
+var INDUSTRY_DATA = {
+  restaurant:{name:'음식점',icon:'🍽️',keywords:['맛집','음식점','레스토랑','식당'],backlinks:[
+    {name:'네이버 블로그',da:92,url:'https://blog.naver.com'},
+    {name:'맛집탐방 카페',da:78,url:'https://cafe.naver.com/matjib'},
+    {name:'전국맛집여행',da:74,url:'https://cafe.naver.com/jmfoods'},
+    {name:'오늘뭐먹지',da:70,url:'https://cafe.naver.com/todayeat'},
+    {name:'맘스홀릭베이비',da:82,url:'https://cafe.naver.com/imsanbu'},
+    {name:'아이보스',da:75,url:'https://www.i-boss.co.kr'},
+    {name:'티스토리',da:85,url:'https://www.tistory.com'},
+    {name:'브런치',da:80,url:'https://brunch.co.kr'},
+    {name:'인스타그램',da:96,url:'https://www.instagram.com'},
+    {name:'클리앙',da:72,url:'https://www.clien.net'}
+  ]},
+  cafe:{name:'카페',icon:'☕',keywords:['카페','커피','디저트','브런치'],backlinks:[
+    {name:'네이버 블로그',da:92,url:'https://blog.naver.com'},
+    {name:'카페인 중독 카페',da:76,url:'https://cafe.naver.com/coffeeholics'},
+    {name:'디저트 매니아',da:71,url:'https://cafe.naver.com/dessertmania'},
+    {name:'티스토리',da:85,url:'https://www.tistory.com'},
+    {name:'브런치',da:80,url:'https://brunch.co.kr'},
+    {name:'인스타그램',da:96,url:'https://www.instagram.com'},
+    {name:'아이보스',da:75,url:'https://www.i-boss.co.kr'},
+    {name:'클리앙',da:72,url:'https://www.clien.net'}
+  ]},
+  hair:{name:'미용실/헤어',icon:'💇',keywords:['미용실','헤어','헤어숍','머리'],backlinks:[
+    {name:'네이버 블로그',da:92,url:'https://blog.naver.com'},
+    {name:'뷰티팁 카페',da:74,url:'https://cafe.naver.com/beautytip'},
+    {name:'화장품 리뷰 카페',da:73,url:'https://cafe.naver.com/cosmeticmania'},
+    {name:'티스토리',da:85,url:'https://www.tistory.com'},
+    {name:'브런치',da:80,url:'https://brunch.co.kr'},
+    {name:'인스타그램',da:96,url:'https://www.instagram.com'},
+    {name:'아이보스',da:75,url:'https://www.i-boss.co.kr'},
+    {name:'클리앙',da:72,url:'https://www.clien.net'}
+  ]},
+  nail:{name:'네일/속눈썹',icon:'💅',keywords:['네일','네일샵','속눈썹','젤네일','네일아트'],backlinks:[
+    {name:'네이버 블로그',da:92,url:'https://blog.naver.com'},
+    {name:'뷰티팁 카페',da:74,url:'https://cafe.naver.com/beautytip'},
+    {name:'네일아트 카페',da:70,url:'https://cafe.naver.com/nailartist'},
+    {name:'화장품 리뷰 카페',da:73,url:'https://cafe.naver.com/cosmeticmania'},
+    {name:'인스타그램',da:96,url:'https://www.instagram.com'},
+    {name:'티스토리',da:85,url:'https://www.tistory.com'},
+    {name:'브런치',da:80,url:'https://brunch.co.kr'},
+    {name:'아이보스',da:75,url:'https://www.i-boss.co.kr'}
+  ]},
+  hospital:{name:'병원',icon:'🏥',keywords:['병원','의원','클리닉','치과','한의원'],backlinks:[
+    {name:'네이버 블로그',da:92,url:'https://blog.naver.com'},
+    {name:'건강 카페',da:76,url:'https://cafe.naver.com/healthlife'},
+    {name:'티스토리',da:85,url:'https://www.tistory.com'},
+    {name:'브런치',da:80,url:'https://brunch.co.kr'},
+    {name:'아이보스',da:75,url:'https://www.i-boss.co.kr'},
+    {name:'클리앙',da:72,url:'https://www.clien.net'}
+  ]},
+  fitness:{name:'피트니스',icon:'💪',keywords:['헬스장','PT','피트니스','필라테스','요가'],backlinks:[
+    {name:'네이버 블로그',da:92,url:'https://blog.naver.com'},
+    {name:'운동 카페',da:74,url:'https://cafe.naver.com/fitnesskorea'},
+    {name:'티스토리',da:85,url:'https://www.tistory.com'},
+    {name:'브런치',da:80,url:'https://brunch.co.kr'},
+    {name:'인스타그램',da:96,url:'https://www.instagram.com'},
+    {name:'아이보스',da:75,url:'https://www.i-boss.co.kr'}
+  ]},
+  education:{name:'교육',icon:'📚',keywords:['학원','교육','과외','입시'],backlinks:[
+    {name:'네이버 블로그',da:92,url:'https://blog.naver.com'},
+    {name:'수만휘 카페',da:80,url:'https://cafe.naver.com/suhui'},
+    {name:'맘스홀릭베이비',da:82,url:'https://cafe.naver.com/imsanbu'},
+    {name:'티스토리',da:85,url:'https://www.tistory.com'},
+    {name:'브런치',da:80,url:'https://brunch.co.kr'},
+    {name:'아이보스',da:75,url:'https://www.i-boss.co.kr'}
+  ]},
+  pet:{name:'반려동물',icon:'🐾',keywords:['애견','펫','동물병원','애견미용'],backlinks:[
+    {name:'네이버 블로그',da:92,url:'https://blog.naver.com'},
+    {name:'강사모 카페',da:78,url:'https://cafe.naver.com/dogpalza'},
+    {name:'고양이 카페',da:74,url:'https://cafe.naver.com/catlove'},
+    {name:'티스토리',da:85,url:'https://www.tistory.com'},
+    {name:'인스타그램',da:96,url:'https://www.instagram.com'},
+    {name:'아이보스',da:75,url:'https://www.i-boss.co.kr'}
+  ]},
+  service:{name:'서비스/기타',icon:'🔧',keywords:['서비스','전문','업체','인테리어','세탁'],backlinks:[
+    {name:'네이버 블로그',da:92,url:'https://blog.naver.com'},
+    {name:'티스토리',da:85,url:'https://www.tistory.com'},
+    {name:'브런치',da:80,url:'https://brunch.co.kr'},
+    {name:'아이보스',da:75,url:'https://www.i-boss.co.kr'},
+    {name:'클리앙',da:72,url:'https://www.clien.net'}
+  ]}
+};
 
-  if (!industry || !region || !placeName) {
-    return res.status(400).json({ error: 'industry, region, placeName 필수' });
+var SEO_CHECKLIST = [
+  {id:'keyword',label:'대표 키워드 5개 설정',max:10,link:'https://smartplace.naver.com',criteria:'5개 모두 설정=10, 3~4개=5, 1~2개=3, 미설정=0'},
+  {id:'category',label:'세부 카테고리 설정',max:10,link:'https://smartplace.naver.com',criteria:'정확한 세부 카테고리 설정=10, 대분류만=5, 미설정=0'},
+  {id:'photos',label:'사진 10장 이상 등록',max:10,link:'https://smartplace.naver.com',criteria:'15장+=10, 10~14장=8, 5~9장=5, 1~4장=3, 0장=0'},
+  {id:'info',label:'영업정보 정확성',max:10,link:'https://smartplace.naver.com',criteria:'주소+전화+시간+휴무 모두 정확=10, 일부 누락=5'},
+  {id:'booking',label:'네이버 예약 활성화',max:10,link:'https://smartplace.naver.com',criteria:'활성화=10, 비활성화=0'},
+  {id:'talk',label:'네이버 톡톡 활성화',max:10,link:'https://partner.talk.naver.com',criteria:'활성화+자동응답=10, 활성화만=5, 비활성화=0'},
+  {id:'review',label:'리뷰 10개 이상',max:10,link:'https://smartplace.naver.com',criteria:'30개+=10, 10~29개=8, 5~9개=5, 1~4개=3, 0개=0'},
+  {id:'reply',label:'리뷰 답글 작성',max:10,link:'https://smartplace.naver.com',criteria:'90%+ 답글=10, 70~89%=8, 50~69%=5, 그 이하=3'},
+  {id:'external',label:'외부 콘텐츠 연계',max:10,link:'https://blog.naver.com',criteria:'블로그+SNS 모두 연계=10, 1개만=5, 없음=0'},
+  {id:'save',label:'저장/공유 수 확보',max:10,link:'https://smartplace.naver.com',criteria:'50+저장=10, 20~49=8, 10~19=5, 1~9=3, 0=0'}
+];
+var SCORE_CYCLE = [0,3,5,8,10];
+
+var state = {};
+
+/* ============================================
+   상태 관리
+============================================ */
+function loadState() {
+  try {
+    var saved = localStorage.getItem('pb_state');
+    if (saved) {
+      state = JSON.parse(saved);
+      if (!state.analyzedKeywords) state.analyzedKeywords = [];
+      if (!state.recommendedKeywords) state.recommendedKeywords = [];
+      if (!state.seo) state.seo = {};
+      if (!state.missions) state.missions = {};
+      if (!state.calendar) state.calendar = {};
+      if (!state.streak) state.streak = 0;
+    } else {
+      state = {user:null,place:null,industry:null,seo:{},missions:{},calendar:{},streak:0,analyzedKeywords:[],recommendedKeywords:[]};
+    }
+  } catch(e) {
+    state = {user:null,place:null,industry:null,seo:{},missions:{},calendar:{},streak:0,analyzedKeywords:[],recommendedKeywords:[]};
+  }
+}
+
+function saveState() {
+  try { localStorage.setItem('pb_state', JSON.stringify(state)); } catch(e) {}
+}
+
+/* ============================================
+   로그인
+============================================ */
+function startNaverLogin() {
+  var stateParam = Math.random().toString(36).substring(2);
+  sessionStorage.setItem('oauth_state', stateParam);
+  var url = 'https://nid.naver.com/oauth2.0/authorize?response_type=code'
+    + '&client_id=' + NAVER_CLIENT_ID
+    + '&redirect_uri=' + encodeURIComponent(REDIRECT_URI)
+    + '&state=' + stateParam;
+  window.location.href = url;
+}
+
+function skipLogin() {
+  state.user = {name:'체험 사용자',email:'',nickname:'체험모드'};
+  saveState();
+  showOnboarding();
+}
+
+function showOnboarding() {
+  document.getElementById('loginScreen').style.display = 'none';
+  document.getElementById('onboarding').style.display = 'block';
+}
+
+/* ============================================
+   업체 검색
+============================================ */
+function searchPlace() {
+  var query = document.getElementById('placeSearchInput').value.trim();
+  if (!query) return alert('업체명을 입력하세요');
+  var wrap = document.getElementById('placeResults');
+  wrap.innerHTML = '<div class="loading"><div class="spinner"></div><br>검색 중...</div>';
+  fetch('/api/naver-search?query=' + encodeURIComponent(query))
+    .then(function(r){return r.json()})
+    .then(function(data){
+      var items = data.items || [];
+      if (items.length === 0) {
+        wrap.innerHTML = '<p style="text-align:center;color:#666;padding:20px">검색 결과가 없습니다.</p>';
+        return;
+      }
+      var html = '';
+      items.forEach(function(item){
+        var name = item.title.replace(/<[^>]*>/g,'');
+        var addr = item.roadAddress || item.address || '';
+        var cat = item.category || '';
+        html += '<div class="place-item" onclick="selectPlace(this)" data-name="'+name.replace(/"/g,'&quot;')+'" data-addr="'+addr.replace(/"/g,'&quot;')+'" data-cat="'+cat.replace(/"/g,'&quot;')+'">';
+        html += '<h4>'+name+'</h4>';
+        html += '<p>'+addr+(cat?' · '+cat:'')+'</p>';
+        html += '</div>';
+      });
+      wrap.innerHTML = html;
+    })
+    .catch(function(err){
+      wrap.innerHTML = '<p style="color:red;text-align:center">검색 오류: '+err.message+'</p>';
+    });
+}
+
+function selectPlace(el) {
+  state.place = {
+    name: el.getAttribute('data-name'),
+    address: el.getAttribute('data-addr'),
+    category: el.getAttribute('data-cat')
+  };
+  saveState();
+  document.getElementById('obStep1').classList.add('hidden');
+  document.getElementById('obStep2').classList.remove('hidden');
+  renderIndustryGrid();
+}
+
+/* ============================================
+   업종 선택
+============================================ */
+function renderIndustryGrid() {
+  var grid = document.getElementById('industryGrid');
+  var html = '';
+  var keys = Object.keys(INDUSTRY_DATA);
+  keys.forEach(function(key){
+    var d = INDUSTRY_DATA[key];
+    html += '<div class="ind-btn" onclick="selectIndustry(\''+key+'\',this)">';
+    html += '<span class="icon">'+d.icon+'</span>'+d.name;
+    html += '</div>';
+  });
+  grid.innerHTML = html;
+  autoDetectIndustry();
+}
+
+function selectIndustry(key, el) {
+  state.industry = key;
+  saveState();
+  document.querySelectorAll('.ind-btn').forEach(function(b){b.classList.remove('active')});
+  if (el) el.classList.add('active');
+  document.getElementById('btnStart').style.display = 'block';
+}
+
+function autoDetectIndustry() {
+  if (!state.place || !state.place.category) return;
+  var cat = state.place.category.toLowerCase();
+  var keys = Object.keys(INDUSTRY_DATA);
+  for (var i = 0; i < keys.length; i++) {
+    var kws = INDUSTRY_DATA[keys[i]].keywords;
+    for (var j = 0; j < kws.length; j++) {
+      if (cat.indexOf(kws[j]) !== -1) {
+        var btns = document.querySelectorAll('.ind-btn');
+        selectIndustry(keys[i], btns[i]);
+        return;
+      }
+    }
+  }
+}
+
+/* ============================================
+   대시보드 시작
+============================================ */
+function startDashboard() {
+  if (!state.industry) return alert('업종을 선택하세요');
+  document.getElementById('onboarding').style.display = 'none';
+  document.getElementById('dashboard').style.display = 'block';
+  document.getElementById('tabNav').classList.remove('hidden');
+  document.getElementById('userName').textContent = state.user ? state.user.name : '사용자';
+  document.getElementById('userPlace').textContent = state.place ? state.place.name : '';
+
+  renderSEO();
+  renderMissions();
+  renderBacklinks();
+  renderCalendar();
+  updateStreak();
+
+  if (state.place && state.place.address) {
+    var region = extractRegion(state.place.address);
+    var indData = INDUSTRY_DATA[state.industry];
+    var indName = indData ? indData.name : '';
+    document.getElementById('kwInput').value = region + ' ' + indName;
+  }
+}
+
+function extractRegion(address) {
+  if (!address) return '';
+  var parts = address.split(' ');
+  for (var i = 0; i < parts.length && i < 4; i++) {
+    var p = parts[i];
+    if (p.length >= 2 && (p.indexOf('구') !== -1 || p.indexOf('동') !== -1 || p.indexOf('읍') !== -1 || p.indexOf('면') !== -1)) {
+      return p;
+    }
+  }
+  if (parts.length >= 2) return parts[1];
+  return parts[0] || '';
+}
+
+/* ============================================
+   키워드 자동 분석
+============================================ */
+function autoAnalyze() {
+  if (!state.place || !state.industry) return alert('업체 정보가 필요합니다.');
+  var region = extractRegion(state.place.address || '');
+  var indData = INDUSTRY_DATA[state.industry];
+  if (!indData) return alert('업종 정보가 없습니다.');
+
+  // 업종별 핵심 키워드 조합 생성
+  var baseKeywords = indData.keywords.slice(0, 3);
+  var queries = [];
+  baseKeywords.forEach(function(kw){
+    if (region) queries.push(region + ' ' + kw);
+    queries.push(kw);
+  });
+
+  var infoDiv = document.getElementById('autoKwInfo');
+  infoDiv.classList.remove('hidden');
+  infoDiv.innerHTML = '🤖 <strong>자동 분석 중...</strong><br>업종: ' + indData.name + ' | 지역: ' + (region || '전국') + '<br>분석 키워드: ' + queries.slice(0,3).join(', ') + ' 등';
+
+  document.getElementById('kwInput').value = queries[0] || '';
+  document.getElementById('kwLoading').classList.remove('hidden');
+  document.getElementById('kwResults').innerHTML = '';
+  document.getElementById('trendCard').classList.add('hidden');
+
+  // 첫 번째 키워드로 분석 실행
+  var mainQuery = queries[0] || region + ' ' + indData.name;
+  fetch('/api/keyword-analysis?keyword=' + encodeURIComponent(mainQuery))
+    .then(function(r){return r.json()})
+    .then(function(data){
+      document.getElementById('kwLoading').classList.add('hidden');
+      if (data.error) {
+        document.getElementById('kwResults').innerHTML = '<p style="color:red">오류: '+data.error+'</p>';
+        infoDiv.innerHTML = '❌ 분석 실패 — 검색광고 API 키를 확인하세요.';
+        return;
+      }
+      var keywords = data.keywords || [];
+      if (keywords.length === 0) {
+        document.getElementById('kwResults').innerHTML = '<p style="text-align:center;color:#666">결과가 없습니다.</p>';
+        return;
+      }
+      state.analyzedKeywords = keywords;
+
+      // 자동 분석 결과 요약
+      var largeCount = keywords.filter(function(k){return k.grade==='대형'}).length;
+      var mediumCount = keywords.filter(function(k){return k.grade==='중형'}).length;
+      var smallCount = keywords.filter(function(k){return k.grade==='소형'}).length;
+      infoDiv.innerHTML = '✅ <strong>자동 분석 완료!</strong><br>'
+        + '총 <strong>' + keywords.length + '개</strong> 키워드 발견 — '
+        + '<span style="color:var(--red)">대형 ' + largeCount + '개</span> · '
+        + '<span style="color:var(--orange)">중형 ' + mediumCount + '개</span> · '
+        + '<span style="color:var(--blue)">소형 ' + smallCount + '개</span>';
+
+      renderKeywordTable(keywords);
+      recommendTopKeywords(keywords, region);
+      saveState();
+      loadTrend(mainQuery);
+    })
+    .catch(function(err){
+      document.getElementById('kwLoading').classList.add('hidden');
+      document.getElementById('kwResults').innerHTML = '<p style="color:red">분석 실패: '+err.message+'</p>';
+    });
+}
+
+function analyzeKeyword() {
+  var keyword = document.getElementById('kwInput').value.trim();
+  if (!keyword) return alert('키워드를 입력하세요');
+
+  document.getElementById('autoKwInfo').classList.add('hidden');
+  document.getElementById('kwLoading').classList.remove('hidden');
+  document.getElementById('kwResults').innerHTML = '';
+  document.getElementById('trendCard').classList.add('hidden');
+
+  fetch('/api/keyword-analysis?keyword=' + encodeURIComponent(keyword))
+    .then(function(r){return r.json()})
+    .then(function(data){
+      document.getElementById('kwLoading').classList.add('hidden');
+      if (data.error) {
+        document.getElementById('kwResults').innerHTML = '<p style="color:red">오류: '+data.error+'</p>';
+        return;
+      }
+      var keywords = data.keywords || [];
+      if (keywords.length === 0) {
+        document.getElementById('kwResults').innerHTML = '<p style="text-align:center;color:#666">결과가 없습니다.</p>';
+        return;
+      }
+      state.analyzedKeywords = keywords;
+      var region = extractRegion((state.place && state.place.address) || '');
+      renderKeywordTable(keywords);
+      recommendTopKeywords(keywords, region);
+      saveState();
+      loadTrend(keyword);
+    })
+    .catch(function(err){
+      document.getElementById('kwLoading').classList.add('hidden');
+      document.getElementById('kwResults').innerHTML = '<p style="color:red">분석 실패: '+err.message+'</p>';
+    });
+}
+
+function renderKeywordTable(keywords) {
+  var top30 = keywords.slice(0, 30);
+  var html = '<table class="kw-result-table">';
+  html += '<thead><tr><th>키워드</th><th>월간검색량</th><th>경쟁</th><th>등급</th></tr></thead><tbody>';
+  top30.forEach(function(kw){
+    var gradeClass = kw.grade === '대형' ? 'grade-large' : kw.grade === '중형' ? 'grade-medium' : 'grade-small';
+    var vol = kw.totalVolume;
+    var volStr = vol >= 10000 ? (vol/10000).toFixed(1)+'만' : vol >= 1000 ? (vol/1000).toFixed(1)+'천' : vol+'';
+    html += '<tr>';
+    html += '<td><strong>'+kw.keyword+'</strong></td>';
+    html += '<td>'+volStr+'</td>';
+    html += '<td>'+kw.competition+'</td>';
+    html += '<td><span class="grade-tag '+gradeClass+'">'+kw.grade+'</span></td>';
+    html += '</tr>';
+  });
+  html += '</tbody></table>';
+  if (keywords.length > 30) {
+    html += '<p style="text-align:center;color:#999;font-size:12px;margin-top:8px">상위 30개 표시 (전체 '+keywords.length+'개)</p>';
+  }
+  document.getElementById('kwResults').innerHTML = html;
+}
+
+function recommendTopKeywords(keywords, region) {
+  var recommended = [];
+  var usedWords = {};
+
+  // 1순위: 지역+소형/중형 (빠른 상위노출)
+  keywords.filter(function(kw){
+    return region && kw.keyword.indexOf(region) !== -1 && (kw.grade === '소형' || kw.grade === '중형');
+  }).forEach(function(kw){
+    if (recommended.length >= 2 || hasDuplicateWord(kw.keyword, usedWords)) return;
+    recommended.push(kw); addWords(kw.keyword, usedWords);
+  });
+
+  // 2순위: 중형 키워드 (성장 여지)
+  keywords.filter(function(kw){return kw.grade === '중형'}).forEach(function(kw){
+    if (recommended.length >= 4 || hasDuplicateWord(kw.keyword, usedWords)) return;
+    recommended.push(kw); addWords(kw.keyword, usedWords);
+  });
+
+  // 3순위: 소형 중 검색량 있는 것 (롱테일)
+  keywords.filter(function(kw){return kw.grade === '소형' && kw.totalVolume >= 50}).forEach(function(kw){
+    if (recommended.length >= 5 || hasDuplicateWord(kw.keyword, usedWords)) return;
+    recommended.push(kw); addWords(kw.keyword, usedWords);
+  });
+
+  // 부족하면 채우기
+  keywords.forEach(function(kw){
+    if (recommended.length >= 5) return;
+    var already = recommended.some(function(r){return r.keyword === kw.keyword});
+    if (!already) recommended.push(kw);
+  });
+
+  recommended = recommended.slice(0, 5);
+  state.recommendedKeywords = recommended.map(function(kw){return kw.keyword});
+  saveState();
+
+  var wrap = document.getElementById('kwResults');
+  var html = '<div class="recommend-box">';
+  html += '<h4>✅ 추천 대표 키워드 5개</h4><ul>';
+  recommended.forEach(function(kw, i){
+    var note = '';
+    if (region && kw.keyword.indexOf(region) !== -1) note = ' 📍지역';
+    if (kw.grade === '소형') note += ' 🚀빠른노출';
+    else if (kw.grade === '중형') note += ' 📈성장';
+    else if (kw.grade === '대형') note += ' 🔥경쟁높음';
+    html += '<li><strong>'+(i+1)+'. '+kw.keyword+'</strong> — 월 '+kw.totalVolume+'회'+note+'</li>';
+  });
+  html += '</ul>';
+  html += '<p style="font-size:11px;color:#666;margin-top:8px">💡 소형→중형→대형 순서로 공략. 2~3개월마다 재분석하여 교체하세요.</p>';
+  html += '</div>';
+  wrap.innerHTML += html;
+}
+
+function hasDuplicateWord(keyword, usedWords) {
+  var words = keyword.split(' ');
+  for (var i = 0; i < words.length; i++) {
+    if (words[i].length >= 2 && usedWords[words[i]]) return true;
+  }
+  return false;
+}
+
+function addWords(keyword, usedWords) {
+  keyword.split(' ').forEach(function(w){ if (w.length >= 2) usedWords[w] = true; });
+}
+
+/* ============================================
+   트렌드 차트
+============================================ */
+function loadTrend(keyword) {
+  fetch('/api/keyword-trend?keyword=' + encodeURIComponent(keyword))
+    .then(function(r){return r.json()})
+    .then(function(data){
+      if (data.results && data.results.length > 0) {
+        var points = data.results[0].data || [];
+        if (points.length > 0) {
+          renderTrendChart(points);
+          document.getElementById('trendCard').classList.remove('hidden');
+        }
+      }
+    })
+    .catch(function(err){ console.log('트렌드 오류:', err); });
+}
+
+function renderTrendChart(points) {
+  var wrap = document.getElementById('trendChart');
+  var maxVal = Math.max.apply(null, points.map(function(p){return p.ratio}));
+  if (maxVal === 0) maxVal = 1;
+  var html = '';
+  points.forEach(function(p){
+    var h = Math.round((p.ratio / maxVal) * 100);
+    var label = p.period.substring(5,7) + '월';
+    html += '<div class="trend-bar-wrap">';
+    html += '<div class="trend-value">'+Math.round(p.ratio)+'</div>';
+    html += '<div class="trend-bar" style="height:'+h+'px"></div>';
+    html += '<div class="trend-label">'+label+'</div>';
+    html += '</div>';
+  });
+  wrap.innerHTML = html;
+}
+
+/* ============================================
+   소개글 가이드
+============================================ */
+function generateGuide() {
+  if (!state.industry || !state.place) return alert('업체 정보가 필요합니다.');
+  var region = extractRegion(state.place.address || '');
+  var speciality = document.getElementById('guideSpeciality').value.trim();
+  var topKeywords = state.recommendedKeywords || [];
+
+  document.getElementById('guideLoading').classList.remove('hidden');
+  document.getElementById('guideResults').innerHTML = '';
+
+  fetch('/api/generate-guide', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      industry: state.industry,
+      region: region,
+      placeName: state.place.name,
+      speciality: speciality,
+      topKeywords: topKeywords
+    })
+  })
+  .then(function(r){return r.json()})
+  .then(function(data){
+    document.getElementById('guideLoading').classList.add('hidden');
+    if (data.error) {
+      document.getElementById('guideResults').innerHTML = '<p style="color:red">오류: '+data.error+'</p>';
+      return;
+    }
+    renderGuideResults(data);
+  })
+  .catch(function(err){
+    document.getElementById('guideLoading').classList.add('hidden');
+    document.getElementById('guideResults').innerHTML = '<p style="color:red">생성 실패: '+err.message+'</p>';
+  });
+}
+
+function renderGuideResults(data) {
+  var wrap = document.getElementById('guideResults');
+  var html = '';
+
+  html += '<h3 style="margin-top:16px;font-size:15px">📌 소개글 후보 (복사하여 사용)</h3>';
+  (data.introOptions || []).forEach(function(opt){
+    html += '<div class="guide-intro-card"><h4>버전 '+opt.version+'</h4><p>'+opt.text+'</p></div>';
+  });
+
+  if (data.keywordCheck && data.keywordCheck.length > 0) {
+    html += '<div class="card" style="margin-top:12px"><h3>🔑 키워드 삽입 체크</h3>';
+    data.keywordCheck.forEach(function(kc){
+      var icon = kc.includedInIntro ? '✅' : '⚠️';
+      html += '<div style="padding:6px 0;font-size:13px;border-bottom:1px solid #f0f0f0">'+icon+' <strong>'+kc.keyword+'</strong> — '+kc.suggestion+'</div>';
+    });
+    html += '</div>';
   }
 
-  var TEMPLATES = {
-    restaurant: {
-      name: '음식점',
-      intro: [
-        region + ' 맛집을 찾고 계신가요? ' + placeName + '은(는) ' + (speciality || '정성 가득한 요리') + '로 유명한 ' + region + ' 대표 맛집입니다.',
-        region + '에서 특별한 한 끼를 원하신다면 ' + placeName + '을(를) 추천드립니다. ' + (speciality || '신선한 재료와 정통 레시피') + '로 준비합니다.',
-        placeName + ' — ' + region + '에서 사랑받는 맛집. ' + (speciality || '매일 새벽 공수하는 신선한 재료') + '와 정성으로 손님을 맞이합니다.'
-      ],
-      descSections: [
-        { title: '대표 메뉴', hint: '시그니처 메뉴명과 가격, 특징을 2~3개 작성하세요.' },
-        { title: '매장 분위기', hint: '인테리어, 좌석 수, 단체석/룸 유무를 작성하세요.' },
-        { title: '오시는 길', hint: '지하철역 출구 번호, 도보 소요시간, 주차 가능 여부를 작성하세요.' },
-        { title: '영업 안내', hint: '영업시간, 브레이크타임, 라스트오더, 휴무일을 작성하세요.' }
-      ],
-      keywordTips: [
-        '소개글 첫 문장에 "지역+맛집" 키워드를 넣으세요.',
-        '메뉴 설명에 대표 키워드를 자연스럽게 1회 삽입하세요.',
-        '"오시는 길"에 지역 키워드를 한 번 더 반복하세요.',
-        '계절 메뉴가 있다면 시즌 키워드를 활용하세요.'
-      ]
-    },
-    cafe: {
-      name: '카페',
-      intro: [
-        region + ' 카페를 찾으신다면 ' + placeName + '! ' + (speciality || '직접 로스팅한 스페셜티 원두') + '와 아늑한 공간이 기다립니다.',
-        placeName + '은(는) ' + region + '에서 ' + (speciality || '감성 인테리어와 수제 디저트') + '로 사랑받는 카페입니다.',
-        '커피 한 잔의 여유, ' + region + ' ' + placeName + '. ' + (speciality || '시그니처 라떼와 수제 케이크') + '를 즐겨보세요.'
-      ],
-      descSections: [
-        { title: '시그니처 메뉴', hint: '대표 음료와 디저트 3~5개를 작성하세요.' },
-        { title: '공간 소개', hint: '좌석 수, 콘센트 여부, 단체석, 테라스 등을 작성하세요.' },
-        { title: '오시는 길', hint: '가까운 역과 정류장, 주차 안내를 작성하세요.' },
-        { title: '영업 안내', hint: '영업시간, 휴무일을 작성하세요.' }
-      ],
-      keywordTips: [
-        '"지역+카페" 키워드를 소개글 첫 줄에 배치하세요.',
-        '디저트, 브런치 등 세부 키워드를 메뉴 설명에 넣으세요.',
-        '"감성카페", "작업하기 좋은 카페" 등 분위기 키워드를 활용하세요.',
-        '포토존이 있으면 "인스타 카페" 키워드를 고려하세요.'
-      ]
-    },
-    hair: {
-      name: '미용실/헤어',
-      intro: [
-        region + ' 미용실 ' + placeName + '입니다. ' + (speciality || '헤어 컬러와 커트 전문') + '으로 고객 맞춤 스타일을 제안합니다.',
-        placeName + ' — ' + region + '에서 ' + (speciality || '트렌디한 헤어 디자인') + '을 만나보세요.',
-        region + ' 헤어숍 ' + placeName + '. ' + (speciality || '손상 최소화 시술과 프리미엄 제품') + '으로 건강한 아름다움을 완성합니다.'
-      ],
-      descSections: [
-        { title: '전문 시술', hint: '커트, 염색, 펌, 클리닉 등 주력 시술을 작성하세요.' },
-        { title: '디자이너 소개', hint: '경력, 수상 이력, 전문 분야를 작성하세요.' },
-        { title: '오시는 길', hint: '역과 정류장, 주차 안내를 작성하세요.' },
-        { title: '예약 안내', hint: '예약 방법, 영업시간, 휴무일을 작성하세요.' }
-      ],
-      keywordTips: [
-        '"지역+미용실" 또는 "지역+헤어숍"을 첫 문장에 넣으세요.',
-        '시술명(발레아쥬, 볼륨매직 등)을 구체적으로 키워드화하세요.',
-        '"남자 미용실", "여성 전문" 등 타깃 키워드를 활용하세요.',
-        '시즌별(졸업식 헤어, 여름 단발 등) 키워드를 반영하세요.'
-      ]
-    },
-    nail: {
-      name: '네일/속눈썹',
-      intro: [
-        region + ' 네일샵 ' + placeName + '입니다. ' + (speciality || '젤네일과 네일아트 전문') + '으로 트렌디한 디자인을 제안합니다.',
-        placeName + ' — ' + region + '에서 ' + (speciality || '꼼꼼한 시술과 위생 관리') + '로 사랑받는 네일샵입니다.',
-        region + ' 네일아트 ' + placeName + '. ' + (speciality || '속눈썹펌, 젤네일, 패디큐어') + ' 전문 매장입니다.'
-      ],
-      descSections: [
-        { title: '시술 메뉴', hint: '젤네일, 네일아트, 속눈썹펌, 왁싱 등 주력 시술과 가격을 작성하세요.' },
-        { title: '매장 소개', hint: '위생 관리, 1인 시술, 개인 도구 사용 등 차별점을 작성하세요.' },
-        { title: '오시는 길', hint: '역과 정류장, 주차 안내를 작성하세요.' },
-        { title: '예약 안내', hint: '예약 방법(네이버 예약, 전화, 카카오톡), 영업시간, 휴무일을 작성하세요.' }
-      ],
-      keywordTips: [
-        '"지역+네일샵" 또는 "지역+네일아트"를 첫 문장에 넣으세요.',
-        '시술명(젤네일, 속눈썹펌, 패디큐어 등)을 구체적으로 키워드화하세요.',
-        '"웨딩네일", "졸업식 네일" 등 시즌/이벤트 키워드를 활용하세요.',
-        '"1인샵", "위생 관리" 등 신뢰 키워드를 넣으면 효과적입니다.'
-      ]
-    },
-    hospital: {
-      name: '병원/의원',
-      intro: [
-        region + ' ' + (speciality || '정형외과') + ' ' + placeName + '입니다. 정확한 진단과 맞춤 치료로 건강을 지켜드립니다.',
-        placeName + ' — ' + region + '에서 ' + (speciality || '비수술 치료와 체계적 재활') + '을 전문으로 하는 의원입니다.',
-        region + ' ' + (speciality || '전문의 진료') + '를 찾으신다면 ' + placeName + '.'
-      ],
-      descSections: [
-        { title: '진료 과목', hint: '전문 진료 분야와 대표 치료법을 작성하세요.' },
-        { title: '의료진 소개', hint: '대표원장 약력, 전문의 자격, 학회 활동을 작성하세요.' },
-        { title: '오시는 길', hint: '역과 정류장, 주차 안내를 작성하세요.' },
-        { title: '진료 안내', hint: '진료시간, 점심시간, 토요일 진료 여부를 작성하세요.' }
-      ],
-      keywordTips: [
-        '"지역+진료과목" 키워드를 첫 문장에 배치하세요.',
-        '구체적 치료명(도수치료, 체외충격파 등)을 키워드로 활용하세요.',
-        '"야간진료", "주말진료" 등 편의 키워드를 넣으세요.',
-        '비급여 시술명이 있다면 별도 키워드로 활용하세요.'
-      ]
-    },
-    fitness: {
-      name: '피트니스/헬스',
-      intro: [
-        region + ' 헬스장 ' + placeName + '! ' + (speciality || 'PT 전문 트레이너와 최신 장비') + '로 건강한 변화를 시작하세요.',
-        placeName + '은(는) ' + region + '에서 ' + (speciality || '1:1 맞춤 퍼스널 트레이닝') + '을 제공하는 피트니스입니다.',
-        region + ' PT ' + placeName + '. ' + (speciality || '체계적인 프로그램과 쾌적한 시설') + '이 준비되어 있습니다.'
-      ],
-      descSections: [
-        { title: '프로그램', hint: 'PT, GX, 요가, 필라테스 등 프로그램을 작성하세요.' },
-        { title: '시설 안내', hint: '면적, 장비 종류, 샤워실, 라커 등을 작성하세요.' },
-        { title: '오시는 길', hint: '역과 정류장, 주차 안내를 작성하세요.' },
-        { title: '이용 안내', hint: '운영시간, 회원권 종류, 체험 안내를 작성하세요.' }
-      ],
-      keywordTips: [
-        '"지역+헬스장" 또는 "지역+PT"를 첫 문장에 넣으세요.',
-        '"지역+피트니스"가 플레이스 노출에 유리합니다.',
-        '"여성전용", "24시" 등 차별화 키워드를 활용하세요.',
-        '트레이너 자격증을 키워드로 활용하면 신뢰도가 올라갑니다.'
-      ]
-    },
-    education: {
-      name: '학원/교육',
-      intro: [
-        region + ' ' + (speciality || '영어/수학 전문') + ' 학원 ' + placeName + '입니다.',
-        placeName + ' — ' + region + '에서 ' + (speciality || '소수 정예 수업') + '으로 차별화된 교육을 제공합니다.',
-        region + ' 학원 ' + placeName + '. ' + (speciality || '입시와 내신 전문 강사진') + '이 함께합니다.'
-      ],
-      descSections: [
-        { title: '교육 과정', hint: '과목, 대상, 반 구성을 작성하세요.' },
-        { title: '강사진', hint: '대표 강사 약력, 합격 실적을 작성하세요.' },
-        { title: '오시는 길', hint: '역과 정류장, 주차/셔틀 안내를 작성하세요.' },
-        { title: '수업 안내', hint: '수업 시간, 상담 방법, 체험 수업 안내를 작성하세요.' }
-      ],
-      keywordTips: [
-        '"지역+학원" 또는 "지역+과목+학원"을 첫 문장에 넣으세요.',
-        '"겨울방학 특강", "여름 캠프" 등 시즌 키워드를 활용하세요.',
-        '"소수정예", "1:1 과외" 등 수업 형태 키워드를 넣으세요.',
-        '학년별 키워드가 검색량이 더 높을 수 있습니다.'
-      ]
-    },
-    pet: {
-      name: '반려동물',
-      intro: [
-        region + ' ' + (speciality || '애견미용과 호텔') + ' ' + placeName + '입니다.',
-        placeName + ' — ' + region + '에서 ' + (speciality || '소형견과 대형견 전문 케어') + '를 제공합니다.',
-        region + ' 펫 전문 ' + placeName + '. ' + (speciality || '스트레스 프리 미용과 안전한 돌봄') + '을 약속합니다.'
-      ],
-      descSections: [
-        { title: '서비스', hint: '미용, 호텔, 유치원, 산책 대행 등을 작성하세요.' },
-        { title: '시설 안내', hint: '개별 케이지, CCTV, 놀이 공간 등을 작성하세요.' },
-        { title: '오시는 길', hint: '역과 정류장, 주차 안내를 작성하세요.' },
-        { title: '이용 안내', hint: '영업시간, 예약 방법, 필요 서류를 작성하세요.' }
-      ],
-      keywordTips: [
-        '"지역+애견미용" 또는 "지역+펫호텔"을 첫 문장에 넣으세요.',
-        '견종별 키워드(푸들 미용, 말티즈 전문 등)가 효과적입니다.',
-        '"강아지 유치원", "고양이 호텔" 등 세분화된 키워드를 활용하세요.',
-        '"CCTV 실시간", "픽업 가능" 등 신뢰/편의 키워드를 넣으세요.'
-      ]
-    },
-    service: {
-      name: '서비스/기타',
-      intro: [
-        region + ' ' + (speciality || '전문 서비스') + ' ' + placeName + '입니다.',
-        placeName + ' — ' + region + '에서 ' + (speciality || '믿을 수 있는 전문 서비스') + '를 제공합니다.',
-        region + ' ' + placeName + '. ' + (speciality || '합리적인 가격과 전문성') + '으로 찾아뵙겠습니다.'
-      ],
-      descSections: [
-        { title: '서비스 소개', hint: '주요 서비스와 차별점을 작성하세요.' },
-        { title: '전문가 소개', hint: '경력, 자격증, 포트폴리오를 작성하세요.' },
-        { title: '오시는 길', hint: '역과 정류장, 주차 안내를 작성하세요.' },
-        { title: '이용 안내', hint: '영업시간, 상담/예약 방법을 작성하세요.' }
-      ],
-      keywordTips: [
-        '"지역+서비스명"을 첫 문장에 넣으세요.',
-        '구체적 서비스명을 키워드로 분리하세요.',
-        '"무료 상담", "출장 가능" 등 편의 키워드를 활용하세요.',
-        '후기/실적 관련 표현을 자연스럽게 삽입하세요.'
-      ]
+  html += '<div class="card" style="margin-top:12px"><h3>📋 상세 설명 작성 가이드</h3>';
+  (data.descriptionGuide || []).forEach(function(sec){
+    html += '<div class="guide-section"><h4>'+sec.sectionTitle+'</h4>';
+    html += '<p class="hint">'+sec.writingHint+'</p>';
+    html += '<p class="kw-insert">→ 삽입 키워드: '+sec.keywordToInsert+'</p></div>';
+  });
+  html += '</div>';
+
+  if (data.keywordPlacementMap) {
+    html += '<div class="card" style="margin-top:12px"><h3>🗺️ 키워드 배치 맵</h3><div class="placement-map">';
+    Object.keys(data.keywordPlacementMap).forEach(function(key){
+      html += '<div class="placement-item"><strong>'+key+'</strong>'+data.keywordPlacementMap[key]+'</div>';
+    });
+    html += '</div></div>';
+  }
+
+  if (data.optimizationTips) {
+    html += '<div class="card" style="margin-top:12px"><h3>💡 업종별 최적화 팁</h3><ul class="tip-list">';
+    data.optimizationTips.forEach(function(tip){ html += '<li>'+tip+'</li>'; });
+    html += '</ul></div>';
+  }
+
+  if (data.warnings) {
+    html += '<div class="warning-box"><ul>';
+    data.warnings.forEach(function(w){ html += '<li>'+w+'</li>'; });
+    html += '</ul></div>';
+  }
+
+  wrap.innerHTML = html;
+}
+
+/* ============================================
+   SEO 진단
+============================================ */
+function renderSEO() {
+  var wrap = document.getElementById('seoList');
+  var html = '';
+  SEO_CHECKLIST.forEach(function(item){
+    var score = state.seo[item.id] || 0;
+    var filledClass = score > 0 ? ' filled' : '';
+    html += '<div class="seo-item">';
+    html += '<span class="seo-label">'+item.label+'<a href="'+item.link+'" target="_blank" class="seo-link">확인 →</a>';
+    html += '<div class="seo-criteria">'+item.criteria+'</div></span>';
+    html += '<button class="seo-score-btn'+filledClass+'" onclick="cycleSEO(\''+item.id+'\')">'+score+'</button>';
+    html += '</div>';
+  });
+  wrap.innerHTML = html;
+  updateSEOTotal();
+}
+
+function cycleSEO(id) {
+  var current = state.seo[id] || 0;
+  var idx = SCORE_CYCLE.indexOf(current);
+  var next = (idx === -1 || idx >= SCORE_CYCLE.length - 1) ? 0 : SCORE_CYCLE[idx + 1];
+  state.seo[id] = next;
+  saveState();
+  renderSEO();
+}
+
+function updateSEOTotal() {
+  var total = 0;
+  SEO_CHECKLIST.forEach(function(item){ total += (state.seo[item.id] || 0); });
+  var maxTotal = SEO_CHECKLIST.length * 10;
+  var pct = Math.round((total / maxTotal) * 100);
+  var color = pct >= 80 ? 'var(--primary)' : pct >= 50 ? 'var(--orange)' : 'var(--red)';
+  var grade = pct >= 90 ? 'S' : pct >= 80 ? 'A' : pct >= 60 ? 'B' : pct >= 40 ? 'C' : 'D';
+
+  document.getElementById('seoTotal').innerHTML =
+    '<div class="score" style="color:'+color+'">'+grade+' <span style="font-size:24px">'+total+'</span><span style="font-size:16px;color:#999">/'+maxTotal+'</span></div>' +
+    '<div class="label">SEO 최적화 등급 ('+pct+'%)</div>';
+
+  var improvements = [];
+  SEO_CHECKLIST.forEach(function(item){
+    if ((state.seo[item.id] || 0) < 8) {
+      improvements.push('• ' + item.label + ' (현재 '+(state.seo[item.id]||0)+'/10) → <a href="'+item.link+'" target="_blank" style="color:var(--primary)">개선하기</a>');
     }
-  };
-
-  var template = TEMPLATES[industry] || TEMPLATES['service'];
-
-  var introOptions = template.intro.map(function(text, i) {
-    return { version: i + 1, text: text };
   });
+  var impWrap = document.getElementById('seoImprove');
+  if (improvements.length > 0) {
+    impWrap.classList.remove('hidden');
+    impWrap.innerHTML = '<strong>🔧 개선 필요 항목 ('+improvements.length+'개):</strong><br>' + improvements.join('<br>');
+  } else {
+    impWrap.classList.add('hidden');
+    impWrap.innerHTML = '';
+  }
+}
 
-  var keywordCheck = topKeywords.map(function(kw) {
-    var allTexts = template.intro.join(' ');
-    var found = allTexts.indexOf(kw) !== -1;
-    return {
-      keyword: kw,
-      includedInIntro: found,
-      suggestion: found
-        ? '소개글에 포함됨'
-        : '소개글에 "' + kw + '" 미포함 → 오시는 길 또는 메뉴 설명에 자연스럽게 삽입하세요'
-    };
+/* ============================================
+   미션
+============================================ */
+function renderMissions() {
+  var today = getToday();
+  if (!state.missions[today]) {
+    state.missions[today] = generateMissions();
+    saveState();
+  }
+  var missions = state.missions[today];
+  document.getElementById('missionDate').textContent = today;
+
+  var wrap = document.getElementById('missionList');
+  var html = '';
+  missions.forEach(function(m, i){
+    var doneClass = m.done ? ' done' : '';
+    var checkMark = m.done ? '✓' : '';
+    html += '<div class="mission-item">';
+    html += '<div class="mission-check'+doneClass+'" onclick="toggleMission('+i+')">'+checkMark+'</div>';
+    html += '<div class="mission-text"><h4>'+m.title+'</h4><p>'+m.desc+'</p></div>';
+    html += '</div>';
   });
+  if (missions.length === 0) {
+    html = '<p style="text-align:center;color:#999;padding:20px">미션을 생성할 수 없습니다. 업종을 확인하세요.</p>';
+  }
+  wrap.innerHTML = html;
+}
 
-  var descriptionGuide = template.descSections.map(function(section) {
-    var suggestedKw = topKeywords.length > 0
-      ? topKeywords[Math.floor(Math.random() * topKeywords.length)]
-      : '(키워드 분석 후 자동 제안)';
-    return {
-      sectionTitle: section.title,
-      writingHint: section.hint,
-      keywordToInsert: suggestedKw,
-      example: '"' + section.title + '" 섹션에 "' + suggestedKw + '" 키워드를 자연스럽게 1회 포함하세요.'
-    };
+function generateMissions() {
+  var missions = [];
+  var ind = INDUSTRY_DATA[state.industry];
+  if (!ind) ind = INDUSTRY_DATA['service'];
+  var dayNum = getDayNum();
+  var backlinks = ind.backlinks || [];
+
+  missions.push({title:'리뷰 답글 작성',desc:'최신 리뷰에 감사 답글을 작성하세요. 대표 키워드를 자연스럽게 포함하면 좋습니다.',done:false});
+
+  if (dayNum % 2 === 0) {
+    missions.push({title:'새 사진 업로드',desc:'매장/메뉴/서비스 사진을 1~2장 추가 등록하세요.',done:false});
+  }
+
+  if (backlinks.length > 0) {
+    var blIdx = dayNum % backlinks.length;
+    var bl = backlinks[blIdx];
+    missions.push({title:bl.name + ' 백링크 작성',desc:bl.name + ' (DA '+bl.da+')에 업체 관련 콘텐츠를 작성하세요. → '+bl.url,done:false});
+  }
+
+  if (dayNum % 3 === 0) {
+    var lowItems = SEO_CHECKLIST.filter(function(item){ return (state.seo[item.id]||0) < 8; });
+    if (lowItems.length > 0) {
+      var target = lowItems[dayNum % lowItems.length];
+      missions.push({title:'SEO 개선: '+target.label,desc:'현재 '+(state.seo[target.id]||0)+'/10점. 스마트플레이스 관리자에서 확인 후 개선하세요.',done:false});
+    }
+  }
+
+  if (new Date().getDay() === 5) {
+    missions.push({title:'SNS 공유',desc:'인스타그램/페이스북에 업체 소식을 공유하고 플레이스 링크를 포함하세요.',done:false});
+  }
+
+  if (dayNum % 7 === 0) {
+    missions.push({title:'키워드 트렌드 체크',desc:'키워드 분석 탭에서 최신 검색량을 확인하고 대표 키워드 변경을 검토하세요.',done:false});
+  }
+
+  return missions;
+}
+
+function toggleMission(idx) {
+  var today = getToday();
+  if (!state.missions[today]) return;
+  state.missions[today][idx].done = !state.missions[today][idx].done;
+  var allDone = state.missions[today].every(function(m){return m.done});
+  state.calendar[today] = allDone;
+  saveState();
+  renderMissions();
+  renderCalendar();
+  updateStreak();
+}
+
+/* ============================================
+   백링크
+============================================ */
+function renderBacklinks() {
+  var ind = INDUSTRY_DATA[state.industry];
+  if (!ind) ind = INDUSTRY_DATA['service'];
+  var wrap = document.getElementById('backlinkList');
+  var backlinks = ind.backlinks || [];
+  if (backlinks.length === 0) {
+    wrap.innerHTML = '<p style="text-align:center;color:#999;padding:16px">백링크 사이트 정보가 없습니다.</p>';
+    return;
+  }
+  var sorted = backlinks.slice().sort(function(a,b){return b.da - a.da});
+  var html = '';
+  sorted.forEach(function(bl){
+    html += '<div class="bl-item">';
+    html += '<div class="bl-info"><h4>'+bl.name+'</h4><p>Domain Authority</p></div>';
+    html += '<span class="bl-da">DA '+bl.da+'</span>';
+    html += '<a href="'+bl.url+'" target="_blank" class="bl-link">방문 →</a>';
+    html += '</div>';
   });
+  wrap.innerHTML = html;
+}
 
-  var keywordPlacementMap = {
-    '대표 키워드 5개': '키워드 분석 탭에서 추천된 5개를 그대로 입력',
-    '소개글 첫 문장': region + ' ' + template.name + ' 형태로 시작',
-    '소개글 본문': '나머지 대표 키워드를 각 1회씩 자연 삽입',
-    '메뉴/서비스 설명': '대표 키워드 중 서비스 관련 키워드 1~2회 반복',
-    '오시는 길': region + ' 지역 키워드 1회 반복',
-    '사진 설명': '사진 업로드 시 파일명에 키워드 포함 권장'
-  };
+/* ============================================
+   캘린더 & 스트릭
+============================================ */
+function renderCalendar() {
+  var now = new Date();
+  var year = now.getFullYear();
+  var month = now.getMonth();
+  var firstDay = new Date(year, month, 1).getDay();
+  var daysInMonth = new Date(year, month + 1, 0).getDate();
+  var todayDate = now.getDate();
 
-  res.status(200).json({
-    industry: template.name,
-    region: region,
-    placeName: placeName,
-    introOptions: introOptions,
-    keywordCheck: keywordCheck,
-    descriptionGuide: descriptionGuide,
-    optimizationTips: template.keywordTips,
-    keywordPlacementMap: keywordPlacementMap,
-    warnings: [
-      '대표 키워드 1칸에 키워드 1개만 입력하세요 (과도한 삽입 시 거절 가능).',
-      '키워드 중복을 피하세요 — 같은 단어를 여러 칸에 넣으면 비효율적입니다.',
-      '2~3개월마다 대표 키워드를 트렌드에 맞춰 변경하세요.',
-      '대형 키워드는 초반에 피하고 소형에서 중형 그리고 대형 순서로 공략하세요.'
-    ]
-  });
-};
+  var monthNames = ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
+  document.getElementById('calTitle').textContent = '📅 ' + year + '년 ' + monthNames[month] + ' 기록';
+
+  var wrap = document.getElementById('calendarGrid');
+  var dayNames = ['일','월','화','수','목','금','토'];
+  var html = '';
+  dayNames.forEach(function(d){ html += '<div class="cal-header">'+d+'</div>'; });
+  for (var i = 0; i < firstDay; i++) { html += '<div class="cal-day empty"></div>'; }
+  for (var d = 1; d <= daysInMonth; d++) {
+    var mm = String(month+1).padStart(2,'0');
+    var dd = String(d).padStart(2,'0');
+    var dateStr = year + '-' + mm + '-' + dd;
+    var cls = 'cal-day';
+    if (state.calendar[dateStr]) cls += ' completed';
+    if (d === todayDate) cls += ' today';
+    html += '<div class="'+cls+'">'+d+'</div>';
+  }
+  wrap.innerHTML = html;
+}
+
+function updateStreak() {
+  var streak = 0;
+  var d = new Date();
+  for (var i = 0; i < 365; i++) {
+    var mm = String(d.getMonth()+1).padStart(2,'0');
+    var dd = String(d.getDate()).padStart(2,'0');
+    var dateStr = d.getFullYear() + '-' + mm + '-' + dd;
+    if (state.calendar[dateStr]) {
+      streak++;
+      d.setDate(d.getDate() - 1);
+    } else if (i === 0) {
+      d.setDate(d.getDate() - 1);
+      continue;
+    } else {
+      break;
+    }
+  }
+  state.streak = streak;
+  document.getElementById('streakNum').textContent = streak;
+  saveState();
+}
+
+/* ============================================
+   유틸리티
+============================================ */
+function getToday() {
+  var d = new Date();
+  return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+}
+
+function getDayNum() {
+  var start = new Date(2025, 0, 1);
+  return Math.floor((new Date() - start) / 86400000);
+}
+
+function switchTab(tabId, btn) {
+  document.querySelectorAll('.tab-content').forEach(function(t){t.classList.remove('active')});
+  document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active')});
+  document.getElementById(tabId).classList.add('active');
+  if (btn) btn.classList.add('active');
+}
+
+function resetAll() {
+  if (!confirm('모든 데이터를 초기화하시겠습니까?')) return;
+  localStorage.removeItem('pb_state');
+  location.reload();
+}
+
+/* ============================================
+   초기화
+============================================ */
+function init() {
+  loadState();
+  if (state.user && state.place && state.industry) {
+    document.getElementById('loginScreen').style.display = 'none';
+    startDashboard();
+  } else if (state.user) {
+    showOnboarding();
+  }
+}
+
+init();
+</script>
+</body>
+</html>
