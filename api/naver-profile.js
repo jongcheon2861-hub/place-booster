@@ -1,21 +1,21 @@
-export default async function handler(req, res) {
+module.exports = async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', 'https://place.living1004.com');
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   if (req.method === 'OPTIONS') return res.status(200).end();
 
-  const authHeader = req.headers.authorization;
-  if (!authHeader) {
-    return res.status(401).json({ error: 'Authorization 헤더가 필요합니다.' });
+  var auth = req.headers.authorization;
+  if (!auth) {
+    return res.status(401).json({ error: 'Authorization header required' });
   }
 
   try {
-    const profileRes = await fetch('https://openapi.naver.com/v1/nid/me', {
-      headers: { Authorization: authHeader }
+    var response = await fetch('https://openapi.naver.com/v1/nid/me', {
+      headers: { 'Authorization': auth }
     });
-    const profileData = await profileRes.json();
-    return res.status(200).json(profileData);
+    var data = await response.json();
+    res.status(200).json(data);
   } catch (err) {
-    return res.status(500).json({ error: '프로필 조회 실패', detail: err.message });
+    res.status(500).json({ error: err.message });
   }
-}
+};
