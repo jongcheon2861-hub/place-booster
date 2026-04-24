@@ -1,34 +1,32 @@
-export default async function handler(req, res) {
-  // CORS
+module.exports = async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', 'https://place.living1004.com');
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   if (req.method === 'OPTIONS') return res.status(200).end();
 
-  const { code, state } = req.query;
+  var code = req.query.code;
+  var stateParam = req.query.state || '';
 
-  if (!code || !state) {
-    return res.status(400).json({ error: 'code와 state 파라미터가 필요합니다.' });
+  if (!code) {
+    return res.status(400).json({ error: 'code required' });
   }
+
+  var clientId = process.env.NAVER_CLIENT_ID;
+  var clientSecret = process.env.NAVER_CLIENT_SECRET;
+  var redirectUri = 'https://place.living1004.com/callback';
+
+  var url = 'https://nid.naver.com/oauth2.0/token'
+    + '?grant_type=authorization_code'
+    + '&client_id=' + clientId
+    + '&client_secret=' + clientSecret
+    + '&code=' + encodeURIComponent(code)
+    + '&state=' + encodeURIComponent(stateParam);
 
   try {
-    const params = new URLSearchParams({
-      grant_type: 'authorization_code',
-      client_id: process.env.NAVER_CLIENT_ID,
-      client_secret: process.env.NAVER_CLIENT_SECRET,
-      code,
-      state
-    });
-
-    const tokenRes = await fetch(`https://nid.naver.com/oauth2.0/token?${params}`);
-    const tokenData = await tokenRes.json();
-
-    if (tokenData.error) {
-      return res.status(401).json({ error: tokenData.error, description: tokenData.error_description });
-    }
-
-    return res.status(200).json(tokenData);
+    var response = await fetch(url);
+    var data = await response.json();
+    res.status(200).json(data);
   } catch (err) {
-    return res.status(500).json({ error: '토큰 교환 실패', detail: err.message });
+    res.status(500).json({ error: err.message });
   }
-}
+};
