@@ -784,13 +784,26 @@ function renderGuideResults(data) {
   var wrap = document.getElementById('guideResults');
   var html = '';
 
-  html += '<h3 style="margin-top:16px;font-size:15px">📌 소개글 후보 (복사하여 사용)</h3>';
+  html += '<h3 style="margin-top:16px;font-size:15px">📌 소개글 후보 (직접 수정 후 복사하세요)</h3>';
+  html += '<p style="font-size:12px;color:var(--text-sub);margin-bottom:10px">💡 [지역], [업체명], [특징], (메뉴), (시간) 부분을 내 업체 정보로 수정하세요. 권장 300~500자.</p>';
+
   (data.introOptions || []).forEach(function(opt){
-    html += '<div class="guide-intro-card"><h4>버전 '+opt.version+'</h4><p>'+opt.text+'</p></div>';
+    var charColor = opt.charCount > 1000 ? 'var(--red)' : opt.charCount > 500 ? 'var(--orange)' : 'var(--primary)';
+    html += '<div class="guide-intro-card">';
+    html += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">';
+    html += '<h4 style="margin:0">버전 '+opt.version+' — '+opt.label+'</h4>';
+    html += '<button onclick="copyIntro(\'guideText'+opt.version+'\')" style="background:var(--primary);color:#fff;border:none;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer">복사</button>';
+    html += '</div>';
+    html += '<textarea id="guideText'+opt.version+'" oninput="updateCharCount(this,\'cc'+opt.version+'\')" style="width:100%;min-height:180px;border:1px solid #ddd;border-radius:8px;padding:10px;font-size:13px;font-family:inherit;line-height:1.8;resize:vertical;outline:none" onfocus="this.style.borderColor=\'var(--primary)\'" onblur="this.style.borderColor=\'#ddd\'">';
+    html += opt.text;
+    html += '</textarea>';
+    html += '<div id="cc'+opt.version+'" style="text-align:right;font-size:11px;margin-top:4px;color:'+charColor+'">'+opt.charCount+'자 / 1,000자</div>';
+    html += '</div>';
   });
 
   if (data.keywordCheck && data.keywordCheck.length > 0) {
     html += '<div class="card" style="margin-top:12px"><h3>🔑 키워드 삽입 체크</h3>';
+    html += '<p style="font-size:12px;color:var(--text-sub);margin-bottom:8px">소개글에 대표 키워드가 자연스럽게 포함되었는지 확인합니다.</p>';
     data.keywordCheck.forEach(function(kc){
       var icon = kc.includedInIntro ? '✅' : '⚠️';
       html += '<div style="padding:6px 0;font-size:13px;border-bottom:1px solid #f0f0f0">'+icon+' <strong>'+kc.keyword+'</strong> — '+kc.suggestion+'</div>';
@@ -829,6 +842,31 @@ function renderGuideResults(data) {
   wrap.innerHTML = html;
 }
 
+function updateCharCount(textarea, countId) {
+  var count = textarea.value.replace(/\n/g, '').length;
+  var el = document.getElementById(countId);
+  if (!el) return;
+  var color = count > 1000 ? 'var(--red)' : count > 500 ? 'var(--orange)' : 'var(--primary)';
+  el.style.color = color;
+  el.textContent = count + '자 / 1,000자';
+}
+
+function copyIntro(id) {
+  var textarea = document.getElementById(id);
+  if (!textarea) return;
+  textarea.select();
+  textarea.setSelectionRange(0, 99999);
+  navigator.clipboard.writeText(textarea.value).then(function(){
+    var btn = textarea.parentElement.querySelector('button');
+    var original = btn.textContent;
+    btn.textContent = '✅ 복사됨!';
+    btn.style.background = '#02a34b';
+    setTimeout(function(){ btn.textContent = original; btn.style.background = 'var(--primary)'; }, 2000);
+  }).catch(function(){
+    document.execCommand('copy');
+    alert('복사되었습니다!');
+  });
+}
 /* ============================================
    SEO 진단
 ============================================ */
