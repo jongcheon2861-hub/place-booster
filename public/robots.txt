@@ -1,1 +1,3 @@
-
+User-agent: *
+Allow: /
+Sitemap: https://place.living1004.com/sitemap.xml
