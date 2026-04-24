@@ -1,1 +1,80 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>로그인 처리중... | 플레이스부스터</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+      display: flex; align-items: center; justify-content: center;
+      min-height: 100vh; background: #f8fafc;
+    }
+    .loader-wrap { text-align: center; }
+    .spinner {
+      width: 48px; height: 48px; border: 4px solid #e2e8f0;
+      border-top-color: #03C75A; border-radius: 50%;
+      animation: spin 0.8s linear infinite; margin: 0 auto 16px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .msg { font-size: 16px; color: #475569; }
+    .error { color: #ef4444; margin-top: 12px; font-size: 14px; display: none; }
+  </style>
+</head>
+<body>
+  <div class="loader-wrap">
+    <div class="spinner"></div>
+    <p class="msg">네이버 로그인 처리중입니다...</p>
+    <p class="error" id="errorMsg"></p>
+  </div>
 
+  <script>
+    (async function handleCallback() {
+      const errorEl = document.getElementById('errorMsg');
+
+      try {
+        const params = new URLSearchParams(window.location.search);
+        const code = params.get('code');
+        const state = params.get('state');
+        const savedState = sessionStorage.getItem('naverOAuthState');
+
+        // state 검증
+        if (!code || !state) throw new Error('로그인 파라미터가 없습니다.');
+        if (state !== savedState) throw new Error('보안 검증 실패 (state mismatch)');
+
+        // 1) 서버리스 API로 토큰 교환
+        const tokenRes = await fetch(`/api/naver-token?code=${code}&state=${state}`);
+        const tokenData = await tokenRes.json();
+        if (tokenData.error) throw new Error(tokenData.description || tokenData.error);
+
+        // 2) 서버리스 API로 프로필 조회
+        const profileRes = await fetch('/api/naver-profile', {
+          headers: { Authorization: `Bearer ${tokenData.access_token}` }
+        });
+        const profileData = await profileRes.json();
+        if (profileData.resultcode !== '00') throw new Error('프로필 조회 실패');
+
+        // 3) 프로필 저장 후 메인으로 이동
+        const user = profileData.response;
+        localStorage.setItem('naverUser', JSON.stringify({
+          id: user.id,
+          name: user.name || user.nickname || '사용자',
+          email: user.email || '',
+          profileImage: user.profile_image || '',
+          loginAt: new Date().toISOString()
+        }));
+        sessionStorage.removeItem('naverOAuthState');
+
+        window.location.replace('/');
+      } catch (err) {
+        errorEl.textContent = err.message;
+        errorEl.style.display = 'block';
+        document.querySelector('.msg').textContent = '로그인에 실패했습니다.';
+        document.querySelector('.spinner').style.display = 'none';
+        setTimeout(() => window.location.replace('/'), 3000);
+      }
+    })();
+  </script>
+</body>
+</html>
