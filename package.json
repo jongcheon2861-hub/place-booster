@@ -1,9 +1,12 @@
 {
   "name": "place-booster",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "private": true,
   "description": "네이버 스마트플레이스 상위노출 미션 관리 도구",
   "scripts": {
     "dev": "vercel dev"
+  },
+  "dependencies": {
+    "crypto-js": "^4.2.0"
   }
 }
