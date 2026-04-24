@@ -1,1 +1,913 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <!-- SEO 기본 -->
+  <title>플레이스부스터 - 네이버 스마트플레이스 상위노출 미션 관리</title>
+  <meta name="description" content="네이버 스마트플레이스 SEO 최적화 점수 진단, 업종별 백링크 작업, 일일 미션 관리를 한 곳에서. 매일 미션을 완료하면 상위노출에 가까워집니다.">
+  <meta name="keywords" content="스마트플레이스,상위노출,네이버플레이스,SEO,백링크,플레이스부스터,지역검색최적화">
+  <meta name="author" content="PlaceBooster">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://place.living1004.com/">
+
+  <!-- Naver / Google 사이트 인증 (발급 후 교체) -->
+  <meta name="naver-site-verification" content="YOUR_NAVER_VERIFICATION_CODE">
+  <meta name="google-site-verification" content="YOUR_GOOGLE_VERIFICATION_CODE">
+
+  <!-- OG -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="플레이스부스터 - 스마트플레이스 상위노출 미션 관리">
+  <meta property="og:description" content="SEO 진단 → 백링크 작업 → 일일 미션, 한 곳에서 관리하세요.">
+  <meta property="og:url" content="https://place.living1004.com/">
+  <meta property="og:site_name" content="플레이스부스터">
+  <meta property="og:locale" content="ko_KR">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="플레이스부스터 - 스마트플레이스 상위노출 미션 관리">
+  <meta name="twitter:description" content="매일 미션 완료로 네이버 플레이스 상위노출 달성">
+
+  <!-- 구조화 데이터 -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "플레이스부스터",
+    "url": "https://place.living1004.com",
+    "description": "네이버 스마트플레이스 상위노출을 위한 SEO 진단·백링크·미션 관리 도구",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Web",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "KRW" },
+    "inLanguage": "ko"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "스마트플레이스 상위노출에 백링크가 왜 중요한가요?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "네이버는 외부 콘텐츠(블로그, 카페, SNS)에서 해당 업체를 언급·링크하는 것을 신뢰 지표로 활용합니다. DA(Domain Authority)가 높은 사이트에서의 백링크일수록 효과가 큽니다."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "하루에 백링크를 몇 개씩 작업해야 하나요?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "초기 1~2주는 일 2~3건, 3~4주차 3~5건, 5~8주차 5~7건으로 점진적으로 늘리는 것이 자연스럽고 어뷰징 위험이 적습니다."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "플레이스부스터는 무료인가요?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "네, 플레이스부스터는 완전 무료입니다. 네이버 로그인 후 업체를 등록하면 업종별 맞춤 미션을 받을 수 있습니다."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* ===== RESET & VARIABLES ===== */
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    :root {
+      --naver: #03C75A;
+      --naver-dark: #02a34a;
+      --bg: #f0f4f8;
+      --card: #ffffff;
+      --text: #1e293b;
+      --text-sub: #64748b;
+      --border: #e2e8f0;
+      --danger: #ef4444;
+      --warning: #f59e0b;
+      --info: #3b82f6;
+      --success: #10b981;
+      --radius: 16px;
+      --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04);
+    }
+    body {
+      font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg); color: var(--text);
+      line-height: 1.6; min-height: 100vh;
+    }
+    a { color: var(--naver); text-decoration: none; }
+
+    /* ===== HEADER ===== */
+    .header {
+      background: linear-gradient(135deg, #03C75A 0%, #00a648 100%);
+      color: #fff; padding: 20px 24px; text-align: center;
+      position: sticky; top: 0; z-index: 100;
+      box-shadow: 0 2px 12px rgba(3,199,90,0.3);
+    }
+    .header h1 { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; }
+    .header-sub { font-size: 12px; opacity: 0.85; margin-top: 2px; }
+    .header-streak {
+      display: inline-block; background: rgba(255,255,255,0.2);
+      padding: 4px 12px; border-radius: 20px; font-size: 12px;
+      margin-top: 8px; font-weight: 600;
+    }
+    .header-user {
+      position: absolute; right: 16px; top: 50%; transform: translateY(-50%);
+      display: flex; align-items: center; gap: 8px; font-size: 13px;
+    }
+    .header-user img {
+      width: 32px; height: 32px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.5);
+    }
+    .logout-btn {
+      background: rgba(255,255,255,0.2); border: none; color: #fff;
+      padding: 4px 10px; border-radius: 8px; font-size: 11px; cursor: pointer;
+    }
+
+    /* ===== CONTAINER ===== */
+    .container { max-width: 480px; margin: 0 auto; padding: 16px; }
+
+    /* ===== CARDS ===== */
+    .card {
+      background: var(--card); border-radius: var(--radius); padding: 20px;
+      box-shadow: var(--shadow); margin-bottom: 16px;
+    }
+    .card-title {
+      font-size: 15px; font-weight: 700; margin-bottom: 12px;
+      display: flex; align-items: center; gap: 8px;
+    }
+
+    /* ===== LOGIN SCREEN ===== */
+    .login-screen { text-align: center; padding: 60px 24px; }
+    .login-screen h2 { font-size: 24px; font-weight: 800; margin-bottom: 8px; }
+    .login-screen p { color: var(--text-sub); font-size: 14px; margin-bottom: 32px; }
+    .naver-login-btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--naver); color: #fff; border: none;
+      padding: 14px 32px; border-radius: 12px; font-size: 16px;
+      font-weight: 700; cursor: pointer; transition: all 0.2s;
+    }
+    .naver-login-btn:hover { background: var(--naver-dark); transform: translateY(-1px); }
+    .skip-btn {
+      display: block; margin: 16px auto 0; background: none; border: none;
+      color: var(--text-sub); font-size: 13px; cursor: pointer; text-decoration: underline;
+    }
+
+    /* ===== PLACE SEARCH ===== */
+    .search-box {
+      display: flex; gap: 8px; margin-bottom: 12px;
+    }
+    .search-box input {
+      flex: 1; padding: 12px 16px; border: 2px solid var(--border);
+      border-radius: 12px; font-size: 14px; outline: none; transition: border 0.2s;
+    }
+    .search-box input:focus { border-color: var(--naver); }
+    .search-box button {
+      background: var(--naver); color: #fff; border: none;
+      padding: 12px 20px; border-radius: 12px; font-weight: 700;
+      cursor: pointer; white-space: nowrap;
+    }
+    .search-results { margin-bottom: 16px; }
+    .search-item {
+      padding: 12px 16px; border: 2px solid var(--border); border-radius: 12px;
+      margin-bottom: 8px; cursor: pointer; transition: all 0.2s;
+    }
+    .search-item:hover { border-color: var(--naver); background: #f0fdf4; }
+    .search-item-name { font-weight: 700; font-size: 14px; }
+    .search-item-category { font-size: 12px; color: var(--text-sub); }
+    .search-item-address { font-size: 12px; color: var(--text-sub); }
+    .selected-place {
+      background: #f0fdf4; border: 2px solid var(--naver); border-radius: 12px;
+      padding: 16px; margin-bottom: 16px;
+    }
+    .selected-place-name { font-weight: 800; font-size: 16px; color: var(--naver); }
+    .selected-place-info { font-size: 13px; color: var(--text-sub); margin-top: 4px; }
+
+    /* ===== INDUSTRY SELECT ===== */
+    .industry-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
+      margin-bottom: 16px;
+    }
+    .industry-card {
+      padding: 16px 8px; border: 2px solid var(--border); border-radius: 12px;
+      text-align: center; cursor: pointer; transition: all 0.2s;
+    }
+    .industry-card:hover { border-color: var(--naver); }
+    .industry-card.selected { border-color: var(--naver); background: #f0fdf4; }
+    .industry-card .icon { font-size: 28px; margin-bottom: 4px; }
+    .industry-card .label { font-size: 12px; font-weight: 600; }
+
+    /* ===== START BUTTON ===== */
+    .start-btn {
+      width: 100%; padding: 16px; background: var(--naver); color: #fff;
+      border: none; border-radius: 14px; font-size: 17px; font-weight: 800;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .start-btn:hover { background: var(--naver-dark); }
+    .start-btn:disabled { background: #cbd5e1; cursor: not-allowed; }
+
+    /* ===== DASHBOARD ===== */
+    .progress-ring { margin: 0 auto 12px; display: block; }
+    .progress-text { text-align: center; font-size: 14px; color: var(--text-sub); }
+    .progress-percent { font-size: 32px; font-weight: 800; color: var(--naver); }
+
+    .stats-row { display: flex; gap: 8px; margin-bottom: 16px; }
+    .stat-box {
+      flex: 1; background: var(--card); border-radius: 12px; padding: 12px;
+      text-align: center; box-shadow: var(--shadow);
+    }
+    .stat-value { font-size: 20px; font-weight: 800; }
+    .stat-label { font-size: 11px; color: var(--text-sub); margin-top: 2px; }
+
+    /* ===== TABS ===== */
+    .tabs {
+      display: flex; gap: 4px; margin-bottom: 16px; background: var(--card);
+      border-radius: 12px; padding: 4px; box-shadow: var(--shadow);
+    }
+    .tab {
+      flex: 1; padding: 10px 4px; border: none; background: none;
+      border-radius: 10px; font-size: 12px; font-weight: 600;
+      cursor: pointer; color: var(--text-sub); transition: all 0.2s;
+    }
+    .tab.active { background: var(--naver); color: #fff; }
+
+    /* ===== MISSION LIST ===== */
+    .mission-item {
+      display: flex; align-items: flex-start; gap: 12px; padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .mission-item:last-child { border-bottom: none; }
+    .mission-check {
+      width: 24px; height: 24px; border: 2px solid var(--border);
+      border-radius: 8px; cursor: pointer; display: flex;
+      align-items: center; justify-content: center; flex-shrink: 0;
+      transition: all 0.2s; margin-top: 2px;
+    }
+    .mission-check.done { background: var(--naver); border-color: var(--naver); }
+    .mission-check.done::after { content: '✓'; color: #fff; font-size: 14px; font-weight: 700; }
+    .mission-content { flex: 1; }
+    .mission-title { font-size: 14px; font-weight: 600; }
+    .mission-desc { font-size: 12px; color: var(--text-sub); margin-top: 2px; }
+    .mission-link {
+      display: inline-block; margin-top: 6px; padding: 4px 12px;
+      background: #f0fdf4; color: var(--naver); border-radius: 8px;
+      font-size: 12px; font-weight: 600;
+    }
+    .mission-da {
+      padding: 2px 8px; border-radius: 6px; font-size: 11px;
+      font-weight: 700; white-space: nowrap;
+    }
+    .da-s { background: #fef3c7; color: #92400e; }
+    .da-a { background: #dcfce7; color: #166534; }
+    .da-b { background: #dbeafe; color: #1e40af; }
+    .da-c { background: #f1f5f9; color: #475569; }
+
+    /* ===== SEO CHECKLIST ===== */
+    .seo-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 0; border-bottom: 1px solid var(--border);
+    }
+    .seo-item:last-child { border-bottom: none; }
+    .seo-item-label { font-size: 14px; font-weight: 500; }
+    .seo-score-btn {
+      min-width: 48px; padding: 6px 12px; border: 2px solid var(--border);
+      border-radius: 10px; font-size: 14px; font-weight: 700;
+      cursor: pointer; text-align: center; background: var(--card);
+      transition: all 0.2s;
+    }
+
+    /* ===== BACKLINK LIST ===== */
+    .backlink-item {
+      display: flex; align-items: center; gap: 12px; padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .backlink-item:last-child { border-bottom: none; }
+    .backlink-info { flex: 1; }
+    .backlink-name { font-size: 14px; font-weight: 600; }
+    .backlink-da { font-size: 12px; color: var(--text-sub); }
+    .backlink-go {
+      padding: 8px 14px; background: var(--naver); color: #fff;
+      border: none; border-radius: 10px; font-size: 12px;
+      font-weight: 700; cursor: pointer; white-space: nowrap;
+    }
+
+    /* ===== CALENDAR ===== */
+    .cal-grid {
+      display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px;
+    }
+    .cal-header { font-size: 11px; font-weight: 700; text-align: center; color: var(--text-sub); padding: 4px; }
+    .cal-day {
+      aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+      border-radius: 10px; font-size: 12px; font-weight: 600;
+    }
+    .cal-day.empty { background: none; }
+    .cal-day.done { background: var(--naver); color: #fff; }
+    .cal-day.partial { background: #bbf7d0; color: #166534; }
+    .cal-day.today { border: 2px solid var(--naver); }
+    .cal-day.future { color: #cbd5e1; }
+
+    /* ===== MODAL ===== */
+    .modal-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.5);
+      display: none; align-items: center; justify-content: center; z-index: 200;
+    }
+    .modal-overlay.show { display: flex; }
+    .modal {
+      background: var(--card); border-radius: 20px; padding: 32px; text-align: center;
+      max-width: 360px; width: 90%; box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+    }
+    .modal h3 { font-size: 20px; font-weight: 800; margin: 12px 0 8px; }
+    .modal p { font-size: 14px; color: var(--text-sub); }
+    .modal-btn {
+      margin-top: 20px; padding: 12px 32px; background: var(--naver);
+      color: #fff; border: none; border-radius: 12px; font-size: 15px;
+      font-weight: 700; cursor: pointer;
+    }
+
+    /* ===== CONFETTI ===== */
+    .confetti {
+      position: fixed; top: -10px; width: 10px; height: 10px;
+      border-radius: 2px; z-index: 300; animation: fall 3s ease-in forwards;
+    }
+    @keyframes fall {
+      to { top: 110vh; transform: rotate(720deg); opacity: 0; }
+    }
+
+    /* ===== PHASE BADGE ===== */
+    .phase-badge {
+      display: inline-block; padding: 4px 12px; border-radius: 20px;
+      font-size: 12px; font-weight: 700; margin-bottom: 8px;
+    }
+    .phase-1 { background: #dbeafe; color: #1d4ed8; }
+    .phase-2 { background: #fef3c7; color: #92400e; }
+    .phase-3 { background: #dcfce7; color: #166534; }
+    .phase-4 { background: #f3e8ff; color: #7c3aed; }
+
+    /* ===== RESET BUTTON ===== */
+    .reset-row { text-align: center; margin-top: 20px; margin-bottom: 40px; }
+    .reset-btn {
+      background: none; border: 1px solid var(--danger); color: var(--danger);
+      padding: 8px 20px; border-radius: 10px; font-size: 13px; cursor: pointer;
+    }
+
+    /* ===== HIDDEN SEO TEXT (크롤러 전용) ===== */
+    .seo-hidden {
+      position: absolute; left: -9999px; top: -9999px;
+      font-size: 1px; color: transparent; overflow: hidden; height: 1px; width: 1px;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 420px) {
+      .industry-grid { grid-template-columns: repeat(3, 1fr); gap: 6px; }
+      .industry-card { padding: 12px 4px; }
+      .industry-card .icon { font-size: 24px; }
+      .header-user { position: static; transform: none; justify-content: center; margin-top: 8px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hidden SEO content for crawlers -->
+  <div class="seo-hidden" aria-hidden="true">
+    <h2>네이버 스마트플레이스 상위노출 도구</h2>
+    <p>플레이스부스터는 네이버 스마트플레이스 SEO 최적화 점수 진단, 업종별 백링크 작업 관리, 일일 미션 제공을 통해 지역 비즈니스의 검색 노출을 향상시키는 무료 웹 도구입니다. 음식점, 카페, 미용실, 병원, 헬스장, 학원 등 다양한 업종을 지원합니다.</p>
+  </div>
+
+  <!-- HEADER -->
+  <header class="header" id="mainHeader">
+    <h1>플레이스부스터</h1>
+    <div class="header-sub">스마트플레이스 상위노출 미션 관리</div>
+    <div class="header-streak" id="streakBadge" style="display:none;"></div>
+    <div class="header-user" id="headerUser" style="display:none;"></div>
+  </header>
+
+  <main class="container">
+    <!-- ===== SCREEN: LOGIN ===== -->
+    <section id="loginScreen" class="login-screen">
+      <h2>내 플레이스,<br>상위노출 시작하기</h2>
+      <p>네이버 로그인으로 간편하게 시작하세요.<br>업체 정보가 자동으로 연동됩니다.</p>
+      <button class="naver-login-btn" onclick="startNaverLogin()">
+        <svg width="20" height="20" viewBox="0 0 20 20"><path d="M13.5 10.6L6.3 1H1v18h5.5V9.4L13.7 19H19V1h-5.5v9.6z" fill="#fff"/></svg>
+        네이버로 시작하기
+      </button>
+      <button class="skip-btn" onclick="skipLogin()">로그인 없이 시작하기</button>
+    </section>
+
+    <!-- ===== SCREEN: ONBOARDING ===== -->
+    <section id="onboardScreen" style="display:none;">
+      <!-- 업체 검색 -->
+      <div class="card" id="placeSearchCard">
+        <div class="card-title">📍 내 업체 찾기</div>
+        <div class="search-box">
+          <input type="text" id="placeInput" placeholder="업체명을 입력하세요 (예: 홍대 맛집 OO)" 
+                 onkeypress="if(event.key==='Enter')searchPlace()">
+          <button onclick="searchPlace()">검색</button>
+        </div>
+        <div class="search-results" id="searchResults"></div>
+        <div class="selected-place" id="selectedPlace" style="display:none;"></div>
+      </div>
+
+      <!-- 업종 선택 -->
+      <div class="card" id="industryCard" style="display:none;">
+        <div class="card-title">🏷️ 업종 선택</div>
+        <div class="industry-grid" id="industryGrid"></div>
+      </div>
+
+      <!-- 시작 -->
+      <button class="start-btn" id="startBtn" style="display:none;" onclick="startMission()" disabled>
+        미션 시작하기
+      </button>
+    </section>
+
+    <!-- ===== SCREEN: DASHBOARD ===== -->
+    <section id="dashboardScreen" style="display:none;">
+      <!-- 진행률 -->
+      <div class="card" style="text-align:center;">
+        <div class="phase-badge" id="phaseBadge"></div>
+        <svg class="progress-ring" width="120" height="120" viewBox="0 0 120 120">
+          <circle cx="60" cy="60" r="54" stroke="#e2e8f0" stroke-width="8" fill="none"/>
+          <circle id="progressCircle" cx="60" cy="60" r="54" stroke="#03C75A" stroke-width="8"
+                  fill="none" stroke-linecap="round" stroke-dasharray="339.3" stroke-dashoffset="339.3"
+                  transform="rotate(-90 60 60)"/>
+        </svg>
+        <div class="progress-percent" id="progressPercent">0%</div>
+        <div class="progress-text" id="progressText">오늘의 미션을 시작하세요!</div>
+      </div>
+
+      <!-- 통계 -->
+      <div class="stats-row">
+        <div class="stat-box">
+          <div class="stat-value" id="statSEO" style="color:var(--naver);">0</div>
+          <div class="stat-label">SEO 점수</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value" id="statTotal" style="color:var(--info);">0</div>
+          <div class="stat-label">총 완료</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value" id="statDay" style="color:var(--warning);">D+1</div>
+          <div class="stat-label">진행일</div>
+        </div>
+      </div>
+
+      <!-- 탭 -->
+      <div class="tabs">
+        <button class="tab active" onclick="switchTab('mission')">미션</button>
+        <button class="tab" onclick="switchTab('seo')">SEO진단</button>
+        <button class="tab" onclick="switchTab('backlink')">백링크</button>
+        <button class="tab" onclick="switchTab('calendar')">캘린더</button>
+      </div>
+
+      <!-- 미션 탭 -->
+      <div class="card tab-content" id="tab-mission">
+        <div class="card-title">🎯 오늘의 미션</div>
+        <div id="missionList"></div>
+      </div>
+
+      <!-- SEO 진단 탭 -->
+      <div class="card tab-content" id="tab-seo" style="display:none;">
+        <div class="card-title">📊 SEO 자가진단 (클릭으로 점수 변경)</div>
+        <div id="seoList"></div>
+        <div style="margin-top:16px;text-align:center;">
+          <div style="font-size:32px;font-weight:800;" id="seoTotalScore">0 / 100</div>
+          <div style="font-size:14px;margin-top:4px;" id="seoGrade"></div>
+        </div>
+      </div>
+
+      <!-- 백링크 탭 -->
+      <div class="card tab-content" id="tab-backlink" style="display:none;">
+        <div class="card-title">🔗 백링크 허브 (DA 순)</div>
+        <div id="backlinkList"></div>
+      </div>
+
+      <!-- 캘린더 탭 -->
+      <div class="card tab-content" id="tab-calendar" style="display:none;">
+        <div class="card-title" id="calTitle">📅 2026년 4월</div>
+        <div class="cal-grid" id="calGrid"></div>
+      </div>
+
+      <!-- 리셋 -->
+      <div class="reset-row">
+        <button class="reset-btn" onclick="resetAll()">전체 초기화</button>
+      </div>
+    </section>
+  </main>
+
+  <!-- 완료 모달 -->
+  <div class="modal-overlay" id="completeModal">
+    <div class="modal">
+      <div style="font-size:48px;">🎉</div>
+      <h3>오늘의 미션 완료!</h3>
+      <p>모든 미션을 완료했습니다.<br>내일도 이어서 도전하세요!</p>
+      <button class="modal-btn" onclick="closeModal()">확인</button>
+    </div>
+  </div>
+
+  <script>
+    /* ========================================================
+       CONFIG
+    ======================================================== */
+    const NAVER_CLIENT_ID = 'YOUR_NAVER_CLIENT_ID'; // ← 네이버 개발자센터에서 발급
+    const REDIRECT_URI = 'https://place.living1004.com/callback';
+    const SITE_URL = 'https://place.living1004.com';
+
+    /* ========================================================
+       INDUSTRY DATA (업종별 백링크 사이트)
+    ======================================================== */
+    const INDUSTRY_DATA = {
+      restaurant: {
+        name: '음식점', icon: '🍽️',
+        keywords: ['맛집','음식점','레스토랑','식당','한식','중식','일식','양식','분식'],
+        backlinks: [
+          { name: '네이버 블로그', da: 92, url: 'https://blog.naver.com' },
+          { name: '맛집탐방 카페', da: 78, url: 'https://cafe.naver.com/matjib' },
+          { name: '전국맛집여행', da: 74, url: 'https://cafe.naver.com/jmfoods' },
+          { name: '오늘뭐먹지', da: 70, url: 'https://cafe.naver.com/todayeat' },
+          { name: '맘스홀릭베이비', da: 82, url: 'https://cafe.naver.com/imsanbu' },
+          { name: '아이보스', da: 75, url: 'https://www.i-boss.co.kr' },
+          { name: '티스토리', da: 85, url: 'https://www.tistory.com' },
+          { name: '브런치', da: 80, url: 'https://brunch.co.kr' },
+          { name: '인스타그램', da: 96, url: 'https://www.instagram.com' },
+          { name: '클리앙', da: 72, url: 'https://www.clien.net' }
+        ]
+      },
+      cafe: {
+        name: '카페', icon: '☕',
+        keywords: ['카페','커피','디저트','베이커리','브런치카페'],
+        backlinks: [
+          { name: '네이버 블로그', da: 92, url: 'https://blog.naver.com' },
+          { name: '카페탐방 카페', da: 76, url: 'https://cafe.naver.com/cafetour' },
+          { name: '디저트매니아', da: 68, url: 'https://cafe.naver.com/dessertmania' },
+          { name: '맘스홀릭베이비', da: 82, url: 'https://cafe.naver.com/imsanbu' },
+          { name: '티스토리', da: 85, url: 'https://www.tistory.com' },
+          { name: '브런치', da: 80, url: 'https://brunch.co.kr' },
+          { name: '인스타그램', da: 96, url: 'https://www.instagram.com' },
+          { name: '클리앙', da: 72, url: 'https://www.clien.net' },
+          { name: '뽐뿌', da: 70, url: 'https://www.ppomppu.co.kr' }
+        ]
+      },
+      beauty: {
+        name: '뷰티', icon: '💇',
+        keywords: ['미용실','헤어','네일','네일샵','피부관리','에스테틱','속눈썹'],
+        backlinks: [
+          { name: '네이버 블로그', da: 92, url: 'https://blog.naver.com' },
+          { name: '파우더룸', da: 76, url: 'https://www.powderroom.co.kr' },
+          { name: '뷰티인미', da: 68, url: 'https://cafe.naver.com/beautyme' },
+          { name: '맘스홀릭베이비', da: 82, url: 'https://cafe.naver.com/imsanbu' },
+          { name: '인스타그램', da: 96, url: 'https://www.instagram.com' },
+          { name: '티스토리', da: 85, url: 'https://www.tistory.com' },
+          { name: '브런치', da: 80, url: 'https://brunch.co.kr' },
+          { name: '클리앙', da: 72, url: 'https://www.clien.net' }
+        ]
+      },
+      hospital: {
+        name: '병원', icon: '🏥',
+        keywords: ['병원','의원','치과','피부과','한의원','정형외과','안과','이비인후과'],
+        backlinks: [
+          { name: '네이버 블로그', da: 92, url: 'https://blog.naver.com' },
+          { name: '맘스홀릭베이비', da: 82, url: 'https://cafe.naver.com/imsanbu' },
+          { name: '건강백세', da: 70, url: 'https://cafe.naver.com/health100' },
+          { name: '아이보스', da: 75, url: 'https://www.i-boss.co.kr' },
+          { name: '티스토리', da: 85, url: 'https://www.tistory.com' },
+          { name: '브런치', da: 80, url: 'https://brunch.co.kr' },
+          { name: '인스타그램', da: 96, url: 'https://www.instagram.com' },
+          { name: '클리앙', da: 72, url: 'https://www.clien.net' }
+        ]
+      },
+      fitness: {
+        name: '헬스/PT', icon: '💪',
+        keywords: ['헬스','PT','필라테스','요가','크로스핏','피트니스','GX'],
+        backlinks: [
+          { name: '네이버 블로그', da: 92, url: 'https://blog.naver.com' },
+          { name: '운동하는 직장인', da: 66, url: 'https://cafe.naver.com/exercise' },
+          { name: '필라테스매니아', da: 62, url: 'https://cafe.naver.com/pilatesmania' },
+          { name: '맘스홀릭베이비', da: 82, url: 'https://cafe.naver.com/imsanbu' },
+          { name: '티스토리', da: 85, url: 'https://www.tistory.com' },
+          { name: '인스타그램', da: 96, url: 'https://www.instagram.com' },
+          { name: '브런치', da: 80, url: 'https://brunch.co.kr' }
+        ]
+      },
+      education: {
+        name: '학원', icon: '📚',
+        keywords: ['학원','과외','교습소','어학원','코딩','입시'],
+        backlinks: [
+          { name: '네이버 블로그', da: 92, url: 'https://blog.naver.com' },
+          { name: '수만휘', da: 80, url: 'https://cafe.naver.com/suhui' },
+          { name: '맘스홀릭베이비', da: 82, url: 'https://cafe.naver.com/imsanbu' },
+          { name: '아이보스', da: 75, url: 'https://www.i-boss.co.kr' },
+          { name: '티스토리', da: 85, url: 'https://www.tistory.com' },
+          { name: '인스타그램', da: 96, url: 'https://www.instagram.com' },
+          { name: '브런치', da: 80, url: 'https://brunch.co.kr' }
+        ]
+      },
+      shopping: {
+        name: '쇼핑', icon: '🛍️',
+        keywords: ['매장','옷가게','쇼핑','편집샵','꽃집','안경'],
+        backlinks: [
+          { name: '네이버 블로그', da: 92, url: 'https://blog.naver.com' },
+          { name: '맘스홀릭베이비', da: 82, url: 'https://cafe.naver.com/imsanbu' },
+          { name: '뽐뿌', da: 70, url: 'https://www.ppomppu.co.kr' },
+          { name: '클리앙', da: 72, url: 'https://www.clien.net' },
+          { name: '티스토리', da: 85, url: 'https://www.tistory.com' },
+          { name: '인스타그램', da: 96, url: 'https://www.instagram.com' }
+        ]
+      },
+      service: {
+        name: '생활서비스', icon: '🔧',
+        keywords: ['세탁','수리','이사','인테리어','청소','철물','열쇠'],
+        backlinks: [
+          { name: '네이버 블로그', da: 92, url: 'https://blog.naver.com' },
+          { name: '아이보스', da: 75, url: 'https://www.i-boss.co.kr' },
+          { name: '맘스홀릭베이비', da: 82, url: 'https://cafe.naver.com/imsanbu' },
+          { name: '티스토리', da: 85, url: 'https://www.tistory.com' },
+          { name: '클리앙', da: 72, url: 'https://www.clien.net' },
+          { name: '인스타그램', da: 96, url: 'https://www.instagram.com' }
+        ]
+      },
+      pet: {
+        name: '반려동물', icon: '🐾',
+        keywords: ['동물병원','펫샵','펫호텔','애견미용','반려동물'],
+        backlinks: [
+          { name: '네이버 블로그', da: 92, url: 'https://blog.naver.com' },
+          { name: '강아지를 부탁해', da: 72, url: 'https://cafe.naver.com/dogpalza' },
+          { name: '고양이라서 다행이야', da: 68, url: 'https://cafe.naver.com/catlovers' },
+          { name: '맘스홀릭베이비', da: 82, url: 'https://cafe.naver.com/imsanbu' },
+          { name: '티스토리', da: 85, url: 'https://www.tistory.com' },
+          { name: '인스타그램', da: 96, url: 'https://www.instagram.com' },
+          { name: '브런치', da: 80, url: 'https://brunch.co.kr' }
+        ]
+      }
+    };
+
+    /* ========================================================
+       SEO CHECKLIST
+    ======================================================== */
+    const SEO_CHECKLIST = [
+      { id: 'keyword', label: '대표 키워드 5개 설정', max: 10 },
+      { id: 'category', label: '세부 카테고리 설정', max: 10 },
+      { id: 'photos', label: '사진 10장 이상 등록', max: 10 },
+      { id: 'info', label: '영업정보 정확성 (시간·전화·주소)', max: 10 },
+      { id: 'booking', label: '네이버 예약 활성화', max: 10 },
+      { id: 'talk', label: '네이버 톡톡 활성화', max: 10 },
+      { id: 'review', label: '리뷰 10개 이상 + 사진 비율', max: 10 },
+      { id: 'reply', label: '리뷰 답글 (키워드 포함)', max: 10 },
+      { id: 'external', label: '외부 콘텐츠 연계 (블로그·SNS)', max: 10 },
+      { id: 'save', label: '저장·공유 수 확보', max: 10 }
+    ];
+
+    const SCORE_CYCLE = [0, 3, 5, 8, 10];
+
+    /* ========================================================
+       STATE
+    ======================================================== */
+    let state = loadState();
+
+    function loadState() {
+      try {
+        const s = JSON.parse(localStorage.getItem('placeBoosterState'));
+        if (s && s.version === 2) return s;
+      } catch(e) {}
+      return defaultState();
+    }
+
+    function defaultState() {
+      return {
+        version: 2,
+        placeName: '',
+        placeCategory: '',
+        placeAddress: '',
+        industry: '',
+        startDate: '',
+        missions: {},       // { 'YYYY-MM-DD': { id: true/false } }
+        seoScores: {},       // { keyword: 0, category: 5, ... }
+        totalCompleted: 0,
+        streak: 0,
+        calendarData: {}     // { 'YYYY-MM-DD': 'done'|'partial'|'none' }
+      };
+    }
+
+    function saveState() {
+      localStorage.setItem('placeBoosterState', JSON.stringify(state));
+    }
+
+    /* ========================================================
+       NAVER LOGIN
+    ======================================================== */
+    function startNaverLogin() {
+      const oauthState = Math.random().toString(36).substr(2);
+      sessionStorage.setItem('naverOAuthState', oauthState);
+      const url = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${NAVER_CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&state=${oauthState}`;
+      window.location.href = url;
+    }
+
+    function skipLogin() {
+      document.getElementById('loginScreen').style.display = 'none';
+      document.getElementById('onboardScreen').style.display = 'block';
+      renderIndustryGrid();
+    }
+
+    function getNaverUser() {
+      try { return JSON.parse(localStorage.getItem('naverUser')); }
+      catch(e) { return null; }
+    }
+
+    function naverLogout() {
+      localStorage.removeItem('naverUser');
+      window.location.reload();
+    }
+
+    /* ========================================================
+       PLACE SEARCH
+    ======================================================== */
+    async function searchPlace() {
+      const query = document.getElementById('placeInput').value.trim();
+      if (!query) return;
+      const resultsEl = document.getElementById('searchResults');
+      resultsEl.innerHTML = '<div style="text-align:center;padding:12px;color:var(--text-sub);">검색 중...</div>';
+
+      try {
+        const res = await fetch(`/api/naver-search?query=${encodeURIComponent(query)}`);
+        const data = await res.json();
+
+        if (!data.items || data.items.length === 0) {
+          resultsEl.innerHTML = `
+            <div style="text-align:center;padding:16px;color:var(--text-sub);">
+              검색 결과가 없습니다.<br>
+              <a href="https://map.naver.com/p/search/${encodeURIComponent(query)}" target="_blank" style="font-size:13px;">
+                네이버 지도에서 직접 검색하기 →
+              </a>
+            </div>`;
+          return;
+        }
+
+        resultsEl.innerHTML = data.items.map((item, i) => `
+          <div class="search-item" onclick="selectPlace(${i})">
+            <div class="search-item-name">${item.title.replace(/<\/?b>/g,'')}</div>
+            <div class="search-item-category">${item.category || ''}</div>
+            <div class="search-item-address">${item.roadAddress || item.address || ''}</div>
+          </div>
+        `).join('');
+
+        window._searchResults = data.items;
+      } catch(err) {
+        resultsEl.innerHTML = `
+          <div style="padding:16px;">
+            <p style="color:var(--text-sub);margin-bottom:8px;">API 연결 전에는 수동으로 입력해주세요.</p>
+            <button onclick="manualInput()" style="padding:8px 16px;background:var(--naver);color:#fff;border:none;border-radius:8px;cursor:pointer;">
+              수동 입력으로 진행
+            </button>
+          </div>`;
+      }
+    }
+
+    function selectPlace(idx) {
+      const item = window._searchResults[idx];
+      const name = item.title.replace(/<\/?b>/g, '');
+      state.placeName = name;
+      state.placeCategory = item.category || '';
+      state.placeAddress = item.roadAddress || item.address || '';
+      saveState();
+
+      document.getElementById('searchResults').innerHTML = '';
+      const el = document.getElementById('selectedPlace');
+      el.style.display = 'block';
+      el.innerHTML = `
+        <div class="selected-place-name">✅ ${name}</div>
+        <div class="selected-place-info">${state.placeCategory}</div>
+        <div class="selected-place-info">${state.placeAddress}</div>
+      `;
+
+      // 업종 자동 추측 & 표시
+      document.getElementById('industryCard').style.display = 'block';
+      document.getElementById('startBtn').style.display = 'block';
+      renderIndustryGrid();
+      autoDetectIndustry(state.placeCategory);
+    }
+
+    function manualInput() {
+      const name = prompt('업체명을 입력하세요:');
+      if (!name) return;
+      state.placeName = name;
+      state.placeCategory = '';
+      state.placeAddress = '';
+      saveState();
+
+      document.getElementById('searchResults').innerHTML = '';
+      const el = document.getElementById('selectedPlace');
+      el.style.display = 'block';
+      el.innerHTML = `<div class="selected-place-name">✅ ${name}</div>`;
+
+      document.getElementById('industryCard').style.display = 'block';
+      document.getElementById('startBtn').style.display = 'block';
+      renderIndustryGrid();
+    }
+
+    /* ========================================================
+       INDUSTRY
+    ======================================================== */
+    function renderIndustryGrid() {
+      const grid = document.getElementById('industryGrid');
+      grid.innerHTML = Object.entries(INDUSTRY_DATA).map(([key, val]) => `
+        <div class="industry-card ${state.industry===key?'selected':''}" onclick="selectIndustry('${key}')">
+          <div class="icon">${val.icon}</div>
+          <div class="label">${val.name}</div>
+        </div>
+      `).join('');
+    }
+
+    function selectIndustry(key) {
+      state.industry = key;
+      saveState();
+      renderIndustryGrid();
+      document.getElementById('startBtn').disabled = false;
+    }
+
+    function autoDetectIndustry(category) {
+      if (!category) return;
+      const cat = category.toLowerCase();
+      for (const [key, val] of Object.entries(INDUSTRY_DATA)) {
+        if (val.keywords.some(kw => cat.includes(kw))) {
+          selectIndustry(key);
+          return;
+        }
+      }
+    }
+
+    /* ========================================================
+       MISSION GENERATION
+    ======================================================== */
+    function getToday() {
+      return new Date().toISOString().slice(0, 10);
+    }
+
+    function getDayNum() {
+      if (!state.startDate) return 1;
+      const diff = Math.floor((new Date(getToday()) - new Date(state.startDate)) / 86400000);
+      return Math.max(1, diff + 1);
+    }
+
+    function getPhase(dayNum) {
+      if (dayNum <= 14) return { num: 1, name: '안정기', cls: 'phase-1', daily: '2~3건' };
+      if (dayNum <= 28) return { num: 2, name: '확장기', cls: 'phase-2', daily: '3~5건' };
+      if (dayNum <= 56) return { num: 3, name: '가속기', cls: 'phase-3', daily: '5~7건' };
+      return { num: 4, name: '유지기', cls: 'phase-4', daily: '3~4건' };
+    }
+
+    function generateMissions(dayNum) {
+      const phase = getPhase(dayNum);
+      const ind = INDUSTRY_DATA[state.industry] || INDUSTRY_DATA.restaurant;
+      const missions = [];
+      const dayOfWeek = new Date().getDay(); // 0=Sun
+
+      // 기본 미션 (매일)
+      missions.push({
+        id: 'review_reply',
+        title: '리뷰 답글 작성',
+        desc: '최신 리뷰에 키워드 포함 답글을 작성하세요',
+        link: 'https://new.smartplace.naver.com',
+        linkText: '스마트플레이스 관리'
+      });
+
+      if (dayNum % 2 === 1) {
+        missions.push({
+          id: 'photo_upload',
+          title: '사진 1장 이상 업로드',
+          desc: '메뉴/인테리어/이벤트 사진을 추가하세요',
+          link: 'https://new.smartplace.naver.com',
+          linkText: '사진 관리'
+        });
+      }
+
+      // 백링크 미션 (단계별)
+      const sorted = [...ind.backlinks].sort((a,b) => b.da - a.da);
+      let blCount = phase.num === 1 ? 2 : phase.num === 2 ? 3 : phase.num === 3 ? 4 : 2;
+      const startIdx = (dayNum - 1) % sorted.length;
+
+      for (let i = 0; i < blCount; i++) {
+        const bl = sorted[(startIdx + i) % sorted.length];
+        const daClass = bl.da >= 80 ? 'da-s' : bl.da >= 60 ? 'da-a' : bl.da >= 40 ? 'da-b' : 'da-c';
+        missions.push({
+          id: `backlink_${i}`,
+          title: `${bl.name}에 후기/글 작성`,
+          desc: `DA ${bl.da} · "${state.placeName}" 키워드 포함`,
+          link: bl.url,
+          linkText: '작업하기',
+          daClass
+        });
+      }
+
+      // SEO 점검 미션 (주 1회, 월요일)
+      if (dayOfWeek === 1) {
+        missions.push({
+          id: 'seo_check',
+          title: 'SEO 점수 재점검',
+          desc: 'SEO진단 탭에서 항목별 점수를 업데이트하세요',
+          link: null
