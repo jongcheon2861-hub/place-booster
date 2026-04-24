@@ -1,8 +1,9 @@
 const CryptoJS = require('crypto-js');
 
 module.exports = async (req, res) => {
-  // CORS
   res.setHeader('Access-Control-Allow-Origin', 'https://place.living1004.com');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   if (req.method === 'OPTIONS') return res.status(200).end();
 
   const { keyword } = req.query;
@@ -15,12 +16,11 @@ module.exports = async (req, res) => {
   const accessKey = process.env.NAVER_AD_ACCESS;
   const customerId = process.env.NAVER_AD_CUSTOMER;
 
-  // HMAC-SHA256 서명 생성
   const hmac = CryptoJS.algo.HMAC.create(CryptoJS.algo.SHA256, secretKey);
   hmac.update(timestamp + '.' + method + '.' + uri);
   const signature = hmac.finalize().toString(CryptoJS.enc.Base64);
 
-  const url = `https://api.naver.com/keywordstool?hintKeywords=${encodeURIComponent(keyword)}&showDetail=1`;
+  const url = 'https://api.naver.com/keywordstool?hintKeywords=' + encodeURIComponent(keyword) + '&showDetail=1';
 
   try {
     const response = await fetch(url, {
@@ -33,10 +33,9 @@ module.exports = async (req, res) => {
     });
     const data = await response.json();
 
-    // 키워드 등급 자동 분류
-    const classified = (data.keywordList || []).map(kw => {
-      const total = (kw.monthlyPcQcCnt || 0) + (kw.monthlyMobileQcCnt || 0);
-      let grade = '소형';
+    const classified = (data.keywordList || []).map(function(kw) {
+      var total = (kw.monthlyPcQcCnt || 0) + (kw.monthlyMobileQcCnt || 0);
+      var grade = '소형';
       if (total >= 5000) grade = '대형';
       else if (total >= 1000) grade = '중형';
       return {
@@ -47,12 +46,11 @@ module.exports = async (req, res) => {
         avgClickPC: kw.monthlyAvePcClkCnt,
         avgClickMobile: kw.monthlyAveMobileClkCnt,
         competition: kw.compIdx,
-        grade
+        grade: grade
       };
     });
 
-    // 검색량 내림차순 정렬
-    classified.sort((a, b) => b.totalVolume - a.totalVolume);
+    classified.sort(function(a, b) { return b.totalVolume - a.totalVolume; });
 
     res.status(200).json({ keywords: classified });
   } catch (err) {
