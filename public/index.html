@@ -8,131 +8,146 @@
 <link rel="canonical" href="https://place.living1004.com/">
 <meta name="naver-site-verification" content="YOUR_NAVER_VERIFICATION_CODE">
 <meta name="google-site-verification" content="YOUR_GOOGLE_VERIFICATION_CODE">
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebApplication","name":"플레이스부스터","url":"https://place.living1004.com","description":"네이버 스마트플레이스 상위노출을 위한 키워드 분석·소개글 생성·SEO 진단·미션 관리 도구","offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"},"inLanguage":"ko"}
-</script>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root{--primary:#03C75A;--primary-dark:#02a34b;--bg:#f5f6f8;--card:#fff;--text:#222;--text-sub:#666;--border:#e0e0e0;--red:#ff4757;--orange:#ffa502;--blue:#3742fa;--radius:14px;--shadow:0 2px 12px rgba(0,0,0,.08)}
+:root{--primary:#03C75A;--primary-dark:#028a3d;--primary-light:#e8f9ee;--bg:#f0f2f5;--card:#fff;--text:#1a1a1a;--text-sub:#6b7280;--border:#e5e7eb;--red:#ef4444;--orange:#f59e0b;--blue:#3b82f6;--purple:#8b5cf6;--radius:16px;--shadow:0 1px 3px rgba(0,0,0,.06),0 4px 16px rgba(0,0,0,.06)}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
-.container{max-width:480px;margin:0 auto;padding:0 16px 100px}
-header{background:var(--primary);color:#fff;text-align:center;padding:18px 0 14px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.15)}
-header h1{font-size:20px;font-weight:800;letter-spacing:-0.5px}
-header p{font-size:11px;opacity:.85;margin-top:2px}
-.login-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:70vh;text-align:center}
-.login-screen h2{font-size:26px;font-weight:800;margin-bottom:8px}
-.login-screen p{color:var(--text-sub);margin-bottom:30px;font-size:14px}
-.btn-naver{background:var(--primary);color:#fff;border:none;padding:14px 40px;border-radius:50px;font-size:16px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:8px;box-shadow:var(--shadow)}
-.btn-naver:hover{background:var(--primary-dark)}
-.btn-skip{background:none;border:none;color:var(--text-sub);margin-top:14px;cursor:pointer;font-size:13px;text-decoration:underline}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased}
+.container{max-width:480px;margin:0 auto;padding:0 16px 110px}
+header{background:linear-gradient(135deg,#03C75A 0%,#028a3d 100%);color:#fff;text-align:center;padding:20px 0 16px;position:sticky;top:0;z-index:100;box-shadow:0 4px 20px rgba(3,199,90,.25)}
+header h1{font-size:22px;font-weight:800;letter-spacing:-.5px}
+header p{font-size:11px;opacity:.8;margin-top:3px}
+.login-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:75vh;text-align:center;padding:20px}
+.login-screen h2{font-size:28px;font-weight:800;margin-bottom:6px;background:linear-gradient(135deg,#03C75A,#028a3d);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.login-screen p{color:var(--text-sub);margin-bottom:32px;font-size:14px;line-height:1.6}
+.btn-naver{background:linear-gradient(135deg,#03C75A,#02a34b);color:#fff;border:none;padding:16px 48px;border-radius:50px;font-size:16px;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(3,199,90,.3);transition:all .2s}
+.btn-naver:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(3,199,90,.4)}
+.btn-skip{background:none;border:none;color:var(--text-sub);margin-top:16px;cursor:pointer;font-size:13px;text-decoration:underline}
 .onboarding{display:none}
 .ob-step{margin-top:24px}
-.ob-step h3{font-size:18px;font-weight:700;margin-bottom:12px}
+.ob-step h3{font-size:18px;font-weight:700;margin-bottom:14px}
 .search-box{display:flex;gap:8px;margin-bottom:16px}
-.search-box input{flex:1;padding:12px 14px;border:2px solid var(--border);border-radius:10px;font-size:14px;outline:none}
+.search-box input{flex:1;padding:13px 16px;border:2px solid var(--border);border-radius:12px;font-size:14px;outline:none;transition:border .2s}
 .search-box input:focus{border-color:var(--primary)}
-.search-box button{background:var(--primary);color:#fff;border:none;padding:12px 20px;border-radius:10px;font-weight:700;cursor:pointer;white-space:nowrap}
+.search-box button{background:var(--primary);color:#fff;border:none;padding:13px 22px;border-radius:12px;font-weight:700;cursor:pointer;white-space:nowrap;transition:background .2s}
+.search-box button:hover{background:var(--primary-dark)}
 .place-list{display:flex;flex-direction:column;gap:8px}
-.place-item{background:var(--card);border:2px solid var(--border);border-radius:var(--radius);padding:14px;cursor:pointer;transition:.2s}
-.place-item:hover{border-color:var(--primary);background:#f0faf4}
+.place-item{background:var(--card);border:2px solid var(--border);border-radius:var(--radius);padding:16px;cursor:pointer;transition:all .2s}
+.place-item:hover{border-color:var(--primary);background:var(--primary-light);transform:translateY(-1px)}
 .place-item h4{font-size:15px;font-weight:600}
 .place-item p{font-size:12px;color:var(--text-sub);margin-top:4px}
 .industry-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
-.ind-btn{background:var(--card);border:2px solid var(--border);border-radius:12px;padding:16px 8px;text-align:center;cursor:pointer;transition:.2s;font-size:12px;font-weight:600}
-.ind-btn:hover,.ind-btn.active{border-color:var(--primary);background:#f0faf4}
-.ind-btn .icon{font-size:28px;display:block;margin-bottom:6px}
-.btn-next{background:var(--primary);color:#fff;border:none;padding:14px;border-radius:12px;font-size:16px;font-weight:700;cursor:pointer;width:100%;margin-top:16px;display:none}
-.tab-nav{display:flex;position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--border);z-index:100;max-width:480px;margin:0 auto}
-.tab-btn{flex:1;padding:10px 0 8px;text-align:center;background:none;border:none;cursor:pointer;font-size:10px;color:var(--text-sub);font-weight:500;transition:.2s}
+.ind-btn{background:var(--card);border:2px solid var(--border);border-radius:14px;padding:18px 8px;text-align:center;cursor:pointer;transition:all .2s;font-size:12px;font-weight:600}
+.ind-btn:hover,.ind-btn.active{border-color:var(--primary);background:var(--primary-light);transform:translateY(-1px)}
+.ind-btn .icon{font-size:30px;display:block;margin-bottom:6px}
+.btn-next{background:linear-gradient(135deg,#03C75A,#02a34b);color:#fff;border:none;padding:16px;border-radius:14px;font-size:16px;font-weight:700;cursor:pointer;width:100%;margin-top:16px;display:none;box-shadow:0 4px 16px rgba(3,199,90,.25)}
+.tab-nav{display:flex;position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--border);z-index:100;max-width:480px;margin:0 auto;box-shadow:0 -2px 10px rgba(0,0,0,.05)}
+.tab-btn{flex:1;padding:10px 0 8px;text-align:center;background:none;border:none;cursor:pointer;font-size:10px;color:var(--text-sub);font-weight:500;transition:all .2s;position:relative}
 .tab-btn.active{color:var(--primary);font-weight:700}
+.tab-btn.active::after{content:'';position:absolute;top:-1px;left:25%;right:25%;height:3px;background:var(--primary);border-radius:0 0 4px 4px}
 .tab-btn .tab-icon{font-size:20px;display:block;margin-bottom:2px}
 .dashboard{display:none}
 .tab-content{display:none}
 .tab-content.active{display:block}
-.user-bar{display:flex;align-items:center;justify-content:space-between;padding:16px 0}
-.user-bar .name{font-weight:700;font-size:15px}
-.user-bar .place{font-size:12px;color:var(--text-sub)}
-.btn-logout{background:none;border:1px solid var(--border);border-radius:8px;padding:6px 12px;font-size:12px;cursor:pointer;color:var(--text-sub)}
-.card{background:var(--card);border-radius:var(--radius);padding:18px;margin-bottom:14px;box-shadow:var(--shadow)}
-.card h3{font-size:16px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:6px}
-.card-sub{font-size:12px;color:var(--text-sub);margin-bottom:10px}
-.kw-result-table{width:100%;border-collapse:collapse;font-size:12px;margin-top:10px}
-.kw-result-table th{background:#f5f6f8;padding:8px 6px;text-align:left;font-weight:600;border-bottom:2px solid var(--border);white-space:nowrap}
-.kw-result-table td{padding:8px 6px;border-bottom:1px solid #f0f0f0}
-.grade-tag{display:inline-block;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:700;color:#fff}
+.user-bar{display:flex;align-items:center;justify-content:space-between;padding:18px 0 10px}
+.user-bar .info .name{font-weight:700;font-size:16px}
+.user-bar .info .place{font-size:12px;color:var(--text-sub);margin-top:2px}
+.btn-logout{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:8px 14px;font-size:12px;cursor:pointer;color:var(--text-sub);font-weight:500;transition:all .2s}
+.btn-logout:hover{background:#e5e7eb}
+.card{background:var(--card);border-radius:var(--radius);padding:20px;margin-bottom:14px;box-shadow:var(--shadow);border:1px solid rgba(0,0,0,.03)}
+.card h3{font-size:17px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.card-sub{font-size:12px;color:var(--text-sub);margin-bottom:12px;line-height:1.5}
+.kw-result-table{width:100%;border-collapse:collapse;font-size:12px;margin-top:12px}
+.kw-result-table th{background:var(--bg);padding:10px 8px;text-align:left;font-weight:600;border-bottom:2px solid var(--border);white-space:nowrap;font-size:11px;color:var(--text-sub);text-transform:uppercase}
+.kw-result-table td{padding:10px 8px;border-bottom:1px solid #f3f4f6}
+.kw-result-table tr:hover{background:#fafafa}
+.grade-tag{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;color:#fff}
 .grade-large{background:var(--red)}
 .grade-medium{background:var(--orange)}
 .grade-small{background:var(--blue)}
-.recommend-box{background:#f0faf4;border:2px solid var(--primary);border-radius:12px;padding:14px;margin-top:12px}
-.recommend-box h4{font-size:14px;font-weight:700;color:var(--primary);margin-bottom:8px}
-.recommend-box li{font-size:13px;margin-bottom:4px;list-style:none;padding-left:16px;position:relative}
+.recommend-box{background:linear-gradient(135deg,#e8f9ee 0%,#d1fae5 100%);border:2px solid var(--primary);border-radius:14px;padding:18px;margin-top:14px}
+.recommend-box h4{font-size:15px;font-weight:700;color:var(--primary-dark);margin-bottom:10px}
+.recommend-box li{font-size:13px;margin-bottom:6px;list-style:none;padding-left:20px;position:relative;line-height:1.5}
 .recommend-box li::before{content:"✓";position:absolute;left:0;color:var(--primary);font-weight:700}
-.trend-chart{display:flex;align-items:flex-end;gap:4px;height:120px;margin-top:10px;padding:0 4px}
+.trend-chart{display:flex;align-items:flex-end;gap:4px;height:120px;margin-top:12px;padding:0 4px}
 .trend-bar-wrap{flex:1;display:flex;flex-direction:column;align-items:center}
-.trend-bar{width:100%;background:var(--primary);border-radius:4px 4px 0 0;min-height:4px;transition:height .5s}
+.trend-bar{width:100%;background:linear-gradient(180deg,#03C75A,#02a34b);border-radius:4px 4px 0 0;min-height:4px;transition:height .6s ease}
 .trend-label{font-size:9px;color:var(--text-sub);margin-top:4px}
 .trend-value{font-size:9px;font-weight:600;margin-bottom:2px}
-.guide-intro-card{background:#fffdf0;border:2px solid #ffd43b;border-radius:12px;padding:14px;margin-bottom:12px}
-.guide-intro-card h4{font-size:14px;font-weight:700;margin-bottom:6px}
-.guide-intro-card p{font-size:13px;line-height:1.6;color:#333}
-.guide-section{border-left:3px solid var(--primary);padding-left:12px;margin-bottom:14px}
+.guide-intro-card{background:#fffef5;border:2px solid #fbbf24;border-radius:14px;padding:16px;margin-bottom:14px}
+.guide-intro-card h4{font-size:14px;font-weight:700;margin-bottom:4px}
+.guide-section{border-left:3px solid var(--primary);padding-left:14px;margin-bottom:16px}
 .guide-section h4{font-size:14px;font-weight:700;margin-bottom:4px}
-.guide-section .hint{font-size:12px;color:var(--text-sub);margin-bottom:4px}
+.guide-section .hint{font-size:12px;color:var(--text-sub);margin-bottom:4px;line-height:1.5}
 .guide-section .kw-insert{font-size:12px;color:var(--primary);font-weight:600}
 .tip-list{margin-top:10px}
-.tip-list li{font-size:13px;margin-bottom:6px;padding-left:20px;position:relative;list-style:none;line-height:1.5}
+.tip-list li{font-size:13px;margin-bottom:8px;padding-left:22px;position:relative;list-style:none;line-height:1.6}
 .tip-list li::before{content:"💡";position:absolute;left:0}
 .placement-map{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
-.placement-item{background:#f5f6f8;border-radius:8px;padding:10px;font-size:12px}
-.placement-item strong{display:block;font-size:11px;color:var(--primary);margin-bottom:3px}
-.warning-box{background:#fff5f5;border:1px solid #ffc9c9;border-radius:10px;padding:12px;margin-top:12px}
-.warning-box li{font-size:12px;color:var(--red);margin-bottom:4px;list-style:none;padding-left:16px;position:relative;line-height:1.4}
+.placement-item{background:var(--bg);border-radius:10px;padding:12px;font-size:12px;line-height:1.5}
+.placement-item strong{display:block;font-size:11px;color:var(--primary);margin-bottom:3px;font-weight:700}
+.warning-box{background:#fef2f2;border:1px solid #fecaca;border-radius:12px;padding:14px;margin-top:14px}
+.warning-box li{font-size:12px;color:#b91c1c;margin-bottom:6px;list-style:none;padding-left:18px;position:relative;line-height:1.5}
 .warning-box li::before{content:"⚠";position:absolute;left:0}
-.seo-item{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid #f0f0f0}
+.seo-item{padding:14px 0;border-bottom:1px solid #f3f4f6}
 .seo-item:last-child{border:none}
-.seo-label{font-size:13px;font-weight:500;flex:1}
-.seo-score-btn{width:44px;height:30px;border-radius:8px;border:2px solid var(--border);background:var(--card);font-size:13px;font-weight:700;cursor:pointer;text-align:center;transition:.2s}
-.seo-score-btn.filled{border-color:var(--primary);color:var(--primary)}
-.seo-link{font-size:11px;color:var(--primary);text-decoration:none;margin-left:6px;white-space:nowrap}
-.seo-total{text-align:center;margin-top:14px}
-.seo-total .score{font-size:48px;font-weight:800}
-.seo-total .label{font-size:13px;color:var(--text-sub)}
-.seo-improve{background:#f0faf4;border-radius:10px;padding:12px;margin-top:10px;font-size:13px;line-height:1.6}
-.seo-criteria{font-size:11px;color:var(--text-sub);margin-top:4px}
-.mission-item{display:flex;align-items:flex-start;gap:10px;padding:12px 0;border-bottom:1px solid #f0f0f0}
-.mission-item:last-child{border:none}
-.mission-check{width:24px;height:24px;border-radius:50%;border:2px solid var(--border);background:var(--card);cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:14px;transition:.2s;margin-top:2px}
+.seo-top{display:flex;align-items:center;justify-content:space-between}
+.seo-label{font-size:14px;font-weight:600;flex:1}
+.seo-score-btn{min-width:52px;height:34px;border-radius:10px;border:2px solid var(--border);background:var(--card);font-size:14px;font-weight:700;cursor:pointer;text-align:center;transition:all .2s}
+.seo-score-btn:hover{border-color:var(--primary);background:var(--primary-light)}
+.seo-score-btn.filled{border-color:var(--primary);color:var(--primary);background:var(--primary-light)}
+.seo-link{font-size:11px;color:var(--primary);text-decoration:none;margin-left:8px;white-space:nowrap;font-weight:600}
+.seo-criteria{font-size:11px;color:var(--text-sub);margin-top:6px;line-height:1.5;background:var(--bg);padding:8px 10px;border-radius:8px}
+.seo-total{text-align:center;margin-top:20px;padding:20px;background:var(--bg);border-radius:14px}
+.seo-total .grade-letter{font-size:56px;font-weight:800}
+.seo-total .score-num{font-size:20px;font-weight:700;margin-top:4px}
+.seo-total .label{font-size:13px;color:var(--text-sub);margin-top:4px}
+.seo-improve{background:var(--primary-light);border-radius:12px;padding:16px;margin-top:14px;font-size:13px;line-height:1.7}
+.seo-help{background:#eff6ff;border:1px solid #bfdbfe;border-radius:12px;padding:14px;margin-bottom:14px;font-size:13px;color:#1e40af;line-height:1.6}
+.mission-item{display:flex;align-items:flex-start;gap:12px;padding:14px;margin-bottom:10px;background:var(--bg);border-radius:12px;transition:all .2s}
+.mission-item:hover{background:#e8f9ee}
+.mission-item.completed{background:var(--primary-light);opacity:.7}
+.mission-check{width:28px;height:28px;border-radius:50%;border:2px solid var(--border);background:var(--card);cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:14px;transition:all .2s;margin-top:2px}
 .mission-check.done{background:var(--primary);border-color:var(--primary);color:#fff}
-.mission-text h4{font-size:14px;font-weight:600;margin-bottom:2px}
-.mission-text p{font-size:12px;color:var(--text-sub)}
-.bl-item{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid #f0f0f0}
-.bl-item:last-child{border:none}
+.mission-text{flex:1}
+.mission-text h4{font-size:14px;font-weight:600;margin-bottom:3px}
+.mission-text p{font-size:12px;color:var(--text-sub);line-height:1.5}
+.mission-text .mission-tag{display:inline-block;font-size:10px;padding:2px 8px;border-radius:10px;font-weight:600;margin-top:4px}
+.tag-backlink{background:#ede9fe;color:var(--purple)}
+.tag-seo{background:#fef3c7;color:#92400e}
+.tag-content{background:#dbeafe;color:#1e40af}
+.tag-review{background:#d1fae5;color:#065f46}
+.bl-item{display:flex;align-items:center;gap:12px;padding:14px;margin-bottom:8px;background:var(--bg);border-radius:12px;transition:all .2s}
+.bl-item:hover{background:var(--primary-light)}
 .bl-info{flex:1}
-.bl-info h4{font-size:13px;font-weight:600}
-.bl-info p{font-size:11px;color:var(--text-sub)}
-.bl-da{font-size:12px;font-weight:700;color:var(--primary);background:#f0faf4;padding:4px 10px;border-radius:20px}
-.bl-link{font-size:12px;color:var(--primary);text-decoration:none;font-weight:600;margin-left:8px}
-.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-top:10px}
-.cal-header{font-size:11px;text-align:center;font-weight:600;color:var(--text-sub);padding:4px 0}
-.cal-day{text-align:center;padding:8px 0;border-radius:8px;font-size:12px;font-weight:500;background:#f5f6f8;min-height:36px;display:flex;align-items:center;justify-content:center}
-.cal-day.completed{background:var(--primary);color:#fff;font-weight:700}
-.cal-day.today{border:2px solid var(--primary)}
+.bl-info h4{font-size:14px;font-weight:600}
+.bl-info p{font-size:11px;color:var(--text-sub);margin-top:2px;line-height:1.4}
+.bl-da{font-size:12px;font-weight:700;color:var(--primary);background:var(--primary-light);padding:6px 12px;border-radius:20px;white-space:nowrap}
+.bl-link{display:inline-block;background:var(--primary);color:#fff;font-size:11px;text-decoration:none;font-weight:700;padding:6px 12px;border-radius:20px;white-space:nowrap}
+.bl-limit{background:#fef3c7;border:1px solid #fcd34d;border-radius:10px;padding:12px;margin-top:12px;font-size:12px;color:#92400e;line-height:1.6}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-top:12px}
+.cal-header{font-size:11px;text-align:center;font-weight:600;color:var(--text-sub);padding:6px 0}
+.cal-day{text-align:center;padding:10px 0;border-radius:10px;font-size:12px;font-weight:500;background:var(--bg);min-height:40px;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.cal-day.completed{background:var(--primary);color:#fff;font-weight:700;box-shadow:0 2px 8px rgba(3,199,90,.25)}
+.cal-day.today{border:2px solid var(--primary);font-weight:700}
 .cal-day.empty{background:transparent}
-.streak-display{text-align:center;margin:16px 0}
-.streak-num{font-size:42px;font-weight:800;color:var(--primary)}
-.streak-label{font-size:13px;color:var(--text-sub)}
+.streak-display{text-align:center;margin:20px 0;padding:24px;background:linear-gradient(135deg,#e8f9ee,#d1fae5);border-radius:var(--radius)}
+.streak-num{font-size:48px;font-weight:800;color:var(--primary-dark)}
+.streak-label{font-size:14px;color:var(--text-sub);margin-top:4px}
 .loading{text-align:center;padding:30px;color:var(--text-sub);font-size:14px}
-.spinner{display:inline-block;width:24px;height:24px;border:3px solid var(--border);border-top-color:var(--primary);border-radius:50%;animation:spin .8s linear infinite;margin-bottom:8px}
+.spinner{display:inline-block;width:28px;height:28px;border:3px solid var(--border);border-top-color:var(--primary);border-radius:50%;animation:spin .8s linear infinite;margin-bottom:8px}
 @keyframes spin{to{transform:rotate(360deg)}}
 .form-group{margin-bottom:14px}
 .form-group label{display:block;font-size:13px;font-weight:600;margin-bottom:6px}
-.form-group input,.form-group select,.form-group textarea{width:100%;padding:11px 13px;border:2px solid var(--border);border-radius:10px;font-size:14px;font-family:inherit;outline:none}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:12px 14px;border:2px solid var(--border);border-radius:12px;font-size:14px;font-family:inherit;outline:none;transition:border .2s}
 .form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--primary)}
-.btn-primary{background:var(--primary);color:#fff;border:none;padding:13px;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;width:100%}
-.btn-primary:hover{background:var(--primary-dark)}
-.btn-secondary{background:var(--card);color:var(--primary);border:2px solid var(--primary);padding:10px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;width:100%;margin-top:8px}
-.auto-kw-info{background:#eef6ff;border:1px solid #bdd7ff;border-radius:10px;padding:12px;margin-bottom:12px;font-size:13px;color:#1a5dad;line-height:1.5}
+.btn-primary{background:linear-gradient(135deg,#03C75A,#02a34b);color:#fff;border:none;padding:14px;border-radius:14px;font-size:15px;font-weight:700;cursor:pointer;width:100%;box-shadow:0 4px 12px rgba(3,199,90,.2);transition:all .2s}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(3,199,90,.3)}
+.btn-secondary{background:var(--card);color:var(--primary);border:2px solid var(--primary);padding:12px;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;width:100%;margin-top:10px;transition:all .2s}
+.btn-secondary:hover{background:var(--primary-light)}
+.auto-kw-info{background:#eff6ff;border:1px solid #bfdbfe;border-radius:12px;padding:14px;margin-bottom:14px;font-size:13px;color:#1e40af;line-height:1.6}
+.progress-bar{height:6px;background:var(--border);border-radius:3px;overflow:hidden;margin-top:8px}
+.progress-fill{height:100%;background:linear-gradient(90deg,#03C75A,#02a34b);border-radius:3px;transition:width .5s ease}
 .hidden{display:none !important}
 </style>
 </head>
@@ -144,8 +159,8 @@ header p{font-size:11px;opacity:.85;margin-top:2px}
 <div class="container">
   <div id="loginScreen" class="login-screen">
     <h2>플레이스부스터</h2>
-    <p>키워드 분석 · 소개글 생성 · SEO 진단 · 미션 관리</p>
-    <button class="btn-naver" onclick="startNaverLogin()">🟢 네이버로 시작하기</button>
+    <p>키워드 분석 · 소개글 생성 · SEO 진단 · 미션 관리<br>데이터 기반으로 상위노출을 도와드립니다</p>
+    <button class="btn-naver" onclick="startNaverLogin()">네이버로 시작하기</button>
     <button class="btn-skip" onclick="skipLogin()">체험 모드로 둘러보기</button>
   </div>
   <div id="onboarding" class="onboarding">
@@ -165,7 +180,7 @@ header p{font-size:11px;opacity:.85;margin-top:2px}
   </div>
   <div id="dashboard" class="dashboard">
     <div class="user-bar">
-      <div>
+      <div class="info">
         <div class="name" id="userName">사용자</div>
         <div class="place" id="userPlace">업체명</div>
       </div>
@@ -174,13 +189,14 @@ header p{font-size:11px;opacity:.85;margin-top:2px}
     <div id="tabKeyword" class="tab-content active">
       <div class="card">
         <h3>🔍 키워드 분석</h3>
+        <p class="card-sub">업종+지역 기반 연관 키워드와 검색량을 분석합니다</p>
         <div id="autoKwInfo" class="auto-kw-info hidden"></div>
         <div class="search-box">
-          <input type="text" id="kwInput" placeholder="예: 홍대 맛집">
+          <input type="text" id="kwInput" placeholder="예: 금천구 네일샵">
           <button onclick="analyzeKeyword()">분석</button>
         </div>
         <button class="btn-secondary" onclick="autoAnalyze()">🤖 업종 기반 자동 분석</button>
-        <div id="kwLoading" class="loading hidden"><div class="spinner"></div><br>키워드 분석 중...</div>
+        <div id="kwLoading" class="loading hidden"><div class="spinner"></div><br>연관 키워드 분석 중...</div>
         <div id="kwResults"></div>
       </div>
       <div class="card hidden" id="trendCard">
@@ -191,20 +207,22 @@ header p{font-size:11px;opacity:.85;margin-top:2px}
     <div id="tabGuide" class="tab-content">
       <div class="card">
         <h3>📝 소개글 가이드</h3>
-        <p class="card-sub">업종별 최적화 소개글을 자동 생성합니다</p>
+        <p class="card-sub">업종별 SEO 최적화 소개글을 자동 생성합니다. 여러 지역 키워드와 업종 키워드를 자연스럽게 포함합니다.</p>
         <div class="form-group">
           <label>업체 특징 (선택)</label>
-          <input type="text" id="guideSpeciality" placeholder="예: 젤네일 전문, 20년 전통 갈비집">
+          <input type="text" id="guideSpeciality" placeholder="예: 젤네일 전문, 1인샵, 20년 전통">
         </div>
         <button class="btn-primary" onclick="generateGuide()">소개글 가이드 생성</button>
-        <div id="guideLoading" class="loading hidden"><div class="spinner"></div><br>소개글 생성 중...</div>
+        <div id="guideLoading" class="loading hidden"><div class="spinner"></div><br>최적화 소개글 생성 중...</div>
         <div id="guideResults"></div>
       </div>
     </div>
     <div id="tabSEO" class="tab-content">
       <div class="card">
         <h3>🩺 SEO 진단</h3>
-        <p class="card-sub">각 항목을 클릭하면 점수가 순환합니다 (0→3→5→8→10)</p>
+        <div class="seo-help">
+          📌 <strong>사용법:</strong> 각 항목의 <strong>점수 버튼을 터치/클릭</strong>하면 점수가 0 → 3 → 5 → 8 → 10 순서로 변경됩니다. 스마트플레이스 관리자에서 현재 상태를 확인한 뒤, 해당하는 점수를 설정하세요.
+        </div>
         <div id="seoList"></div>
         <div id="seoTotal" class="seo-total"></div>
         <div id="seoImprove" class="seo-improve hidden"></div>
@@ -214,11 +232,20 @@ header p{font-size:11px;opacity:.85;margin-top:2px}
       <div class="card">
         <h3>🎯 오늘의 미션</h3>
         <p class="card-sub" id="missionDate"></p>
+        <div id="missionProgress"></div>
         <div id="missionList"></div>
       </div>
-      <div class="card" id="backlinksCard">
-        <h3>🔗 업종별 백링크 사이트</h3>
-        <div id="backlinkList"></div>
+      <div class="card">
+        <h3>🔗 백링크 작업 가이드</h3>
+        <div class="bl-limit">
+          📌 <strong>백링크 작업 규칙</strong><br>
+          • 하루 최대 <strong>2~3개</strong> 사이트에 작성하세요<br>
+          • 하루 5개 이상 작성하면 네이버가 <strong>스팸으로 판단</strong>할 수 있습니다<br>
+          • 같은 사이트에 하루 1개만 작성하세요<br>
+          • 업체명과 주소를 자연스럽게 포함하되 과도한 키워드 반복은 금지<br>
+          • 네이버 블로그는 하루 1포스팅이 적당합니다
+        </div>
+        <div id="backlinkList" style="margin-top:12px"></div>
       </div>
     </div>
     <div id="tabCalendar" class="tab-content">
@@ -241,258 +268,306 @@ header p{font-size:11px;opacity:.85;margin-top:2px}
   <button class="tab-btn" onclick="switchTab('tabCalendar',this)"><span class="tab-icon">📅</span>캘린더</button>
 </nav>
 <script>
-/* ============================================
-   전역 변수 & 상수
-============================================ */
+  /* ============================================
+   Part 2 – JavaScript (place.living1004.com)
+   ============================================ */
+
+// ─── 전역 변수 ───
 var NAVER_CLIENT_ID = 'xbNPTWgLHLpDiiW5RgIm';
 var REDIRECT_URI = 'https://place.living1004.com/callback';
 
+// ─── 업종 데이터 (9종) ───
 var INDUSTRY_DATA = {
-  restaurant:{name:'음식점',icon:'🍽️',keywords:['맛집','음식점','레스토랑','식당'],backlinks:[
-    {name:'네이버 블로그',da:92,url:'https://blog.naver.com'},
-    {name:'맛집탐방 카페',da:78,url:'https://cafe.naver.com/matjib'},
-    {name:'전국맛집여행',da:74,url:'https://cafe.naver.com/jmfoods'},
-    {name:'오늘뭐먹지',da:70,url:'https://cafe.naver.com/todayeat'},
-    {name:'맘스홀릭베이비',da:82,url:'https://cafe.naver.com/imsanbu'},
-    {name:'아이보스',da:75,url:'https://www.i-boss.co.kr'},
-    {name:'티스토리',da:85,url:'https://www.tistory.com'},
-    {name:'브런치',da:80,url:'https://brunch.co.kr'},
-    {name:'인스타그램',da:96,url:'https://www.instagram.com'},
-    {name:'클리앙',da:72,url:'https://www.clien.net'}
-  ]},
-  cafe:{name:'카페',icon:'☕',keywords:['카페','커피','디저트','브런치'],backlinks:[
-    {name:'네이버 블로그',da:92,url:'https://blog.naver.com'},
-    {name:'카페인 중독 카페',da:76,url:'https://cafe.naver.com/coffeeholics'},
-    {name:'디저트 매니아',da:71,url:'https://cafe.naver.com/dessertmania'},
-    {name:'티스토리',da:85,url:'https://www.tistory.com'},
-    {name:'브런치',da:80,url:'https://brunch.co.kr'},
-    {name:'인스타그램',da:96,url:'https://www.instagram.com'},
-    {name:'아이보스',da:75,url:'https://www.i-boss.co.kr'},
-    {name:'클리앙',da:72,url:'https://www.clien.net'}
-  ]},
-  hair:{name:'미용실/헤어',icon:'💇',keywords:['미용실','헤어','헤어숍','머리'],backlinks:[
-    {name:'네이버 블로그',da:92,url:'https://blog.naver.com'},
-    {name:'뷰티팁 카페',da:74,url:'https://cafe.naver.com/beautytip'},
-    {name:'화장품 리뷰 카페',da:73,url:'https://cafe.naver.com/cosmeticmania'},
-    {name:'티스토리',da:85,url:'https://www.tistory.com'},
-    {name:'브런치',da:80,url:'https://brunch.co.kr'},
-    {name:'인스타그램',da:96,url:'https://www.instagram.com'},
-    {name:'아이보스',da:75,url:'https://www.i-boss.co.kr'},
-    {name:'클리앙',da:72,url:'https://www.clien.net'}
-  ]},
-  nail:{name:'네일/속눈썹',icon:'💅',keywords:['네일','네일샵','속눈썹','젤네일','네일아트'],backlinks:[
-    {name:'네이버 블로그',da:92,url:'https://blog.naver.com'},
-    {name:'뷰티팁 카페',da:74,url:'https://cafe.naver.com/beautytip'},
-    {name:'네일아트 카페',da:70,url:'https://cafe.naver.com/nailartist'},
-    {name:'화장품 리뷰 카페',da:73,url:'https://cafe.naver.com/cosmeticmania'},
-    {name:'인스타그램',da:96,url:'https://www.instagram.com'},
-    {name:'티스토리',da:85,url:'https://www.tistory.com'},
-    {name:'브런치',da:80,url:'https://brunch.co.kr'},
-    {name:'아이보스',da:75,url:'https://www.i-boss.co.kr'}
-  ]},
-  hospital:{name:'병원',icon:'🏥',keywords:['병원','의원','클리닉','치과','한의원'],backlinks:[
-    {name:'네이버 블로그',da:92,url:'https://blog.naver.com'},
-    {name:'건강 카페',da:76,url:'https://cafe.naver.com/healthlife'},
-    {name:'티스토리',da:85,url:'https://www.tistory.com'},
-    {name:'브런치',da:80,url:'https://brunch.co.kr'},
-    {name:'아이보스',da:75,url:'https://www.i-boss.co.kr'},
-    {name:'클리앙',da:72,url:'https://www.clien.net'}
-  ]},
-  fitness:{name:'피트니스',icon:'💪',keywords:['헬스장','PT','피트니스','필라테스','요가'],backlinks:[
-    {name:'네이버 블로그',da:92,url:'https://blog.naver.com'},
-    {name:'운동 카페',da:74,url:'https://cafe.naver.com/fitnesskorea'},
-    {name:'티스토리',da:85,url:'https://www.tistory.com'},
-    {name:'브런치',da:80,url:'https://brunch.co.kr'},
-    {name:'인스타그램',da:96,url:'https://www.instagram.com'},
-    {name:'아이보스',da:75,url:'https://www.i-boss.co.kr'}
-  ]},
-  education:{name:'교육',icon:'📚',keywords:['학원','교육','과외','입시'],backlinks:[
-    {name:'네이버 블로그',da:92,url:'https://blog.naver.com'},
-    {name:'수만휘 카페',da:80,url:'https://cafe.naver.com/suhui'},
-    {name:'맘스홀릭베이비',da:82,url:'https://cafe.naver.com/imsanbu'},
-    {name:'티스토리',da:85,url:'https://www.tistory.com'},
-    {name:'브런치',da:80,url:'https://brunch.co.kr'},
-    {name:'아이보스',da:75,url:'https://www.i-boss.co.kr'}
-  ]},
-  pet:{name:'반려동물',icon:'🐾',keywords:['애견','펫','동물병원','애견미용'],backlinks:[
-    {name:'네이버 블로그',da:92,url:'https://blog.naver.com'},
-    {name:'강사모 카페',da:78,url:'https://cafe.naver.com/dogpalza'},
-    {name:'고양이 카페',da:74,url:'https://cafe.naver.com/catlove'},
-    {name:'티스토리',da:85,url:'https://www.tistory.com'},
-    {name:'인스타그램',da:96,url:'https://www.instagram.com'},
-    {name:'아이보스',da:75,url:'https://www.i-boss.co.kr'}
-  ]},
-  service:{name:'서비스/기타',icon:'🔧',keywords:['서비스','전문','업체','인테리어','세탁'],backlinks:[
-    {name:'네이버 블로그',da:92,url:'https://blog.naver.com'},
-    {name:'티스토리',da:85,url:'https://www.tistory.com'},
-    {name:'브런치',da:80,url:'https://brunch.co.kr'},
-    {name:'아이보스',da:75,url:'https://www.i-boss.co.kr'},
-    {name:'클리앙',da:72,url:'https://www.clien.net'}
-  ]}
+  restaurant: {
+    name: '음식점', icon: '🍽️',
+    keywords: ['맛집', '음식점', '레스토랑', '식당', '밥집'],
+    backlinks: [
+      { name: '네이버 블로그', da: 92, url: 'https://blog.naver.com', daily: 3, note: '하루 3포스팅 이하 권장, 키워드+지역명 태그 필수' },
+      { name: '망고플레이트', da: 78, url: 'https://www.mangoplate.com', daily: 1, note: '업체 등록 후 리뷰 작성, 하루 1건' },
+      { name: '식신', da: 72, url: 'https://www.siksinhot.com', daily: 1, note: '업체 등록, 메뉴/사진 등록으로 백링크 생성' },
+      { name: '다이닝코드', da: 68, url: 'https://www.diningcode.com', daily: 1, note: '업체 정보 등록 및 리뷰' },
+      { name: '카카오맵 리뷰', da: 85, url: 'https://map.kakao.com', daily: 2, note: '사진 리뷰 권장, 하루 2건 이하' },
+      { name: '구글 비즈니스', da: 95, url: 'https://business.google.com', daily: 1, note: '구글맵 등록 필수, 사진+영업정보 최신화' },
+      { name: '티스토리', da: 80, url: 'https://www.tistory.com', daily: 2, note: '맛집 후기 블로그 운영, 하루 2포스팅' },
+      { name: '인스타그램', da: 90, url: 'https://www.instagram.com', daily: 5, note: '릴스+피드, 해시태그 30개 활용, 하루 5건' }
+    ]
+  },
+  cafe: {
+    name: '카페', icon: '☕',
+    keywords: ['카페', '커피', '디저트', '브런치', '카페추천'],
+    backlinks: [
+      { name: '네이버 블로그', da: 92, url: 'https://blog.naver.com', daily: 3, note: '카페 리뷰 포스팅, 음료+인테리어 사진 필수' },
+      { name: '카카오맵', da: 85, url: 'https://map.kakao.com', daily: 2, note: '사진 리뷰, 메뉴 정보 등록' },
+      { name: '구글 비즈니스', da: 95, url: 'https://business.google.com', daily: 1, note: '영업시간, 메뉴, 사진 최신화' },
+      { name: '인스타그램', da: 90, url: 'https://www.instagram.com', daily: 5, note: '감성 사진+릴스, 위치태그 필수' },
+      { name: '티스토리', da: 80, url: 'https://www.tistory.com', daily: 2, note: '카페 탐방 시리즈 운영' },
+      { name: '트위터/X', da: 82, url: 'https://x.com', daily: 3, note: '신메뉴/이벤트 홍보' }
+    ]
+  },
+  hair: {
+    name: '미용실/헤어', icon: '💇',
+    keywords: ['미용실', '헤어', '염색', '펌', '커트'],
+    backlinks: [
+      { name: '네이버 블로그', da: 92, url: 'https://blog.naver.com', daily: 3, note: '시술 전후 사진 포함 포스팅' },
+      { name: '카카오 헤어샵', da: 78, url: 'https://hairshop.kakao.com', daily: 1, note: '시술메뉴, 디자이너 프로필 등록' },
+      { name: '인스타그램', da: 90, url: 'https://www.instagram.com', daily: 5, note: '시술 사진 릴스, 해시태그 활용' },
+      { name: '구글 비즈니스', da: 95, url: 'https://business.google.com', daily: 1, note: '구글맵 등록, 리뷰 관리' },
+      { name: '카카오맵', da: 85, url: 'https://map.kakao.com', daily: 2, note: '사진 리뷰, 가격 정보 등록' },
+      { name: '티스토리', da: 80, url: 'https://www.tistory.com', daily: 2, note: '헤어 트렌드 블로그 운영' }
+    ]
+  },
+  nail: {
+    name: '네일/속눈썹', icon: '💅',
+    keywords: ['네일샵', '네일아트', '젤네일', '속눈썹', '왁싱'],
+    backlinks: [
+      { name: '네이버 블로그', da: 92, url: 'https://blog.naver.com', daily: 3, note: '시술 사진+가격 정보 포스팅' },
+      { name: '인스타그램', da: 90, url: 'https://www.instagram.com', daily: 5, note: '네일아트 사진/릴스, #네일아트 #젤네일 태그' },
+      { name: '카카오맵', da: 85, url: 'https://map.kakao.com', daily: 2, note: '사진 리뷰, 메뉴 등록' },
+      { name: '구글 비즈니스', da: 95, url: 'https://business.google.com', daily: 1, note: '구글맵 사진, 영업정보' },
+      { name: '카카오 헤어샵', da: 78, url: 'https://hairshop.kakao.com', daily: 1, note: '네일샵 등록, 예약 연동' },
+      { name: '티스토리', da: 80, url: 'https://www.tistory.com', daily: 2, note: '네일 트렌드·시술 후기 블로그' },
+      { name: '네이버 카페', da: 75, url: 'https://cafe.naver.com', daily: 2, note: '지역 맘카페, 뷰티카페 활동' }
+    ]
+  },
+  hospital: {
+    name: '병원/의원', icon: '🏥',
+    keywords: ['병원', '의원', '클리닉', '진료', '건강'],
+    backlinks: [
+      { name: '네이버 블로그', da: 92, url: 'https://blog.naver.com', daily: 2, note: '건강정보 포스팅, 의료광고법 준수' },
+      { name: '구글 비즈니스', da: 95, url: 'https://business.google.com', daily: 1, note: '진료시간, 전문과목 등록' },
+      { name: '카카오맵', da: 85, url: 'https://map.kakao.com', daily: 1, note: '병원 정보 등록' },
+      { name: '굿닥', da: 70, url: 'https://www.goodoc.co.kr', daily: 1, note: '병원 프로필 등록, 예약 연동' },
+      { name: '티스토리', da: 80, url: 'https://www.tistory.com', daily: 2, note: '건강칼럼 블로그 운영' }
+    ]
+  },
+  fitness: {
+    name: '피트니스/PT', icon: '💪',
+    keywords: ['헬스장', 'PT', '피트니스', '필라테스', '요가'],
+    backlinks: [
+      { name: '네이버 블로그', da: 92, url: 'https://blog.naver.com', daily: 3, note: '운동 전후 변화, 후기 포스팅' },
+      { name: '인스타그램', da: 90, url: 'https://www.instagram.com', daily: 5, note: '운동 릴스, 회원 변화 사진' },
+      { name: '카카오맵', da: 85, url: 'https://map.kakao.com', daily: 2, note: '시설 사진, 프로그램 정보' },
+      { name: '구글 비즈니스', da: 95, url: 'https://business.google.com', daily: 1, note: '시설 사진, 영업 정보' },
+      { name: '티스토리', da: 80, url: 'https://www.tistory.com', daily: 2, note: '운동 팁·다이어트 블로그' },
+      { name: '네이버 카페', da: 75, url: 'https://cafe.naver.com', daily: 2, note: '지역 운동 커뮤니티 활동' }
+    ]
+  },
+  education: {
+    name: '교육/학원', icon: '📚',
+    keywords: ['학원', '교육', '과외', '입시', '영어'],
+    backlinks: [
+      { name: '네이버 블로그', da: 92, url: 'https://blog.naver.com', daily: 3, note: '학습 팁, 후기 포스팅' },
+      { name: '구글 비즈니스', da: 95, url: 'https://business.google.com', daily: 1, note: '학원 정보, 교육과정 등록' },
+      { name: '카카오맵', da: 85, url: 'https://map.kakao.com', daily: 2, note: '학원 위치, 리뷰' },
+      { name: '네이버 카페', da: 75, url: 'https://cafe.naver.com', daily: 2, note: '학부모 카페, 교육 카페 활동' },
+      { name: '티스토리', da: 80, url: 'https://www.tistory.com', daily: 2, note: '교육 정보 블로그' }
+    ]
+  },
+  pet: {
+    name: '반려동물', icon: '🐾',
+    keywords: ['애견', '펫', '동물병원', '반려견', '펫샵'],
+    backlinks: [
+      { name: '네이버 블로그', da: 92, url: 'https://blog.naver.com', daily: 3, note: '반려동물 케어·후기 포스팅' },
+      { name: '인스타그램', da: 90, url: 'https://www.instagram.com', daily: 5, note: '반려동물 사진/릴스' },
+      { name: '카카오맵', da: 85, url: 'https://map.kakao.com', daily: 2, note: '매장/병원 사진, 리뷰' },
+      { name: '구글 비즈니스', da: 95, url: 'https://business.google.com', daily: 1, note: '매장 정보 등록' },
+      { name: '네이버 카페', da: 75, url: 'https://cafe.naver.com', daily: 2, note: '반려동물 커뮤니티 활동' },
+      { name: '티스토리', da: 80, url: 'https://www.tistory.com', daily: 2, note: '펫케어 정보 블로그' }
+    ]
+  },
+  service: {
+    name: '기타서비스', icon: '🔧',
+    keywords: ['서비스', '전문', '업체', '상담', '견적'],
+    backlinks: [
+      { name: '네이버 블로그', da: 92, url: 'https://blog.naver.com', daily: 3, note: '서비스 소개, 시공/작업 사례' },
+      { name: '카카오맵', da: 85, url: 'https://map.kakao.com', daily: 2, note: '업체 정보, 리뷰' },
+      { name: '구글 비즈니스', da: 95, url: 'https://business.google.com', daily: 1, note: '업체 정보, 서비스 사진' },
+      { name: '티스토리', da: 80, url: 'https://www.tistory.com', daily: 2, note: '서비스 관련 정보 블로그' },
+      { name: '네이버 카페', da: 75, url: 'https://cafe.naver.com', daily: 2, note: '지역 커뮤니티 활동' }
+    ]
+  }
 };
 
+// ─── SEO 체크리스트 ───
 var SEO_CHECKLIST = [
-  {id:'keyword',label:'대표 키워드 5개 설정',max:10,link:'https://smartplace.naver.com',criteria:'5개 모두 설정=10, 3~4개=5, 1~2개=3, 미설정=0'},
-  {id:'category',label:'세부 카테고리 설정',max:10,link:'https://smartplace.naver.com',criteria:'정확한 세부 카테고리 설정=10, 대분류만=5, 미설정=0'},
-  {id:'photos',label:'사진 10장 이상 등록',max:10,link:'https://smartplace.naver.com',criteria:'15장+=10, 10~14장=8, 5~9장=5, 1~4장=3, 0장=0'},
-  {id:'info',label:'영업정보 정확성',max:10,link:'https://smartplace.naver.com',criteria:'주소+전화+시간+휴무 모두 정확=10, 일부 누락=5'},
-  {id:'booking',label:'네이버 예약 활성화',max:10,link:'https://smartplace.naver.com',criteria:'활성화=10, 비활성화=0'},
-  {id:'talk',label:'네이버 톡톡 활성화',max:10,link:'https://partner.talk.naver.com',criteria:'활성화+자동응답=10, 활성화만=5, 비활성화=0'},
-  {id:'review',label:'리뷰 10개 이상',max:10,link:'https://smartplace.naver.com',criteria:'30개+=10, 10~29개=8, 5~9개=5, 1~4개=3, 0개=0'},
-  {id:'reply',label:'리뷰 답글 작성',max:10,link:'https://smartplace.naver.com',criteria:'90%+ 답글=10, 70~89%=8, 50~69%=5, 그 이하=3'},
-  {id:'external',label:'외부 콘텐츠 연계',max:10,link:'https://blog.naver.com',criteria:'블로그+SNS 모두 연계=10, 1개만=5, 없음=0'},
-  {id:'save',label:'저장/공유 수 확보',max:10,link:'https://smartplace.naver.com',criteria:'50+저장=10, 20~49=8, 10~19=5, 1~9=3, 0=0'}
+  { id: 'keyword', label: '대표 키워드 5개 설정', max: 10, desc: {
+    0: '아직 설정하지 않음', 3: '1~2개만 설정됨', 5: '3~4개 설정됨', 8: '5개 설정했으나 최적화 부족', 10: '5개 최적 키워드 설정 완료'
+  }},
+  { id: 'category', label: '카테고리 일치 여부', max: 10, desc: {
+    0: '카테고리 미설정', 3: '대분류만 설정', 5: '중분류까지 설정', 8: '소분류 설정, 미세 조정 필요', 10: '업종에 정확히 일치하는 카테고리 설정'
+  }},
+  { id: 'intro', label: '소개글 키워드 삽입', max: 10, desc: {
+    0: '소개글 미작성', 3: '소개글 있으나 키워드 없음', 5: '키워드 1~2개 포함', 8: '키워드 3~4개 포함', 10: '핵심 키워드 5개 모두 자연스럽게 포함'
+  }},
+  { id: 'photo', label: '사진 등록 (최소 15장)', max: 10, desc: {
+    0: '사진 없음', 3: '1~5장', 5: '6~10장', 8: '11~14장', 10: '15장 이상 등록 완료'
+  }},
+  { id: 'review', label: '리뷰 수 (최소 30개)', max: 10, desc: {
+    0: '리뷰 0개', 3: '1~10개', 5: '11~20개', 8: '21~29개', 10: '30개 이상'
+  }},
+  { id: 'reply', label: '리뷰 답글 비율', max: 10, desc: {
+    0: '답글 없음 (0%)', 3: '25% 미만 답글', 5: '25~50% 답글', 8: '50~80% 답글', 10: '80% 이상 답글 완료'
+  }},
+  { id: 'booking', label: '예약/톡톡 활성화', max: 10, desc: {
+    0: '미활성화', 3: '톡톡만 활성화', 5: '예약만 활성화', 8: '둘 다 활성화, 응답 느림', 10: '둘 다 활성화 + 빠른 응답'
+  }},
+  { id: 'hours', label: '영업시간 정확 등록', max: 10, desc: {
+    0: '미등록', 3: '대략적 등록', 5: '평일만 등록', 8: '평일+주말 등록', 10: '평일/주말/공휴일/브레이크타임 모두 등록'
+  }},
+  { id: 'menu', label: '메뉴/서비스 등록', max: 10, desc: {
+    0: '미등록', 3: '1~3개 등록', 5: '4~7개 등록', 8: '8개 이상이나 사진 부족', 10: '전체 메뉴 + 사진 + 가격 등록'
+  }},
+  { id: 'backlink', label: '외부 백링크 연결', max: 10, desc: {
+    0: '백링크 없음', 3: '1~2개 사이트', 5: '3~4개 사이트', 8: '5~7개 사이트', 10: '8개 이상 다양한 사이트에서 백링크'
+  }}
 ];
-var SCORE_CYCLE = [0,3,5,8,10];
+
+var SCORE_CYCLE = [0, 3, 5, 8, 10];
 
 var state = {};
 
-/* ============================================
-   상태 관리
-============================================ */
+// ─── 상태 관리 ───
 function loadState() {
   try {
     var saved = localStorage.getItem('pb_state');
-    if (saved) {
-      state = JSON.parse(saved);
-      if (!state.analyzedKeywords) state.analyzedKeywords = [];
-      if (!state.recommendedKeywords) state.recommendedKeywords = [];
-      if (!state.seo) state.seo = {};
-      if (!state.missions) state.missions = {};
-      if (!state.calendar) state.calendar = {};
-      if (!state.streak) state.streak = 0;
-    } else {
-      state = {user:null,place:null,industry:null,seo:{},missions:{},calendar:{},streak:0,analyzedKeywords:[],recommendedKeywords:[]};
-    }
-  } catch(e) {
-    state = {user:null,place:null,industry:null,seo:{},missions:{},calendar:{},streak:0,analyzedKeywords:[],recommendedKeywords:[]};
-  }
+    if (saved) state = JSON.parse(saved);
+  } catch (e) { state = {}; }
+  if (!state.seo) state.seo = {};
+  if (!state.missions) state.missions = {};
+  if (!state.calendar) state.calendar = {};
+  if (!state.streak) state.streak = 0;
+  if (!state.analysisCache) state.analysisCache = null;
 }
 
 function saveState() {
-  try { localStorage.setItem('pb_state', JSON.stringify(state)); } catch(e) {}
+  try { localStorage.setItem('pb_state', JSON.stringify(state)); } catch (e) {}
 }
 
-/* ============================================
-   로그인
-============================================ */
+// ─── 인증 ───
 function startNaverLogin() {
-  var stateParam = Math.random().toString(36).substring(2);
-  sessionStorage.setItem('oauth_state', stateParam);
+  var oauthState = 'pb_' + Math.random().toString(36).substring(2, 10);
+  sessionStorage.setItem('oauth_state', oauthState);
   var url = 'https://nid.naver.com/oauth2.0/authorize?response_type=code'
     + '&client_id=' + NAVER_CLIENT_ID
     + '&redirect_uri=' + encodeURIComponent(REDIRECT_URI)
-    + '&state=' + stateParam;
+    + '&state=' + encodeURIComponent(oauthState);
   window.location.href = url;
 }
 
 function skipLogin() {
-  state.user = {name:'체험 사용자',email:'',nickname:'체험모드'};
+  state.user = { name: '체험 사용자', email: '', nickname: '' };
   saveState();
   showOnboarding();
 }
 
+// ─── 온보딩 ───
 function showOnboarding() {
   document.getElementById('loginScreen').style.display = 'none';
   document.getElementById('onboarding').style.display = 'block';
+  document.getElementById('dashboard').style.display = 'none';
+  document.getElementById('obStep1').style.display = 'block';
+  document.getElementById('obStep2').style.display = 'none';
 }
 
-/* ============================================
-   업체 검색
-============================================ */
+// ─── 업체 검색 ───
 function searchPlace() {
-  var query = document.getElementById('placeSearchInput').value.trim();
-  if (!query) return alert('업체명을 입력하세요');
-  var wrap = document.getElementById('placeResults');
-  wrap.innerHTML = '<div class="loading"><div class="spinner"></div><br>검색 중...</div>';
-  fetch('/api/naver-search?query=' + encodeURIComponent(query))
-    .then(function(r){return r.json()})
-    .then(function(data){
+  var q = document.getElementById('placeSearchInput').value.trim();
+  if (!q) return;
+  var listEl = document.getElementById('placeList');
+  listEl.innerHTML = '<div class="loading-spinner"></div>';
+
+  fetch('/api/naver-search?query=' + encodeURIComponent(q))
+    .then(function (r) { return r.json(); })
+    .then(function (data) {
       var items = data.items || [];
       if (items.length === 0) {
-        wrap.innerHTML = '<p style="text-align:center;color:#666;padding:20px">검색 결과가 없습니다.</p>';
+        listEl.innerHTML = '<p style="text-align:center;color:#999;padding:20px">검색 결과가 없습니다.</p>';
         return;
       }
       var html = '';
-      items.forEach(function(item){
-        var name = item.title.replace(/<[^>]*>/g,'');
+      items.forEach(function (item) {
+        var name = item.title.replace(/<[^>]+>/g, '');
         var addr = item.roadAddress || item.address || '';
         var cat = item.category || '';
-        html += '<div class="place-item" onclick="selectPlace(this)" data-name="'+name.replace(/"/g,'&quot;')+'" data-addr="'+addr.replace(/"/g,'&quot;')+'" data-cat="'+cat.replace(/"/g,'&quot;')+'">';
-        html += '<h4>'+name+'</h4>';
-        html += '<p>'+addr+(cat?' · '+cat:'')+'</p>';
+        html += '<div class="place-item" data-name="' + name + '" data-addr="' + addr + '" data-cat="' + cat + '" onclick="selectPlace(this)">';
+        html += '<div class="place-name">' + name + '</div>';
+        html += '<div class="place-addr">' + addr + '</div>';
+        html += '<div class="place-cat">' + cat + '</div>';
         html += '</div>';
       });
-      wrap.innerHTML = html;
+      listEl.innerHTML = html;
     })
-    .catch(function(err){
-      wrap.innerHTML = '<p style="color:red;text-align:center">검색 오류: '+err.message+'</p>';
+    .catch(function () {
+      listEl.innerHTML = '<p style="color:#ff4757;text-align:center">검색 오류가 발생했습니다.</p>';
     });
 }
 
 function selectPlace(el) {
   state.place = {
-    name: el.getAttribute('data-name'),
-    address: el.getAttribute('data-addr'),
-    category: el.getAttribute('data-cat')
+    name: el.dataset.name,
+    address: el.dataset.addr,
+    category: el.dataset.cat
   };
   saveState();
-  document.getElementById('obStep1').classList.add('hidden');
-  document.getElementById('obStep2').classList.remove('hidden');
+  document.querySelectorAll('.place-item').forEach(function (item) { item.classList.remove('selected'); });
+  el.classList.add('selected');
+  document.getElementById('obStep1').style.display = 'none';
+  document.getElementById('obStep2').style.display = 'block';
   renderIndustryGrid();
+  autoDetectIndustry();
 }
 
-/* ============================================
-   업종 선택
-============================================ */
+// ─── 업종 선택 ───
 function renderIndustryGrid() {
   var grid = document.getElementById('industryGrid');
   var html = '';
-  var keys = Object.keys(INDUSTRY_DATA);
-  keys.forEach(function(key){
-    var d = INDUSTRY_DATA[key];
-    html += '<div class="ind-btn" onclick="selectIndustry(\''+key+'\',this)">';
-    html += '<span class="icon">'+d.icon+'</span>'+d.name;
+  Object.keys(INDUSTRY_DATA).forEach(function (key) {
+    var ind = INDUSTRY_DATA[key];
+    html += '<div class="industry-btn" data-key="' + key + '" onclick="selectIndustry(\'' + key + '\', this)">';
+    html += '<span class="industry-icon">' + ind.icon + '</span>';
+    html += '<span class="industry-name">' + ind.name + '</span>';
     html += '</div>';
   });
   grid.innerHTML = html;
-  autoDetectIndustry();
 }
 
 function selectIndustry(key, el) {
   state.industry = key;
   saveState();
-  document.querySelectorAll('.ind-btn').forEach(function(b){b.classList.remove('active')});
-  if (el) el.classList.add('active');
-  document.getElementById('btnStart').style.display = 'block';
+  document.querySelectorAll('.industry-btn').forEach(function (btn) { btn.classList.remove('selected'); });
+  if (el) el.classList.add('selected');
+  document.getElementById('startDashboardBtn').style.display = 'inline-flex';
 }
 
 function autoDetectIndustry() {
   if (!state.place || !state.place.category) return;
   var cat = state.place.category.toLowerCase();
-  var keys = Object.keys(INDUSTRY_DATA);
-  for (var i = 0; i < keys.length; i++) {
-    var kws = INDUSTRY_DATA[keys[i]].keywords;
-    for (var j = 0; j < kws.length; j++) {
-      if (cat.indexOf(kws[j]) !== -1) {
-        var btns = document.querySelectorAll('.ind-btn');
-        selectIndustry(keys[i], btns[i]);
-        return;
-      }
-    }
+  var matched = null;
+  Object.keys(INDUSTRY_DATA).forEach(function (key) {
+    INDUSTRY_DATA[key].keywords.forEach(function (kw) {
+      if (cat.indexOf(kw) !== -1) matched = key;
+    });
+  });
+  if (matched) {
+    var btn = document.querySelector('.industry-btn[data-key="' + matched + '"]');
+    if (btn) selectIndustry(matched, btn);
   }
 }
 
-/* ============================================
-   대시보드 시작
-============================================ */
+// ─── 대시보드 시작 ───
 function startDashboard() {
-  if (!state.industry) return alert('업종을 선택하세요');
+  if (!state.industry) { alert('업종을 선택해주세요.'); return; }
+  document.getElementById('loginScreen').style.display = 'none';
   document.getElementById('onboarding').style.display = 'none';
   document.getElementById('dashboard').style.display = 'block';
-  document.getElementById('tabNav').classList.remove('hidden');
-  document.getElementById('userName').textContent = state.user ? state.user.name : '사용자';
-  document.getElementById('userPlace').textContent = state.place ? state.place.name : '';
+
+  var ind = INDUSTRY_DATA[state.industry];
+  document.getElementById('dashPlaceName').textContent = state.place ? state.place.name : '';
+  document.getElementById('dashIndustry').textContent = ind ? (ind.icon + ' ' + ind.name) : '';
+  document.getElementById('dashAddress').textContent = state.place ? state.place.address : '';
+
+  // 기본 탭 활성화
+  switchTab('tabKeyword');
 
   renderSEO();
   renderMissions();
@@ -500,355 +575,333 @@ function startDashboard() {
   renderCalendar();
   updateStreak();
 
-  if (state.place && state.place.address) {
-    var region = extractRegion(state.place.address);
-    var indData = INDUSTRY_DATA[state.industry];
-    var indName = indData ? indData.name : '';
-    document.getElementById('kwInput').value = region + ' ' + indName;
-  }
+  // 자동 키워드 분석 시작
+  autoAnalyze();
 }
 
 function extractRegion(address) {
   if (!address) return '';
   var parts = address.split(' ');
-  for (var i = 0; i < parts.length && i < 4; i++) {
-    var p = parts[i];
-    if (p.length >= 2 && (p.indexOf('구') !== -1 || p.indexOf('동') !== -1 || p.indexOf('읍') !== -1 || p.indexOf('면') !== -1)) {
-      return p;
+  var region = '';
+  for (var i = 0; i < Math.min(parts.length, 3); i++) {
+    if (parts[i].match(/(구|동|읍|면|시|군)$/)) {
+      region = parts[i];
     }
   }
-  if (parts.length >= 2) return parts[1];
-  return parts[0] || '';
+  return region || (parts[1] || parts[0] || '');
 }
 
-/* ============================================
-   키워드 자동 분석
-============================================ */
-function autoAnalyze() {
-  if (!state.place || !state.industry) return alert('업체 정보가 필요합니다.');
-  var region = extractRegion(state.place.address || '');
-  var indData = INDUSTRY_DATA[state.industry];
-  if (!indData) return alert('업종 정보가 없습니다.');
-
-  // 업종별 핵심 키워드 조합 생성
-  var baseKeywords = indData.keywords.slice(0, 3);
-  var queries = [];
-  baseKeywords.forEach(function(kw){
-    if (region) queries.push(region + ' ' + kw);
-    queries.push(kw);
-  });
-
-  var infoDiv = document.getElementById('autoKwInfo');
-  infoDiv.classList.remove('hidden');
-  infoDiv.innerHTML = '🤖 <strong>자동 분석 중...</strong><br>업종: ' + indData.name + ' | 지역: ' + (region || '전국') + '<br>분석 키워드: ' + queries.slice(0,3).join(', ') + ' 등';
-
-  document.getElementById('kwInput').value = queries[0] || '';
-  document.getElementById('kwLoading').classList.remove('hidden');
-  document.getElementById('kwResults').innerHTML = '';
-  document.getElementById('trendCard').classList.add('hidden');
-
-  // 첫 번째 키워드로 분석 실행
-  var mainQuery = queries[0] || region + ' ' + indData.name;
-  fetch('/api/keyword-analysis?keyword=' + encodeURIComponent(mainQuery))
-    .then(function(r){return r.json()})
-    .then(function(data){
-      document.getElementById('kwLoading').classList.add('hidden');
-      if (data.error) {
-        document.getElementById('kwResults').innerHTML = '<p style="color:red">오류: '+data.error+'</p>';
-        infoDiv.innerHTML = '❌ 분석 실패 — 검색광고 API 키를 확인하세요.';
-        return;
+// ─── 탭 전환 ───
+function switchTab(tabId, btnEl) {
+  // 모든 탭 콘텐츠 숨기기
+  document.querySelectorAll('.tab-content').forEach(function (el) { el.style.display = 'none'; });
+  // 모든 탭 버튼 비활성화
+  document.querySelectorAll('.tab-btn').forEach(function (el) { el.classList.remove('active'); });
+  // 선택된 탭 표시
+  var content = document.getElementById(tabId);
+  if (content) content.style.display = 'block';
+  if (btnEl) {
+    btnEl.classList.add('active');
+  } else {
+    document.querySelectorAll('.tab-btn').forEach(function (el) {
+      if (el.getAttribute('onclick') && el.getAttribute('onclick').indexOf(tabId) !== -1) {
+        el.classList.add('active');
       }
-      var keywords = data.keywords || [];
-      if (keywords.length === 0) {
-        document.getElementById('kwResults').innerHTML = '<p style="text-align:center;color:#666">결과가 없습니다.</p>';
-        return;
-      }
-      state.analyzedKeywords = keywords;
-
-      // 자동 분석 결과 요약
-      var largeCount = keywords.filter(function(k){return k.grade==='대형'}).length;
-      var mediumCount = keywords.filter(function(k){return k.grade==='중형'}).length;
-      var smallCount = keywords.filter(function(k){return k.grade==='소형'}).length;
-      infoDiv.innerHTML = '✅ <strong>자동 분석 완료!</strong><br>'
-        + '총 <strong>' + keywords.length + '개</strong> 키워드 발견 — '
-        + '<span style="color:var(--red)">대형 ' + largeCount + '개</span> · '
-        + '<span style="color:var(--orange)">중형 ' + mediumCount + '개</span> · '
-        + '<span style="color:var(--blue)">소형 ' + smallCount + '개</span>';
-
-      renderKeywordTable(keywords);
-      recommendTopKeywords(keywords, region);
-      saveState();
-      loadTrend(mainQuery);
-    })
-    .catch(function(err){
-      document.getElementById('kwLoading').classList.add('hidden');
-      document.getElementById('kwResults').innerHTML = '<p style="color:red">분석 실패: '+err.message+'</p>';
     });
+  }
+}
+
+// ─── 키워드 자동 분석 ───
+function autoAnalyze() {
+  if (!state.place) return;
+  var ind = INDUSTRY_DATA[state.industry];
+  var region = extractRegion(state.place.address);
+  var keyword = region + ' ' + (ind ? ind.name : '');
+  document.getElementById('kwInput').value = keyword;
+  analyzeKeyword();
 }
 
 function analyzeKeyword() {
-  var keyword = document.getElementById('kwInput').value.trim();
-  if (!keyword) return alert('키워드를 입력하세요');
+  var kw = document.getElementById('kwInput').value.trim();
+  if (!kw) { alert('키워드를 입력해주세요.'); return; }
 
-  document.getElementById('autoKwInfo').classList.add('hidden');
-  document.getElementById('kwLoading').classList.remove('hidden');
-  document.getElementById('kwResults').innerHTML = '';
-  document.getElementById('trendCard').classList.add('hidden');
+  var resultWrap = document.getElementById('kwResults');
+  resultWrap.innerHTML = '<div class="loading-spinner"></div><p style="text-align:center;color:#888;margin-top:8px">키워드 분석 중...</p>';
 
-  fetch('/api/keyword-analysis?keyword=' + encodeURIComponent(keyword))
-    .then(function(r){return r.json()})
-    .then(function(data){
-      document.getElementById('kwLoading').classList.add('hidden');
+  fetch('/api/keyword-analysis?keyword=' + encodeURIComponent(kw))
+    .then(function (r) { return r.json(); })
+    .then(function (data) {
       if (data.error) {
-        document.getElementById('kwResults').innerHTML = '<p style="color:red">오류: '+data.error+'</p>';
+        resultWrap.innerHTML = '<p style="color:#ff4757;text-align:center">오류: ' + data.error + '</p>';
         return;
       }
       var keywords = data.keywords || [];
-      if (keywords.length === 0) {
-        document.getElementById('kwResults').innerHTML = '<p style="text-align:center;color:#666">결과가 없습니다.</p>';
-        return;
-      }
-      state.analyzedKeywords = keywords;
-      var region = extractRegion((state.place && state.place.address) || '');
-      renderKeywordTable(keywords);
-      recommendTopKeywords(keywords, region);
+      state.analysisCache = keywords;
       saveState();
-      loadTrend(keyword);
+      renderKeywordTable(keywords);
+      recommendTopKeywords(keywords);
     })
-    .catch(function(err){
-      document.getElementById('kwLoading').classList.add('hidden');
-      document.getElementById('kwResults').innerHTML = '<p style="color:red">분석 실패: '+err.message+'</p>';
+    .catch(function (err) {
+      resultWrap.innerHTML = '<p style="color:#ff4757;text-align:center">분석 실패: ' + err.message + '</p>';
     });
 }
 
 function renderKeywordTable(keywords) {
-  var top30 = keywords.slice(0, 30);
-  var html = '<table class="kw-result-table">';
-  html += '<thead><tr><th>키워드</th><th>월간검색량</th><th>경쟁</th><th>등급</th></tr></thead><tbody>';
-  top30.forEach(function(kw){
+  var wrap = document.getElementById('kwResults');
+  if (!keywords || keywords.length === 0) {
+    wrap.innerHTML = '<p style="text-align:center;color:#999">키워드 데이터가 없습니다.</p>';
+    return;
+  }
+
+  var top = keywords.slice(0, 30);
+  var html = '<div class="kw-table-wrap">';
+  html += '<table class="kw-table">';
+  html += '<thead><tr><th>#</th><th>키워드</th><th>월간 검색량</th><th>PC</th><th>모바일</th><th>경쟁강도</th><th>등급</th></tr></thead>';
+  html += '<tbody>';
+  top.forEach(function (kw, i) {
     var gradeClass = kw.grade === '대형' ? 'grade-large' : kw.grade === '중형' ? 'grade-medium' : 'grade-small';
-    var vol = kw.totalVolume;
-    var volStr = vol >= 10000 ? (vol/10000).toFixed(1)+'만' : vol >= 1000 ? (vol/1000).toFixed(1)+'천' : vol+'';
+    var compLabel = kw.competition === 'HIGH' ? '높음' : kw.competition === 'MEDIUM' ? '보통' : '낮음';
     html += '<tr>';
-    html += '<td><strong>'+kw.keyword+'</strong></td>';
-    html += '<td>'+volStr+'</td>';
-    html += '<td>'+kw.competition+'</td>';
-    html += '<td><span class="grade-tag '+gradeClass+'">'+kw.grade+'</span></td>';
+    html += '<td>' + (i + 1) + '</td>';
+    html += '<td class="kw-name">' + kw.keyword + '</td>';
+    html += '<td class="kw-vol">' + (kw.totalVolume || 0).toLocaleString() + '</td>';
+    html += '<td>' + (kw.monthlyPC || 0).toLocaleString() + '</td>';
+    html += '<td>' + (kw.monthlyMobile || 0).toLocaleString() + '</td>';
+    html += '<td>' + compLabel + '</td>';
+    html += '<td><span class="kw-grade ' + gradeClass + '">' + kw.grade + '</span></td>';
     html += '</tr>';
   });
-  html += '</tbody></table>';
-  if (keywords.length > 30) {
-    html += '<p style="text-align:center;color:#999;font-size:12px;margin-top:8px">상위 30개 표시 (전체 '+keywords.length+'개)</p>';
-  }
-  document.getElementById('kwResults').innerHTML = html;
-}
-
-function recommendTopKeywords(keywords, region) {
-  var recommended = [];
-  var usedWords = {};
-
-  // 1순위: 지역+소형/중형 (빠른 상위노출)
-  keywords.filter(function(kw){
-    return region && kw.keyword.indexOf(region) !== -1 && (kw.grade === '소형' || kw.grade === '중형');
-  }).forEach(function(kw){
-    if (recommended.length >= 2 || hasDuplicateWord(kw.keyword, usedWords)) return;
-    recommended.push(kw); addWords(kw.keyword, usedWords);
-  });
-
-  // 2순위: 중형 키워드 (성장 여지)
-  keywords.filter(function(kw){return kw.grade === '중형'}).forEach(function(kw){
-    if (recommended.length >= 4 || hasDuplicateWord(kw.keyword, usedWords)) return;
-    recommended.push(kw); addWords(kw.keyword, usedWords);
-  });
-
-  // 3순위: 소형 중 검색량 있는 것 (롱테일)
-  keywords.filter(function(kw){return kw.grade === '소형' && kw.totalVolume >= 50}).forEach(function(kw){
-    if (recommended.length >= 5 || hasDuplicateWord(kw.keyword, usedWords)) return;
-    recommended.push(kw); addWords(kw.keyword, usedWords);
-  });
-
-  // 부족하면 채우기
-  keywords.forEach(function(kw){
-    if (recommended.length >= 5) return;
-    var already = recommended.some(function(r){return r.keyword === kw.keyword});
-    if (!already) recommended.push(kw);
-  });
-
-  recommended = recommended.slice(0, 5);
-  state.recommendedKeywords = recommended.map(function(kw){return kw.keyword});
-  saveState();
-
-  var wrap = document.getElementById('kwResults');
-  var html = '<div class="recommend-box">';
-  html += '<h4>✅ 추천 대표 키워드 5개</h4><ul>';
-  recommended.forEach(function(kw, i){
-    var note = '';
-    if (region && kw.keyword.indexOf(region) !== -1) note = ' 📍지역';
-    if (kw.grade === '소형') note += ' 🚀빠른노출';
-    else if (kw.grade === '중형') note += ' 📈성장';
-    else if (kw.grade === '대형') note += ' 🔥경쟁높음';
-    html += '<li><strong>'+(i+1)+'. '+kw.keyword+'</strong> — 월 '+kw.totalVolume+'회'+note+'</li>';
-  });
-  html += '</ul>';
-  html += '<p style="font-size:11px;color:#666;margin-top:8px">💡 소형→중형→대형 순서로 공략. 2~3개월마다 재분석하여 교체하세요.</p>';
-  html += '</div>';
-  wrap.innerHTML += html;
-}
-
-function hasDuplicateWord(keyword, usedWords) {
-  var words = keyword.split(' ');
-  for (var i = 0; i < words.length; i++) {
-    if (words[i].length >= 2 && usedWords[words[i]]) return true;
-  }
-  return false;
-}
-
-function addWords(keyword, usedWords) {
-  keyword.split(' ').forEach(function(w){ if (w.length >= 2) usedWords[w] = true; });
-}
-
-/* ============================================
-   트렌드 차트
-============================================ */
-function loadTrend(keyword) {
-  fetch('/api/keyword-trend?keyword=' + encodeURIComponent(keyword))
-    .then(function(r){return r.json()})
-    .then(function(data){
-      if (data.results && data.results.length > 0) {
-        var points = data.results[0].data || [];
-        if (points.length > 0) {
-          renderTrendChart(points);
-          document.getElementById('trendCard').classList.remove('hidden');
-        }
-      }
-    })
-    .catch(function(err){ console.log('트렌드 오류:', err); });
-}
-
-function renderTrendChart(points) {
-  var wrap = document.getElementById('trendChart');
-  var maxVal = Math.max.apply(null, points.map(function(p){return p.ratio}));
-  if (maxVal === 0) maxVal = 1;
-  var html = '';
-  points.forEach(function(p){
-    var h = Math.round((p.ratio / maxVal) * 100);
-    var label = p.period.substring(5,7) + '월';
-    html += '<div class="trend-bar-wrap">';
-    html += '<div class="trend-value">'+Math.round(p.ratio)+'</div>';
-    html += '<div class="trend-bar" style="height:'+h+'px"></div>';
-    html += '<div class="trend-label">'+label+'</div>';
-    html += '</div>';
-  });
+  html += '</tbody></table></div>';
   wrap.innerHTML = html;
 }
 
-/* ============================================
-   소개글 가이드
-============================================ */
-function generateGuide() {
-  if (!state.industry || !state.place) return alert('업체 정보가 필요합니다.');
-  var region = extractRegion(state.place.address || '');
-  var speciality = document.getElementById('guideSpeciality').value.trim();
-  var topKeywords = state.recommendedKeywords || [];
+function recommendTopKeywords(keywords) {
+  var recWrap = document.getElementById('kwRecommend');
+  if (!keywords || keywords.length === 0) {
+    recWrap.innerHTML = '';
+    return;
+  }
 
-  document.getElementById('guideLoading').classList.remove('hidden');
-  document.getElementById('guideResults').innerHTML = '';
+  var region = extractRegion(state.place ? state.place.address : '');
+  var ind = INDUSTRY_DATA[state.industry];
+
+  // 소형·중형·대형 분류
+  var small = keywords.filter(function (k) { return k.grade === '소형'; });
+  var medium = keywords.filter(function (k) { return k.grade === '중형'; });
+  var large = keywords.filter(function (k) { return k.grade === '대형'; });
+
+  // 지역 키워드 우선
+  var regionKws = keywords.filter(function (k) { return region && k.keyword.indexOf(region) !== -1; });
+
+  var picked = [];
+  var usedKeywords = {};
+
+  function addPick(kw, reason) {
+    if (usedKeywords[kw.keyword]) return false;
+    picked.push({ keyword: kw.keyword, volume: kw.totalVolume, grade: kw.grade, competition: kw.competition, reason: reason });
+    usedKeywords[kw.keyword] = true;
+    return true;
+  }
+
+  // 1) 지역 키워드 1~2개
+  regionKws.slice(0, 2).forEach(function (k) { addPick(k, '지역 키워드'); });
+
+  // 2) 소형 1개
+  small.forEach(function (k) { if (picked.length < 3) addPick(k, '소형 (진입 용이)'); });
+
+  // 3) 중형 1개
+  medium.forEach(function (k) { if (picked.length < 4) addPick(k, '중형 (성장 타겟)'); });
+
+  // 4) 대형 1개
+  large.forEach(function (k) { if (picked.length < 5) addPick(k, '대형 (장기 목표)'); });
+
+  // 부족하면 나머지에서 채움
+  keywords.forEach(function (k) { if (picked.length < 5) addPick(k, '자동 추천'); });
+
+  state.topKeywords = picked.map(function (p) { return p.keyword; });
+  saveState();
+
+  var html = '<div class="recommend-card">';
+  html += '<h3>⭐ 추천 대표 키워드 5개</h3>';
+  html += '<p class="recommend-desc">소형→중형→대형 순으로 공략하세요. 지역 키워드를 포함해 초기 노출을 확보합니다.</p>';
+  html += '<div class="recommend-list">';
+  picked.forEach(function (p, i) {
+    var gradeClass = p.grade === '대형' ? 'grade-large' : p.grade === '중형' ? 'grade-medium' : 'grade-small';
+    html += '<div class="recommend-item" onclick="loadTrend(\'' + p.keyword + '\')">';
+    html += '<span class="rec-num">' + (i + 1) + '</span>';
+    html += '<div class="rec-info">';
+    html += '<span class="rec-kw">' + p.keyword + '</span>';
+    html += '<span class="kw-grade ' + gradeClass + '">' + p.grade + '</span>';
+    html += '</div>';
+    html += '<div class="rec-meta">';
+    html += '<span>검색량 ' + (p.volume || 0).toLocaleString() + '</span>';
+    html += '<span class="rec-reason">' + p.reason + '</span>';
+    html += '</div>';
+    html += '</div>';
+  });
+  html += '</div>';
+  html += '<p class="recommend-tip">💡 키워드를 클릭하면 12개월 트렌드를 확인할 수 있습니다.</p>';
+  html += '</div>';
+  html += '<div id="trendChart"></div>';
+  recWrap.innerHTML = html;
+}
+
+// ─── 트렌드 차트 ───
+function loadTrend(kw) {
+  var chartWrap = document.getElementById('trendChart');
+  chartWrap.innerHTML = '<div class="loading-spinner"></div><p style="text-align:center;color:#888">트렌드 로딩 중...</p>';
+
+  fetch('/api/keyword-trend?keyword=' + encodeURIComponent(kw))
+    .then(function (r) { return r.json(); })
+    .then(function (data) {
+      if (data.results && data.results[0] && data.results[0].data) {
+        renderTrendChart(kw, data.results[0].data);
+      } else {
+        chartWrap.innerHTML = '<p style="color:#999;text-align:center">트렌드 데이터가 없습니다.</p>';
+      }
+    })
+    .catch(function () {
+      chartWrap.innerHTML = '<p style="color:#ff4757;text-align:center">트렌드 로딩 실패</p>';
+    });
+}
+
+function renderTrendChart(keyword, points) {
+  var chartWrap = document.getElementById('trendChart');
+  if (!points || points.length === 0) {
+    chartWrap.innerHTML = '<p style="color:#999;text-align:center">데이터 없음</p>';
+    return;
+  }
+
+  var maxVal = Math.max.apply(null, points.map(function (p) { return p.ratio; }));
+  if (maxVal === 0) maxVal = 1;
+
+  var html = '<div class="trend-card">';
+  html += '<h3>📈 "' + keyword + '" 12개월 검색 트렌드</h3>';
+  html += '<div class="trend-bars">';
+  points.forEach(function (p) {
+    var pct = Math.round((p.ratio / maxVal) * 100);
+    var month = p.period.substring(5, 7) + '월';
+    html += '<div class="trend-bar-col">';
+    html += '<div class="trend-val">' + Math.round(p.ratio) + '</div>';
+    html += '<div class="trend-bar" style="height:' + pct + 'px;background:var(--primary)"></div>';
+    html += '<div class="trend-month">' + month + '</div>';
+    html += '</div>';
+  });
+  html += '</div></div>';
+  chartWrap.innerHTML = html;
+}
+
+// ─── 소개글 가이드 ───
+function generateGuide() {
+  var region = extractRegion(state.place ? state.place.address : '');
+  var ind = INDUSTRY_DATA[state.industry];
+  var placeName = state.place ? state.place.name : '';
+  var speciality = document.getElementById('guideSpeciality') ? document.getElementById('guideSpeciality').value : '';
+  var topKws = state.topKeywords || [];
+
+  if (topKws.length === 0) {
+    alert('먼저 키워드 분석 탭에서 키워드를 분석해주세요.');
+    return;
+  }
+
+  var resultWrap = document.getElementById('guideResults');
+  resultWrap.innerHTML = '<div class="loading-spinner"></div><p style="text-align:center;color:#888">소개글 생성 중...</p>';
 
   fetch('/api/generate-guide', {
     method: 'POST',
-    headers: {'Content-Type': 'application/json'},
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       industry: state.industry,
       region: region,
-      placeName: state.place.name,
+      placeName: placeName,
       speciality: speciality,
-      topKeywords: topKeywords
+      topKeywords: topKws
     })
   })
-  .then(function(r){return r.json()})
-  .then(function(data){
-    document.getElementById('guideLoading').classList.add('hidden');
-    if (data.error) {
-      document.getElementById('guideResults').innerHTML = '<p style="color:red">오류: '+data.error+'</p>';
-      return;
-    }
-    renderGuideResults(data);
-  })
-  .catch(function(err){
-    document.getElementById('guideLoading').classList.add('hidden');
-    document.getElementById('guideResults').innerHTML = '<p style="color:red">생성 실패: '+err.message+'</p>';
-  });
+    .then(function (r) { return r.json(); })
+    .then(function (data) {
+      if (data.error) {
+        resultWrap.innerHTML = '<p style="color:#ff4757">' + data.error + '</p>';
+        return;
+      }
+      renderGuideResults(data);
+    })
+    .catch(function (err) {
+      resultWrap.innerHTML = '<p style="color:#ff4757">생성 실패: ' + err.message + '</p>';
+    });
 }
 
 function renderGuideResults(data) {
   var wrap = document.getElementById('guideResults');
   var html = '';
 
-  html += '<h3 style="margin-top:16px;font-size:15px">📌 소개글 후보 (직접 수정 후 복사하세요)</h3>';
-  html += '<p style="font-size:12px;color:var(--text-sub);margin-bottom:10px">💡 [지역], [업체명], [특징], (메뉴), (시간) 부분을 내 업체 정보로 수정하세요. 권장 300~500자.</p>';
-
-  (data.introOptions || []).forEach(function(opt){
-    var charColor = opt.charCount > 1000 ? 'var(--red)' : opt.charCount > 500 ? 'var(--orange)' : 'var(--primary)';
+  // 소개글 후보
+  html += '<h3 class="section-title">📌 소개글 후보 (직접 수정 후 복사하세요)</h3>';
+  (data.introOptions || []).forEach(function (opt) {
+    var charLen = opt.text.length;
+    var charColor = (charLen >= 300 && charLen <= 500) ? '#03C75A' : charLen > 1000 ? '#ff4757' : '#f39c12';
     html += '<div class="guide-intro-card">';
-    html += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">';
-    html += '<h4 style="margin:0">버전 '+opt.version+' — '+opt.label+'</h4>';
-    html += '<button onclick="copyIntro(\'guideText'+opt.version+'\')" style="background:var(--primary);color:#fff;border:none;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer">복사</button>';
-    html += '</div>';
-    html += '<textarea id="guideText'+opt.version+'" oninput="updateCharCount(this,\'cc'+opt.version+'\')" style="width:100%;min-height:180px;border:1px solid #ddd;border-radius:8px;padding:10px;font-size:13px;font-family:inherit;line-height:1.8;resize:vertical;outline:none" onfocus="this.style.borderColor=\'var(--primary)\'" onblur="this.style.borderColor=\'#ddd\'">';
-    html += opt.text;
-    html += '</textarea>';
-    html += '<div id="cc'+opt.version+'" style="text-align:right;font-size:11px;margin-top:4px;color:'+charColor+'">'+opt.charCount+'자 / 1,000자</div>';
+    html += '<div class="guide-intro-header">';
+    html += '<div><h4>버전 ' + opt.version + '</h4><span class="guide-label">' + (opt.label || '') + '</span></div>';
+    html += '<div class="guide-intro-actions">';
+    html += '<span class="char-count" id="charCount' + opt.version + '" style="color:' + charColor + '">' + charLen + '자 / 1,000자</span>';
+    html += '<button class="copy-btn" onclick="copyIntro(\'guideText' + opt.version + '\')">복사</button>';
+    html += '</div></div>';
+    html += '<textarea id="guideText' + opt.version + '" class="guide-textarea" oninput="updateCharCount(this, ' + opt.version + ')">' + opt.text + '</textarea>';
     html += '</div>';
   });
 
+  // 키워드 삽입 체크
   if (data.keywordCheck && data.keywordCheck.length > 0) {
-    html += '<div class="card" style="margin-top:12px"><h3>🔑 키워드 삽입 체크</h3>';
-    html += '<p style="font-size:12px;color:var(--text-sub);margin-bottom:8px">소개글에 대표 키워드가 자연스럽게 포함되었는지 확인합니다.</p>';
-    data.keywordCheck.forEach(function(kc){
+    html += '<div class="card"><h3 class="section-title">🔑 키워드 삽입 체크</h3>';
+    data.keywordCheck.forEach(function (kc) {
       var icon = kc.includedInIntro ? '✅' : '⚠️';
-      html += '<div style="padding:6px 0;font-size:13px;border-bottom:1px solid #f0f0f0">'+icon+' <strong>'+kc.keyword+'</strong> — '+kc.suggestion+'</div>';
+      html += '<div class="kw-check-item">' + icon + ' <strong>' + kc.keyword + '</strong> — ' + kc.suggestion + '</div>';
     });
     html += '</div>';
   }
 
-  html += '<div class="card" style="margin-top:12px"><h3>📋 상세 설명 작성 가이드</h3>';
-  (data.descriptionGuide || []).forEach(function(sec){
-    html += '<div class="guide-section"><h4>'+sec.sectionTitle+'</h4>';
-    html += '<p class="hint">'+sec.writingHint+'</p>';
-    html += '<p class="kw-insert">→ 삽입 키워드: '+sec.keywordToInsert+'</p></div>';
+  // 상세 설명 가이드
+  html += '<div class="card"><h3 class="section-title">📋 상세 설명 작성 가이드</h3>';
+  (data.descriptionGuide || []).forEach(function (sec) {
+    html += '<div class="guide-section"><h4>' + sec.sectionTitle + '</h4>';
+    html += '<p class="hint">' + sec.writingHint + '</p>';
+    html += '<p class="kw-insert">→ 삽입 키워드: <strong>' + sec.keywordToInsert + '</strong></p></div>';
   });
   html += '</div>';
 
+  // 키워드 배치 맵
   if (data.keywordPlacementMap) {
-    html += '<div class="card" style="margin-top:12px"><h3>🗺️ 키워드 배치 맵</h3><div class="placement-map">';
-    Object.keys(data.keywordPlacementMap).forEach(function(key){
-      html += '<div class="placement-item"><strong>'+key+'</strong>'+data.keywordPlacementMap[key]+'</div>';
+    html += '<div class="card"><h3 class="section-title">🗺️ 키워드 배치 맵</h3><div class="placement-map">';
+    Object.keys(data.keywordPlacementMap).forEach(function (key) {
+      html += '<div class="placement-item"><strong>' + key + '</strong><span>' + data.keywordPlacementMap[key] + '</span></div>';
     });
     html += '</div></div>';
   }
 
-  if (data.optimizationTips) {
-    html += '<div class="card" style="margin-top:12px"><h3>💡 업종별 최적화 팁</h3><ul class="tip-list">';
-    data.optimizationTips.forEach(function(tip){ html += '<li>'+tip+'</li>'; });
+  // 최적화 팁
+  if (data.optimizationTips && data.optimizationTips.length > 0) {
+    html += '<div class="card"><h3 class="section-title">💡 업종별 최적화 팁</h3><ul class="tip-list">';
+    data.optimizationTips.forEach(function (tip) { html += '<li>' + tip + '</li>'; });
     html += '</ul></div>';
   }
 
-  if (data.warnings) {
-    html += '<div class="warning-box"><ul>';
-    data.warnings.forEach(function(w){ html += '<li>'+w+'</li>'; });
+  // 주의사항
+  if (data.warnings && data.warnings.length > 0) {
+    html += '<div class="warning-box"><h4>⚠️ 주의사항</h4><ul>';
+    data.warnings.forEach(function (w) { html += '<li>' + w + '</li>'; });
     html += '</ul></div>';
   }
 
   wrap.innerHTML = html;
 }
 
-function updateCharCount(textarea, countId) {
-  var count = textarea.value.replace(/\n/g, '').length;
-  var el = document.getElementById(countId);
+function updateCharCount(textarea, version) {
+  var len = textarea.value.length;
+  var el = document.getElementById('charCount' + version);
   if (!el) return;
-  var color = count > 1000 ? 'var(--red)' : count > 500 ? 'var(--orange)' : 'var(--primary)';
-  el.style.color = color;
-  el.textContent = count + '자 / 1,000자';
+  el.textContent = len + '자 / 1,000자';
+  el.style.color = (len >= 300 && len <= 500) ? '#03C75A' : len > 1000 ? '#ff4757' : '#f39c12';
 }
 
 function copyIntro(id) {
@@ -856,32 +909,50 @@ function copyIntro(id) {
   if (!textarea) return;
   textarea.select();
   textarea.setSelectionRange(0, 99999);
-  navigator.clipboard.writeText(textarea.value).then(function(){
-    var btn = textarea.parentElement.querySelector('button');
-    var original = btn.textContent;
-    btn.textContent = '✅ 복사됨!';
-    btn.style.background = '#02a34b';
-    setTimeout(function(){ btn.textContent = original; btn.style.background = 'var(--primary)'; }, 2000);
-  }).catch(function(){
+  navigator.clipboard.writeText(textarea.value).then(function () {
+    var btn = textarea.parentElement.querySelector('.copy-btn');
+    if (btn) {
+      var original = btn.textContent;
+      btn.textContent = '✅ 복사됨!';
+      btn.style.background = '#02a34b';
+      setTimeout(function () { btn.textContent = original; btn.style.background = ''; }, 2000);
+    }
+  }).catch(function () {
     document.execCommand('copy');
-    alert('복사되었습니다!');
   });
 }
-/* ============================================
-   SEO 진단
-============================================ */
+
+// ─── SEO 진단 ───
 function renderSEO() {
-  var wrap = document.getElementById('seoList');
+  var wrap = document.getElementById('seoContent');
   var html = '';
-  SEO_CHECKLIST.forEach(function(item){
-    var score = state.seo[item.id] || 0;
-    var filledClass = score > 0 ? ' filled' : '';
-    html += '<div class="seo-item">';
-    html += '<span class="seo-label">'+item.label+'<a href="'+item.link+'" target="_blank" class="seo-link">확인 →</a>';
-    html += '<div class="seo-criteria">'+item.criteria+'</div></span>';
-    html += '<button class="seo-score-btn'+filledClass+'" onclick="cycleSEO(\''+item.id+'\')">'+score+'</button>';
+
+  html += '<div class="seo-info-box">';
+  html += '<h4>ℹ️ 사용 방법</h4>';
+  html += '<p>각 항목의 <strong>점수 숫자를 클릭</strong>하면 점수가 <strong>0 → 3 → 5 → 8 → 10</strong> 순서로 변경됩니다. 현재 상태에 맞는 점수를 선택해주세요.</p>';
+  html += '</div>';
+
+  html += '<div class="seo-total-card" id="seoTotalCard">';
+  html += '<div class="seo-total-score" id="seoTotalScore">0</div>';
+  html += '<div class="seo-total-label">/ 100점</div>';
+  html += '<div class="seo-total-bar"><div class="seo-total-fill" id="seoTotalFill" style="width:0%"></div></div>';
+  html += '<div class="seo-total-grade" id="seoTotalGrade">진단을 시작하세요</div>';
+  html += '</div>';
+
+  SEO_CHECKLIST.forEach(function (item) {
+    var currentScore = state.seo[item.id] || 0;
+    var desc = item.desc[currentScore] || '';
+    html += '<div class="seo-item" id="seoItem_' + item.id + '">';
+    html += '<div class="seo-item-header">';
+    html += '<span class="seo-label">' + item.label + '</span>';
+    html += '<span class="seo-score-btn" onclick="cycleSEO(\'' + item.id + '\')" id="seoScore_' + item.id + '">' + currentScore + '</span>';
+    html += '</div>';
+    html += '<div class="seo-desc" id="seoDesc_' + item.id + '">' + desc + '</div>';
+    html += '<div class="seo-score-bar"><div class="seo-score-fill" id="seoFill_' + item.id + '" style="width:' + (currentScore * 10) + '%;background:' + getScoreColor(currentScore) + '"></div></div>';
     html += '</div>';
   });
+
+  html += '<div class="seo-suggestion" id="seoSuggestion"></div>';
   wrap.innerHTML = html;
   updateSEOTotal();
 }
@@ -889,231 +960,405 @@ function renderSEO() {
 function cycleSEO(id) {
   var current = state.seo[id] || 0;
   var idx = SCORE_CYCLE.indexOf(current);
-  var next = (idx === -1 || idx >= SCORE_CYCLE.length - 1) ? 0 : SCORE_CYCLE[idx + 1];
+  var next = SCORE_CYCLE[(idx + 1) % SCORE_CYCLE.length];
   state.seo[id] = next;
   saveState();
-  renderSEO();
+
+  var scoreBtn = document.getElementById('seoScore_' + id);
+  var descEl = document.getElementById('seoDesc_' + id);
+  var fillEl = document.getElementById('seoFill_' + id);
+  var item = SEO_CHECKLIST.find(function (c) { return c.id === id; });
+
+  if (scoreBtn) scoreBtn.textContent = next;
+  if (descEl && item) descEl.textContent = item.desc[next] || '';
+  if (fillEl) {
+    fillEl.style.width = (next * 10) + '%';
+    fillEl.style.background = getScoreColor(next);
+  }
+
+  updateSEOTotal();
+}
+
+function getScoreColor(score) {
+  if (score >= 8) return '#03C75A';
+  if (score >= 5) return '#f39c12';
+  if (score >= 3) return '#e67e22';
+  return '#ff4757';
 }
 
 function updateSEOTotal() {
   var total = 0;
-  SEO_CHECKLIST.forEach(function(item){ total += (state.seo[item.id] || 0); });
-  var maxTotal = SEO_CHECKLIST.length * 10;
-  var pct = Math.round((total / maxTotal) * 100);
-  var color = pct >= 80 ? 'var(--primary)' : pct >= 50 ? 'var(--orange)' : 'var(--red)';
-  var grade = pct >= 90 ? 'S' : pct >= 80 ? 'A' : pct >= 60 ? 'B' : pct >= 40 ? 'C' : 'D';
-
-  document.getElementById('seoTotal').innerHTML =
-    '<div class="score" style="color:'+color+'">'+grade+' <span style="font-size:24px">'+total+'</span><span style="font-size:16px;color:#999">/'+maxTotal+'</span></div>' +
-    '<div class="label">SEO 최적화 등급 ('+pct+'%)</div>';
-
-  var improvements = [];
-  SEO_CHECKLIST.forEach(function(item){
-    if ((state.seo[item.id] || 0) < 8) {
-      improvements.push('• ' + item.label + ' (현재 '+(state.seo[item.id]||0)+'/10) → <a href="'+item.link+'" target="_blank" style="color:var(--primary)">개선하기</a>');
-    }
+  var weak = [];
+  SEO_CHECKLIST.forEach(function (item) {
+    var s = state.seo[item.id] || 0;
+    total += s;
+    if (s < 5) weak.push(item.label);
   });
-  var impWrap = document.getElementById('seoImprove');
-  if (improvements.length > 0) {
-    impWrap.classList.remove('hidden');
-    impWrap.innerHTML = '<strong>🔧 개선 필요 항목 ('+improvements.length+'개):</strong><br>' + improvements.join('<br>');
-  } else {
-    impWrap.classList.add('hidden');
-    impWrap.innerHTML = '';
+
+  var pct = Math.round((total / 100) * 100);
+  var grade = pct >= 80 ? 'A 등급 (우수)' : pct >= 60 ? 'B 등급 (양호)' : pct >= 40 ? 'C 등급 (보통)' : pct >= 20 ? 'D 등급 (미흡)' : 'F 등급 (개선 필요)';
+
+  var totalEl = document.getElementById('seoTotalScore');
+  var fillEl = document.getElementById('seoTotalFill');
+  var gradeEl = document.getElementById('seoTotalGrade');
+  var sugEl = document.getElementById('seoSuggestion');
+
+  if (totalEl) totalEl.textContent = total;
+  if (fillEl) {
+    fillEl.style.width = pct + '%';
+    fillEl.style.background = pct >= 60 ? '#03C75A' : pct >= 40 ? '#f39c12' : '#ff4757';
+  }
+  if (gradeEl) gradeEl.textContent = grade;
+
+  if (sugEl && weak.length > 0) {
+    sugEl.innerHTML = '<h4>🔧 우선 개선 항목</h4><p>' + weak.join(',
+') + '</p>';
+  } else if (sugEl) {
+    sugEl.innerHTML = '<h4>🎉 모든 항목이 양호합니다!</h4>';
   }
 }
 
-/* ============================================
-   미션
-============================================ */
+// ─── 미션 생성·관리 ───
 function renderMissions() {
+  var wrap = document.getElementById('missionContent');
   var today = getToday();
+
   if (!state.missions[today]) {
     state.missions[today] = generateMissions();
     saveState();
   }
-  var missions = state.missions[today];
-  document.getElementById('missionDate').textContent = today;
 
-  var wrap = document.getElementById('missionList');
+  var missions = state.missions[today];
   var html = '';
-  missions.forEach(function(m, i){
-    var doneClass = m.done ? ' done' : '';
-    var checkMark = m.done ? '✓' : '';
-    html += '<div class="mission-item">';
-    html += '<div class="mission-check'+doneClass+'" onclick="toggleMission('+i+')">'+checkMark+'</div>';
-    html += '<div class="mission-text"><h4>'+m.title+'</h4><p>'+m.desc+'</p></div>';
+
+  html += '<div class="mission-header">';
+  html += '<h3>📋 오늘의 미션</h3>';
+  html += '<span class="mission-date">' + today + '</span>';
+  html += '</div>';
+
+  var doneCount = missions.filter(function(m){ return m.done; }).length;
+  var totalCount = missions.length;
+  var pct = totalCount > 0 ? Math.round((doneCount / totalCount) * 100) : 0;
+
+  html += '<div class="mission-progress">';
+  html += '<div class="mission-progress-bar"><div class="mission-progress-fill" style="width:' + pct + '%;background:' + (pct === 100 ? '#03C75A' : 'var(--primary)') + '"></div></div>';
+  html += '<span class="mission-progress-text">' + doneCount + ' / ' + totalCount + ' 완료 (' + pct + '%)</span>';
+  html += '</div>';
+
+  missions.forEach(function(m, i) {
+    var doneClass = m.done ? 'mission-done' : '';
+    html += '<div class="mission-item ' + doneClass + '" onclick="toggleMission(' + i + ')">';
+    html += '<div class="mission-check">' + (m.done ? '✅' : '⬜') + '</div>';
+    html += '<div class="mission-body">';
+    html += '<div class="mission-title">' + m.title + '</div>';
+    html += '<div class="mission-desc">' + m.description + '</div>';
+    if (m.link) {
+      html += '<a class="mission-link" href="' + m.link + '" target="_blank" onclick="event.stopPropagation()">바로가기 →</a>';
+    }
+    html += '</div>';
+    html += '<div class="mission-point">' + m.point + 'pt</div>';
     html += '</div>';
   });
-  if (missions.length === 0) {
-    html = '<p style="text-align:center;color:#999;padding:20px">미션을 생성할 수 없습니다. 업종을 확인하세요.</p>';
-  }
+
   wrap.innerHTML = html;
 }
 
 function generateMissions() {
-  var missions = [];
-  var ind = INDUSTRY_DATA[state.industry];
-  if (!ind) ind = INDUSTRY_DATA['service'];
+  var ind = INDUSTRY_DATA[state.industry] || INDUSTRY_DATA['service'];
+  var region = extractRegion(state.place ? state.place.address : '');
+  var placeName = state.place ? state.place.name : '내 업체';
   var dayNum = getDayNum();
   var backlinks = ind.backlinks || [];
 
-  missions.push({title:'리뷰 답글 작성',desc:'최신 리뷰에 감사 답글을 작성하세요. 대표 키워드를 자연스럽게 포함하면 좋습니다.',done:false});
+  var missions = [];
 
-  if (dayNum % 2 === 0) {
-    missions.push({title:'새 사진 업로드',desc:'매장/메뉴/서비스 사진을 1~2장 추가 등록하세요.',done:false});
-  }
+  // 미션 1: 리뷰 답글
+  missions.push({
+    title: '리뷰 답글 작성하기',
+    description: '네이버 플레이스에서 최근 리뷰에 정성스러운 답글을 달아주세요. 키워드를 자연스럽게 포함하면 SEO에 도움됩니다.',
+    link: 'https://smartplace.naver.com',
+    point: 10,
+    done: false
+  });
 
+  // 미션 2: 사진 업로드
+  missions.push({
+    title: '사진 1장 이상 업로드',
+    description: '오늘 촬영한 업체 사진(메뉴, 시설, 시술 결과 등)을 네이버 플레이스에 등록하세요. 최소 15장 이상 유지가 목표입니다.',
+    link: 'https://smartplace.naver.com',
+    point: 10,
+    done: false
+  });
+
+  // 미션 3: 백링크 (당일 추천 사이트)
   if (backlinks.length > 0) {
     var blIdx = dayNum % backlinks.length;
     var bl = backlinks[blIdx];
-    missions.push({title:bl.name + ' 백링크 작성',desc:bl.name + ' (DA '+bl.da+')에 업체 관련 콘텐츠를 작성하세요. → '+bl.url,done:false});
-  }
+    missions.push({
+      title: bl.name + '에 백링크 작성',
+      description: bl.note + ' (하루 권장 ' + bl.daily + '건, DA: ' + bl.da + ')',
+      link: bl.url,
+      point: 15,
+      done: false
+    });
 
-  if (dayNum % 3 === 0) {
-    var lowItems = SEO_CHECKLIST.filter(function(item){ return (state.seo[item.id]||0) < 8; });
-    if (lowItems.length > 0) {
-      var target = lowItems[dayNum % lowItems.length];
-      missions.push({title:'SEO 개선: '+target.label,desc:'현재 '+(state.seo[target.id]||0)+'/10점. 스마트플레이스 관리자에서 확인 후 개선하세요.',done:false});
+    // 보조 백링크
+    var blIdx2 = (dayNum + 1) % backlinks.length;
+    if (blIdx2 !== blIdx) {
+      var bl2 = backlinks[blIdx2];
+      missions.push({
+        title: bl2.name + '에 추가 백링크',
+        description: bl2.note + ' (하루 권장 ' + bl2.daily + '건, DA: ' + bl2.da + ')',
+        link: bl2.url,
+        point: 10,
+        done: false
+      });
     }
   }
 
-  if (new Date().getDay() === 5) {
-    missions.push({title:'SNS 공유',desc:'인스타그램/페이스북에 업체 소식을 공유하고 플레이스 링크를 포함하세요.',done:false});
+  // 미션 4: SEO 점검
+  var weakItems = SEO_CHECKLIST.filter(function(item) {
+    return (state.seo[item.id] || 0) < 5;
+  });
+  if (weakItems.length > 0) {
+    var weakTarget = weakItems[dayNum % weakItems.length];
+    missions.push({
+      title: 'SEO 개선: ' + weakTarget.label,
+      description: '현재 점수가 낮습니다. ' + (weakTarget.desc[5] || '5점 이상으로 개선해보세요.'),
+      link: '',
+      point: 10,
+      done: false
+    });
   }
 
-  if (dayNum % 7 === 0) {
-    missions.push({title:'키워드 트렌드 체크',desc:'키워드 분석 탭에서 최신 검색량을 확인하고 대표 키워드 변경을 검토하세요.',done:false});
+  // 미션 5: SNS 공유
+  missions.push({
+    title: 'SNS에 업체 소식 공유',
+    description: region + ' ' + ind.name + ' 관련 키워드와 함께 업체 소식을 인스타그램·블로그에 공유하세요.',
+    link: 'https://www.instagram.com',
+    point: 5,
+    done: false
+  });
+
+  // 미션 6: 키워드 트렌드 확인
+  if (state.topKeywords && state.topKeywords.length > 0) {
+    missions.push({
+      title: '키워드 트렌드 확인',
+      description: '추천 키워드 "' + state.topKeywords[0] + '"의 최근 트렌드를 확인하고, 검색량 변화에 따라 전략을 조정하세요.',
+      link: '',
+      point: 5,
+      done: false
+    });
   }
 
   return missions;
 }
 
-function toggleMission(idx) {
+function toggleMission(index) {
   var today = getToday();
   if (!state.missions[today]) return;
-  state.missions[today][idx].done = !state.missions[today][idx].done;
-  var allDone = state.missions[today].every(function(m){return m.done});
-  state.calendar[today] = allDone;
+
+  state.missions[today][index].done = !state.missions[today][index].done;
   saveState();
   renderMissions();
-  renderCalendar();
+  updateCalendarDay(today);
   updateStreak();
 }
 
-/* ============================================
-   백링크
-============================================ */
+// ─── 백링크 가이드 ───
 function renderBacklinks() {
-  var ind = INDUSTRY_DATA[state.industry];
-  if (!ind) ind = INDUSTRY_DATA['service'];
-  var wrap = document.getElementById('backlinkList');
+  var wrap = document.getElementById('backlinkContent');
+  if (!wrap) return;
+
+  var ind = INDUSTRY_DATA[state.industry] || INDUSTRY_DATA['service'];
   var backlinks = ind.backlinks || [];
-  if (backlinks.length === 0) {
-    wrap.innerHTML = '<p style="text-align:center;color:#999;padding:16px">백링크 사이트 정보가 없습니다.</p>';
-    return;
-  }
-  var sorted = backlinks.slice().sort(function(a,b){return b.da - a.da});
+
   var html = '';
-  sorted.forEach(function(bl){
-    html += '<div class="bl-item">';
-    html += '<div class="bl-info"><h4>'+bl.name+'</h4><p>Domain Authority</p></div>';
-    html += '<span class="bl-da">DA '+bl.da+'</span>';
-    html += '<a href="'+bl.url+'" target="_blank" class="bl-link">방문 →</a>';
+  html += '<div class="backlink-header">';
+  html += '<h3>🔗 ' + ind.name + ' 업종 백링크 사이트</h3>';
+  html += '<p>DA(Domain Authority)가 높을수록 백링크 효과가 큽니다. 하루 권장 수량을 지켜 자연스럽게 작성하세요.</p>';
+  html += '</div>';
+
+  // 일일 총 백링크 수 계산
+  var dailyTotal = backlinks.reduce(function(sum, bl) { return sum + bl.daily; }, 0);
+  html += '<div class="backlink-summary">';
+  html += '<div class="bl-stat"><span class="bl-stat-num">' + backlinks.length + '</span><span class="bl-stat-label">등록 가능 사이트</span></div>';
+  html += '<div class="bl-stat"><span class="bl-stat-num">' + dailyTotal + '</span><span class="bl-stat-label">하루 최대 백링크</span></div>';
+  html += '<div class="bl-stat"><span class="bl-stat-num">' + Math.round(dailyTotal * 30) + '</span><span class="bl-stat-label">월간 예상 백링크</span></div>';
+  html += '</div>';
+
+  html += '<div class="backlink-warning">';
+  html += '⚠️ <strong>주의:</strong> 하루에 너무 많은 백링크를 생성하면 스팸으로 인식될 수 있습니다. 각 사이트별 권장 수량을 지켜주세요.';
+  html += '</div>';
+
+  // DA 순 정렬
+  var sorted = backlinks.slice().sort(function(a, b) { return b.da - a.da; });
+
+  sorted.forEach(function(bl) {
+    var daColor = bl.da >= 90 ? '#03C75A' : bl.da >= 75 ? '#f39c12' : '#e67e22';
+    html += '<div class="backlink-item">';
+    html += '<div class="bl-left">';
+    html += '<div class="bl-name">' + bl.name + '</div>';
+    html += '<div class="bl-note">' + bl.note + '</div>';
+    html += '</div>';
+    html += '<div class="bl-right">';
+    html += '<span class="bl-da" style="color:' + daColor + '">DA ' + bl.da + '</span>';
+    html += '<span class="bl-daily">하루 ' + bl.daily + '건</span>';
+    html += '<a class="bl-link" href="' + bl.url + '" target="_blank">방문 →</a>';
+    html += '</div>';
     html += '</div>';
   });
+
   wrap.innerHTML = html;
 }
 
-/* ============================================
-   캘린더 & 스트릭
-============================================ */
+// ─── 캘린더 ───
 function renderCalendar() {
+  var wrap = document.getElementById('calendarContent');
+  if (!wrap) return;
+
   var now = new Date();
   var year = now.getFullYear();
   var month = now.getMonth();
   var firstDay = new Date(year, month, 1).getDay();
-  var daysInMonth = new Date(year, month + 1, 0).getDate();
-  var todayDate = now.getDate();
+  var lastDate = new Date(year, month + 1, 0).getDate();
 
-  var monthNames = ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
-  document.getElementById('calTitle').textContent = '📅 ' + year + '년 ' + monthNames[month] + ' 기록';
+  var monthNames = ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'];
 
-  var wrap = document.getElementById('calendarGrid');
-  var dayNames = ['일','월','화','수','목','금','토'];
   var html = '';
-  dayNames.forEach(function(d){ html += '<div class="cal-header">'+d+'</div>'; });
-  for (var i = 0; i < firstDay; i++) { html += '<div class="cal-day empty"></div>'; }
-  for (var d = 1; d <= daysInMonth; d++) {
-    var mm = String(month+1).padStart(2,'0');
-    var dd = String(d).padStart(2,'0');
-    var dateStr = year + '-' + mm + '-' + dd;
-    var cls = 'cal-day';
-    if (state.calendar[dateStr]) cls += ' completed';
-    if (d === todayDate) cls += ' today';
-    html += '<div class="'+cls+'">'+d+'</div>';
+  html += '<div class="calendar-header">';
+  html += '<h3>📅 ' + year + '년 ' + monthNames[month] + ' 미션 달력</h3>';
+  html += '</div>';
+
+  // 스트릭 정보
+  html += '<div class="streak-card">';
+  html += '<div class="streak-icon">🔥</div>';
+  html += '<div class="streak-info">';
+  html += '<div class="streak-count" id="streakCount">' + (state.streak || 0) + '일</div>';
+  html += '<div class="streak-label">연속 달성</div>';
+  html += '</div>';
+  html += '</div>';
+
+  html += '<div class="calendar-grid">';
+
+  // 요일 헤더
+  var dayNames = ['일', '월', '화', '수', '목', '금', '토'];
+  dayNames.forEach(function(d) {
+    html += '<div class="cal-day-name">' + d + '</div>';
+  });
+
+  // 빈칸
+  for (var i = 0; i < firstDay; i++) {
+    html += '<div class="cal-cell empty"></div>';
   }
+
+  // 날짜
+  for (var d = 1; d <= lastDate; d++) {
+    var dateStr = year + '-' + String(month + 1).padStart(2, '0') + '-' + String(d).padStart(2, '0');
+    var isToday = dateStr === getToday();
+    var missions = state.missions[dateStr];
+    var completed = false;
+    if (missions) {
+      var doneAll = missions.every(function(m) { return m.done; });
+      var doneAny = missions.some(function(m) { return m.done; });
+      completed = doneAll;
+    }
+
+    var cellClass = 'cal-cell';
+    if (isToday) cellClass += ' today';
+    if (completed) cellClass += ' completed';
+    else if (missions && doneAny) cellClass += ' partial';
+
+    html += '<div class="' + cellClass + '">';
+    html += '<span class="cal-date">' + d + '</span>';
+    if (completed) html += '<span class="cal-check">✅</span>';
+    else if (missions && doneAny) html += '<span class="cal-check">🔶</span>';
+    html += '</div>';
+  }
+
+  html += '</div>';
+
+  // 범례
+  html += '<div class="calendar-legend">';
+  html += '<span class="legend-item"><span class="legend-dot completed"></span>전체 완료</span>';
+  html += '<span class="legend-item"><span class="legend-dot partial"></span>일부 완료</span>';
+  html += '<span class="legend-item"><span class="legend-dot today-dot"></span>오늘</span>';
+  html += '</div>';
+
   wrap.innerHTML = html;
+}
+
+function updateCalendarDay(dateStr) {
+  // 캘린더 전체를 다시 렌더링
+  renderCalendar();
 }
 
 function updateStreak() {
   var streak = 0;
-  var d = new Date();
+  var checkDate = new Date();
+
   for (var i = 0; i < 365; i++) {
-    var mm = String(d.getMonth()+1).padStart(2,'0');
-    var dd = String(d.getDate()).padStart(2,'0');
-    var dateStr = d.getFullYear() + '-' + mm + '-' + dd;
-    if (state.calendar[dateStr]) {
-      streak++;
-      d.setDate(d.getDate() - 1);
-    } else if (i === 0) {
-      d.setDate(d.getDate() - 1);
+    var dateStr = checkDate.getFullYear() + '-' + String(checkDate.getMonth() + 1).padStart(2, '0') + '-' + String(checkDate.getDate()).padStart(2, '0');
+    var missions = state.missions[dateStr];
+
+    if (i === 0 && !missions) {
+      // 오늘 미션이 아직 없으면 어제부터 체크
+      checkDate.setDate(checkDate.getDate() - 1);
       continue;
+    }
+
+    if (missions) {
+      var allDone = missions.every(function(m) { return m.done; });
+      if (allDone) {
+        streak++;
+        checkDate.setDate(checkDate.getDate() - 1);
+      } else {
+        break;
+      }
     } else {
       break;
     }
   }
+
   state.streak = streak;
-  document.getElementById('streakNum').textContent = streak;
   saveState();
+
+  var el = document.getElementById('streakCount');
+  if (el) el.textContent = streak + '일';
 }
 
-/* ============================================
-   유틸리티
-============================================ */
+// ─── 유틸리티 ───
 function getToday() {
   var d = new Date();
-  return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+  return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
 }
 
 function getDayNum() {
-  var start = new Date(2025, 0, 1);
-  return Math.floor((new Date() - start) / 86400000);
-}
-
-function switchTab(tabId, btn) {
-  document.querySelectorAll('.tab-content').forEach(function(t){t.classList.remove('active')});
-  document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active')});
-  document.getElementById(tabId).classList.add('active');
-  if (btn) btn.classList.add('active');
+  var start = new Date('2025-01-01');
+  var now = new Date();
+  return Math.floor((now - start) / (1000 * 60 * 60 * 24));
 }
 
 function resetAll() {
-  if (!confirm('모든 데이터를 초기화하시겠습니까?')) return;
+  if (!confirm('모든 데이터를 초기화하시겠습니까?\n(업체 정보, SEO 점수, 미션 기록 등이 모두 삭제됩니다)')) return;
   localStorage.removeItem('pb_state');
+  sessionStorage.removeItem('oauth_state');
+  state = {};
   location.reload();
 }
 
-/* ============================================
-   초기화
-============================================ */
+// ─── 초기화 ───
 function init() {
   loadState();
+
   if (state.user && state.place && state.industry) {
-    document.getElementById('loginScreen').style.display = 'none';
     startDashboard();
   } else if (state.user) {
     showOnboarding();
+  } else {
+    document.getElementById('loginScreen').style.display = 'flex';
+    document.getElementById('onboarding').style.display = 'none';
+    document.getElementById('dashboard').style.display = 'none';
   }
 }
 
@@ -1121,3 +1366,5 @@ init();
 </script>
 </body>
 </html>
+
+                                                        
